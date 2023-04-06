@@ -1,2 +1,2 @@
-# medexer-client
-Medexer client application application to be used bu hospitals
+# medexer-hospital
+Medexer client application application to be used by hospitals
