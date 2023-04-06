@@ -1,5 +1,7 @@
 import React from 'react'
+import { FiLogOut } from 'react-icons/fi'
 import { useSelector } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
 
 import { Logo } from '../../assets'
 import { SidebarMenuItems } from '../../data'
@@ -7,12 +9,14 @@ import { useGlobalState } from '../../state/context'
 
 
 const SideBar = () => {
+    const navigate = useNavigate()
+
     const { user } = useSelector(state => state.auth)
     const { dashboardConfig, updateDashboardConfig } = useGlobalState()
 
     return (
-        <div className='min-w-72 w-72 h-screen bg-slate-800 duration-500 p-5 pt-4 sticky top-0 left-0 overflow-y-hidden'>
-            <div className="flex items-center space-x-8 font-roboto">
+        <div className='min-w-[10%] w-[10%] h-screen bg-primary duration-500 pt- fixed top-0 left-0 overflow-y-hidden overflow-x-hidden'>
+            <div className="flex flex-col items-center space-y-1 font-roboto border-b border-b-gray-600 py-5">
                 <img
                     src={Logo}
                     alt="icon"
@@ -22,20 +26,31 @@ const SideBar = () => {
                 <h1 className='text-white font-bold'>Medexer</h1>
             </div>
 
-            <div className="flex flex-col mt-10">
-                <ul className='pt-4 relative space-y-5'>
+            <div className="flex flex-col mt-5">
+                <ul className='relative space-y-'>
                     {SidebarMenuItems?.map((menu, index) => (
                         <li
                             key={`${index}`}
-                            className={`text-gray-300 text-[12px] grid grid-cols-2 items-center space-x-[-4em] cursor-pointer px-4 py-4 hover:bg-gray-500 mt-2 ${dashboardConfig.activeLink === menu.title && 'bg-gray-500'}`}
+                            className={`text-gray-300 text-[12px] flex flex-col items-center space-y-1 cursor-pointer px-4 py-2 hover:bg-gradient-to-r hover:from-gray-900 hover:to-gray-800 mt-2 ${dashboardConfig.activeLink === menu.title && 'text-sky-500 bg-gradient-to-r from-gray-900 to-gray-800'}`}
                             onClick={() => updateDashboardConfig({ activeLink: menu.title })}
                         >
-                            <img src={menu.icon} className='text-red-400' alt="" />
-                            <span className='uppercase font-medium origin-left duration-200 text-[12px]'>{menu.title}</span>
+                            <img
+                                alt=""
+                                className='text-red-400'
+                                src={dashboardConfig.activeLink === menu.title ? menu.activeIcon : menu.icon}
+                            />
+                            <p className={`uppercase font-medium origin-left duration-200 text-[10px] ${dashboardConfig.activeLink === menu.title ? 'text-sky-500' : ''}`}>{menu.title}</p>
                         </li>
                     ))}
                 </ul>
             </div>
+            <p
+                onClick={() => navigate('/', { replace: true })}
+                className='cursor-pointer flex justify-center items-center text-[14px] text-red-500 space-x-2 font-bold mt-5'
+            >
+                <FiLogOut />
+                <span>Logout</span>
+            </p>
         </div>
     )
 }

@@ -18,7 +18,7 @@ const Settings = () => {
     }
 
     return (
-        <div className='h-screen flex justify-between overflow-y-hidden font-lato'>
+        <div className='h-full flex flex-col overflow-y-auto font-lato scrollbar-1 px-6'>
             Settings
         </div>
     )

@@ -1,4 +1,5 @@
 import './output.css'
+import './styles.css'
 import App from './App'
 import React from 'react'
 import ReactDOM from 'react-dom/client'
@@ -10,9 +11,9 @@ import { GlobalState } from './state/context'
 ReactDOM.createRoot(document.getElementById('root')).render(
   <Provider store={store}>
     <GlobalState>
-      <React.StrictMode>
+      {/* <React.StrictMode> */}
         <App />
-      </React.StrictMode>,
+      {/* </React.StrictMode> */}
     </GlobalState>
   </Provider>
 )

@@ -9,12 +9,12 @@ const Dashboard = () => {
 	const { dashboardConfig } = useGlobalState()
 
 	return (
-		<div className='relative flex font-lato'>
+		<div className='relative flex justify-between w-full font-lato'>
 			<Modals />
 
 			<SideBar />
 
-			<div className="w-full flex flex-col bg-gray-100 h-screen overflow-y-hidden scrollbar-4">
+			<div className="w-[90%] absolute right-0 flex flex-col bg-gray-100 h-screen overflow-y-hidden scrollbar-4">
 				<TopBar />
 
 				{dashboardConfig.activeLink === 'Home' && (

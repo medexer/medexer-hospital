@@ -6,8 +6,8 @@ export default {
   theme: {
     extend: {
       colors: {
-        "primary": '#002F46',
-        "primary-light": '#0085C6',
+        "primary": '#181824',
+        "primary-light": '#1F1E2E',
       },
       fontFamily: {
         lato: ["Lato", "sans-serif"],
