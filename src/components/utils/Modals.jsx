@@ -9,9 +9,9 @@ const Modals = () => {
 
     return (
         <Fragment>
-            {modals.showAdminViewOrganizationModal && (
+            {modals.showRescheduleAppointmentModal && (
                 <FormModal
-                    type="admin__vieworganization__modal"
+                    type="view__reschedule__appointment__modal"
                 />
             )}
 

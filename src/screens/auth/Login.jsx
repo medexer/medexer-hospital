@@ -1,11 +1,13 @@
 import React, { useReducer } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 import { Logo1 } from '../../assets'
 import { CustomButton, FormPasswordInput, FormTextInput, HeaderText } from '../../components'
 
 
 const Login = () => {
+    const navigate = useNavigate()
+
     const [formData, updateFormData] = useReducer((prev, next) => {
         return { ...prev, ...next }
     }, {
@@ -18,6 +20,8 @@ const Login = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault()
+
+        navigate('/dashboard', { replace: true })
     }
 
     return (

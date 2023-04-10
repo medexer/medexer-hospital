@@ -15,8 +15,8 @@ const TopBar = () => {
     return (
         <div className="flex py-2 px-6 justify-between items-center border-b border-gray-200 sticky top-0 z-[5] bg-white">
             <div className="flex flex-col">
-                <h1>{user?.hospitalName ? user?.hospitalName : 'Daisy Land Hospital'}</h1>
-                <p className='text-[12px] text-gray-500'>Thank you for using medexer</p>
+                <h1 className='font-semibold'>{user?.hospitalName ? user?.hospitalName : 'Daisy Land Hospital'}</h1>
+                <p className='text-[10px] text-gray-500'>Thank you for using medexer</p>
             </div>
 
             <div className="flex items-center space-x-5">

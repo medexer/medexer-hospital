@@ -9,12 +9,12 @@ const Dashboard = () => {
 	const { dashboardConfig } = useGlobalState()
 
 	return (
-		<div className='relative flex justify-between w-full font-lato'>
+		<div className='relative flex justify-between w-full font-poppins'>
 			<Modals />
 
 			<SideBar />
 
-			<div className="w-[90%] absolute right-0 flex flex-col bg-gray-100 h-screen overflow-y-hidden scrollbar-4">
+			<div className="w-[90%] absolute right-0 flex flex-col h-screen overflow-y-hidden scrollbar-4">
 				<TopBar />
 
 				{dashboardConfig.activeLink === 'Home' && (
@@ -32,11 +32,11 @@ const Dashboard = () => {
 				{dashboardConfig.activeLink === 'Complaints' && (
 					<Complaints />
 				)}
-				
+
 				{dashboardConfig.activeLink === 'Notifications' && (
 					<Notifications />
 				)}
-				
+
 				{dashboardConfig.activeLink === 'Settings' && (
 					<Settings />
 				)}

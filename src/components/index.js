@@ -20,6 +20,9 @@ import FormPhoneInput from "./forms/FormPhoneInput"
 import FormSelectInput from "./forms/FormSelectInput"
 import FormPasswordInput from "./forms/FormPasswordInput"
 
+// TABLES
+import AppointmentsTable from "./tables/AppointmentsTable"
+
 
 export {
     TopBar,
@@ -43,4 +46,7 @@ export {
     FormPhoneInput,
     FormSelectInput,
     FormPasswordInput,
+
+    // TABLES
+    AppointmentsTable,
 }

@@ -13,7 +13,7 @@ export const GlobalState = ({ children }) => {
     const [dashboardConfig, updateDashboardConfig] = useReducer((prev, next) => {
         return { ...prev, ...next }
     }, {
-        activeLink: 'Home', showSideBar: true,
+        activeLink: 'Appointments', showSideBar: true,
     })
 
     return (

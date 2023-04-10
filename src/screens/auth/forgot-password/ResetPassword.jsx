@@ -18,7 +18,7 @@ const ResetPassword = () => {
     }
 
     return (
-        <div className='h-screen flex justify-between overflow-y-hidden font-lato'>
+        <div className='h-screen flex justify-between overflow-y-hidden font-poppins'>
             ResetPassword
         </div>
     )

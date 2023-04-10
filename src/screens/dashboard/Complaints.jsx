@@ -18,7 +18,7 @@ const Complaints = () => {
     }
 
     return (
-        <div className='h-full flex flex-col overflow-y-auto font-lato scrollbar-1 px-6'>
+        <div className='h-full flex flex-col overflow-y-auto font-poppins scrollbar-1 px-6'>
             Complaints
         </div>
     )

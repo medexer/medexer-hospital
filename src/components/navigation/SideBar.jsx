@@ -16,14 +16,14 @@ const SideBar = () => {
 
     return (
         <div className='min-w-[10%] w-[10%] h-screen bg-primary duration-500 pt- fixed top-0 left-0 overflow-y-hidden overflow-x-hidden'>
-            <div className="flex flex-col items-center space-y-1 font-roboto border-b border-b-gray-600 py-5">
+            <div className="flex flex-col items-center space-y-2 font-roboto border-b border-b-gray-600 pt-5">
                 <img
                     src={Logo}
                     alt="icon"
                     className='w-[35px]'
                 />
 
-                <h1 className='text-white font-bold'>Medexer</h1>
+                <h1 className='text-white text-[14px] font-medium'>Medexer</h1>
             </div>
 
             <div className="flex flex-col mt-5">

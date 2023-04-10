@@ -3,7 +3,7 @@ import 'react-toastify/dist/ReactToastify.css'
 import { ToastContainer } from 'react-toastify'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 
-import { Login, Signup, ForgotPassword, ResetPassword, NotFound, PrivateRoute, Dashboard, } from './screens'
+import { Login, Signup, ForgotPassword, ResetPassword, NotFound, PrivateRoute, Dashboard, KnowYourBusiness, } from './screens'
 
 
 const App = () => {
@@ -13,6 +13,7 @@ const App = () => {
 			<Routes>
 				{/* AUTH */}
 				<Route path="/" element={<Login />} />
+				<Route path="/kyb-capture" element={<KnowYourBusiness />} />
 				<Route path="/signup" element={<Signup />} />
 				<Route path="/reset-password" element={<ResetPassword />} />
 				<Route path="/forgot-password" element={<ForgotPassword />} />
