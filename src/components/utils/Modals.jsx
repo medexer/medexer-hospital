@@ -9,9 +9,27 @@ const Modals = () => {
 
     return (
         <Fragment>
+            {modals.showDonationHistoryModal && (
+                <FormModal
+                    type="view__donation__history__modal"
+                />
+            )}
+
             {modals.showRescheduleAppointmentModal && (
                 <FormModal
                     type="view__reschedule__appointment__modal"
+                />
+            )}
+
+            {modals.showUpdateInventoryItemModal && (
+                <FormModal
+                    type="view__update__inventory__item__modal"
+                />
+            )}
+
+            {modals.showInventoryItemHistoryModal && (
+                <FormModal
+                    type="view__inventory__item__activity__modal"
                 />
             )}
 

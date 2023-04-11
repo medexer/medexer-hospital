@@ -1,12 +1,15 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { Fragment } from 'react'
 import { useDispatch } from 'react-redux'
+import { IconBlood } from '../../assets'
 
 import { useGlobalState } from '../../state/context'
 import { hospitalResetStateProperty } from '../../state/redux/actions/hospital.actions'
+import BloodGroupInfo from '../labels/BloodGroupInfo'
+import BloodUnitInfo from '../labels/BloodUnitInfo'
 
 
-const AppointmentsTable = ({ data, setCurrentPageFetch }) => {
+const InventoryTable = ({ data, setCurrentPageFetch }) => {
     const dispatch = useDispatch()
 
     const { modals, updateModals } = useGlobalState()
@@ -29,19 +32,13 @@ const AppointmentsTable = ({ data, setCurrentPageFetch }) => {
                                         scope="col"
                                         className="text-sm font-medium text-gray-900 py-3 text-left"
                                     >
-                                        Donor
-                                    </th>
-                                    <th
-                                        scope="col"
-                                        className="text-sm font-medium text-gray-900 py-3 text-left"
-                                    >
                                         Blood Group
                                     </th>
                                     <th
                                         scope="col"
                                         className="text-sm font-medium text-gray-900 py-3 text-left"
                                     >
-                                        Date
+                                        Units
                                     </th>
                                     <th
                                         scope="col"
@@ -53,7 +50,7 @@ const AppointmentsTable = ({ data, setCurrentPageFetch }) => {
                                         scope="col"
                                         className="text-sm font-medium text-gray-900 py-3 text-left"
                                     >
-
+                                        Update
                                     </th>
                                     <th
                                         scope="col"
@@ -64,7 +61,7 @@ const AppointmentsTable = ({ data, setCurrentPageFetch }) => {
                                 </tr>
                             </thead>
                             <tbody className=' bg-white'>
-                                {data?.map((appointment, index) => (
+                                {data?.map((item, index) => (
                                     <tr key={index}>
                                         <td className="text-[10px] text-gray-900 font-semibold pl-4 py-3 whitespace-nowrap">
                                             {index + 1}
@@ -73,49 +70,46 @@ const AppointmentsTable = ({ data, setCurrentPageFetch }) => {
                                             <div className="p-2 rounded-md bg-slate-100">
                                                 <img
                                                     alt=""
-                                                    src={appointment.avatar}
-                                                    className='w-[40px] rounded-full'
+                                                    src={IconBlood}
+                                                    className='w-[20px] rounded-full'
                                                 />
                                             </div>
-                                            <div>
-                                                <p className='font-medium'>{appointment?.name}</p>
-                                                <p className='font-medium text-gray-400 text-[12px]'>{appointment.gender}</p>
-                                            </div>
+                                            <BloodGroupInfo
+                                                bloodGroup={item.bloodGroup}
+                                            />
                                         </td>
                                         <td className="text-sm text-gray-900 font-light py-3 whitespace-nowrap">
-                                            {appointment?.bloodGroup}
-                                        </td>
-                                        <td className="text-sm text-gray-900 font-light py-3 whitespace-nowrap">
-                                            {appointment?.date.slice(0, 10)}
+                                            <BloodUnitInfo
+                                                units={item?.units}
+                                            />
                                         </td>
                                         <td className="text-[12px] text-gray-900 font-light py-3 whitespace-nowrap">
-                                            {appointment?.recentActivity}
+                                            {item?.recentActivity}
                                         </td>
                                         <td className="items-center space-x-5 text-sm py-3 text-gray-900 font-light whitespace-nowrap">
                                             <button
                                                 type="submit"
                                                 onClick={() => {
-                                                    dispatch(hospitalResetStateProperty({ key: 'Appointment', data: appointment }))
-                                                    updateModals({ showDonationHistoryModal: !modals.showDonationHistoryModal })
+                                                    dispatch(hospitalResetStateProperty({ key: 'InventoryItem', data: item }))
+                                                    updateModals({ showUpdateInventoryItemModal: !modals.showUpdateInventoryItemModal })
+                                                }}
+                                                className="bg-sky-600 text-white text-[12px] font-medium py-1 px-4 hover:-translate-x-1 ease-in-out duration-700 transition-all focus:outline-none rounded"
+                                            >
+                                                Update
+                                            </button>
+                                        </td>
+                                        <td className="items-center space-x-5 text-sm py-3 text-gray-900 font-light whitespace-nowrap">
+                                            <button
+                                                type="submit"
+                                                onClick={() => {
+                                                    dispatch(hospitalResetStateProperty({ key: 'InventoryItem', data: item }))
+                                                    updateModals({ showInventoryItemHistoryModal: !modals.showInventoryItemHistoryModal })
                                                 }}
                                                 className="bg-sky-200 text-sky-600 text-[12px] font-medium py-1 px-4 hover:-translate-x-1 ease-in-out duration-700 transition-all focus:outline-none rounded"
                                             >
                                                 History
                                             </button>
                                         </td>
-                                        <td className="items-center space-x-5 text-sm py-3 text-gray-900 font-light whitespace-nowrap">
-                                            <button
-                                                type="submit"
-                                                onClick={() => {
-                                                    dispatch(hospitalResetStateProperty({ key: 'Donor', data: appointment }))
-                                                    updateModals({ showRescheduleAppointmentModal: !modals.showRescheduleAppointmentModal })
-                                                }}
-                                                className="bg-sky-600 text-white text-[12px] font-medium py-1 px-4 hover:-translate-x-1 ease-in-out duration-700 transition-all focus:outline-none rounded"
-                                            >
-                                                Reschedule
-                                            </button>
-                                        </td>
-
                                     </tr>
                                 ))}
                             </tbody>
@@ -132,4 +126,4 @@ const AppointmentsTable = ({ data, setCurrentPageFetch }) => {
     )
 }
 
-export default AppointmentsTable
+export default InventoryTable

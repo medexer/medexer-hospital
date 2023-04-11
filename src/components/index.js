@@ -10,6 +10,10 @@ import ButtonLoader from "./utils/ButtonLoader"
 import Label from './text/Label'
 import HeaderText from './text/HeaderText'
 
+// LABELS
+import BloodUnitInfo from "./labels/BloodUnitInfo"
+import BloodGroupInfo from "./labels/BloodGroupInfo"
+
 // BUTTONS
 import CustomButton from "./buttons/CustomButton"
 
@@ -21,6 +25,7 @@ import FormSelectInput from "./forms/FormSelectInput"
 import FormPasswordInput from "./forms/FormPasswordInput"
 
 // TABLES
+import InventoryTable from "./tables/InventoryTable"
 import AppointmentsTable from "./tables/AppointmentsTable"
 
 
@@ -37,6 +42,10 @@ export {
     Label,
     HeaderText,
 
+    // LABELS
+    BloodUnitInfo,
+    BloodGroupInfo,
+
     // BUTTONS
     CustomButton,
 
@@ -48,5 +57,6 @@ export {
     FormPasswordInput,
 
     // TABLES
+    InventoryTable,
     AppointmentsTable,
 }

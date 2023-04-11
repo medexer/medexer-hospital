@@ -1,25 +1,24 @@
 import React, { useReducer } from 'react'
-import { Link } from 'react-router-dom'
+
+import { AppInventoryItems } from '../../data'
+import { HeaderText, InventoryTable } from '../../components'
 
 
 const Inventory = () => {
-    const [formData, updateFormData] = useReducer((prev, next) => {
-        return { ...prev, ...next }
-    }, {
-        email: '', password: '',
-    })
-
-    const handleChange = (e) => {
-        updateFormData({ [e.target.name]: e.target.value })
-    }
-
-    const handleSubmit = (e) => {
-        e.preventDefault()
-    }
 
     return (
-        <div className='h-full flex flex-col overflow-y-auto font-poppins scrollbar-1 px-6'>
-            Inventory
+        <div className='h-full flex flex-col overflow-y-auto font-poppins scrollbar-1 px-6 py-4 pb-20'>
+            <div className="flex flex-col">
+                <HeaderText
+                    text={'Inventory'}
+                    classes={'text-[14px] font-semibold'}
+                />
+                <p className="text-[12px] text-gray-500">List of people scheduled to donate blood</p>
+            </div>
+
+            <InventoryTable
+                data={AppInventoryItems}
+            />
         </div>
     )
 }

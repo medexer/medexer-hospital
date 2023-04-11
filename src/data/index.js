@@ -7,7 +7,8 @@ export const AppAppointments = [
         gender: 'Male',
         avatar: UserAvatar1,
         bloodGroup: 'O+',
-        date: new Date().toISOString(),
+        phone: '09029923883',
+        date: new Date('2023-04-02').toISOString(),
         recentActivity: 'Donated blood on 19th Feb. 2023',
     },
     {
@@ -15,7 +16,8 @@ export const AppAppointments = [
         gender: 'Male',
         avatar: UserAvatar2,
         bloodGroup: 'AB+',
-        date: new Date().toISOString(),
+        phone: '09029923883',
+        date: new Date('2023-04-02').toISOString(),
         recentActivity: 'Donated blood on 19th Feb. 2023',
     },
     {
@@ -23,7 +25,8 @@ export const AppAppointments = [
         gender: 'Female',
         avatar: UserAvatar1,
         bloodGroup: 'O+',
-        date: new Date().toISOString(),
+        phone: '09029923883',
+        date: new Date('2023-04-02').toISOString(),
         recentActivity: 'Donated blood on 19th Feb. 2023',
     },
     {
@@ -31,8 +34,61 @@ export const AppAppointments = [
         gender: 'Female',
         avatar: UserAvatar2,
         bloodGroup: 'O+',
-        date: new Date().toISOString(),
+        phone: '09029923883',
+        date: new Date('2023-04-02').toISOString(),
         recentActivity: 'Donated blood on 19th Feb. 2023',
+    },
+]
+
+
+export const AppInventoryItems = [
+    {
+        bloodGroup: 'O+',
+        name: 'Rhesus O+ (Positive)',
+        units: 1000,
+        recentActivity: '10 pints added on 19th Feb. 2023',
+    },
+    {
+        bloodGroup: 'AB+',
+        name: 'Rhesus AB+ (Positive)',
+        units: 30,
+        recentActivity: '30 pints added on 19th Feb. 2023',
+    },
+    {
+        bloodGroup: 'A+',
+        name: 'Rhesus A+ (Positive)',
+        units: 45,
+        recentActivity: '45 pints added on 19th Feb. 2023',
+    },
+    {
+        bloodGroup: 'B+',
+        name: 'Rhesus B+ (Positive)',
+        units: 45,
+        recentActivity: '45 pints added on 19th Feb. 2023',
+    },
+    {
+        bloodGroup: 'O-',
+        name: 'Rhesus O- (Negative)',
+        units: 1,
+        recentActivity: '1 pints added on 19th Feb. 2023',
+    },
+    {
+        bloodGroup: 'AB-',
+        name: 'Rhesus AB- (Negative)',
+        units: 23,
+        recentActivity: '23 pints added on 19th Feb. 2023',
+    },
+    {
+        bloodGroup: 'A-',
+        name: 'Rhesus A- (Negative)',
+        units: 7,
+        recentActivity: '7 pints added on 19th Feb. 2023',
+    },
+    {
+        bloodGroup: 'B-',
+        name: 'Rhesus B- (Negative)',
+        units: 12,
+        recentActivity: '12 pints added on 19th Feb. 2023',
     },
 ]
 
@@ -71,6 +127,8 @@ export const SidebarMenuItems = [
 ]
 
 export const RootModals = {
-    showUpdatePasswordModal: false,
+    showDonationHistoryModal: false,
+    showUpdateInventoryItemModal: false,
+    showInventoryItemHistoryModal: false,
     showRescheduleAppointmentModal: false,
 }
