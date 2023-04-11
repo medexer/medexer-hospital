@@ -107,7 +107,7 @@ const AppointmentsTable = ({ data, setCurrentPageFetch }) => {
                                             <button
                                                 type="submit"
                                                 onClick={() => {
-                                                    dispatch(hospitalResetStateProperty({ key: 'Donor', data: appointment }))
+                                                    dispatch(hospitalResetStateProperty({ key: 'Appointment', data: appointment }))
                                                     updateModals({ showRescheduleAppointmentModal: !modals.showRescheduleAppointmentModal })
                                                 }}
                                                 className="bg-sky-600 text-white text-[12px] font-medium py-1 px-4 hover:-translate-x-1 ease-in-out duration-700 transition-all focus:outline-none rounded"

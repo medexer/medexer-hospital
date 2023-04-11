@@ -6,6 +6,9 @@ import PageTitle from "./navigation/PageTitle"
 import Modals from "./utils/Modals"
 import ButtonLoader from "./utils/ButtonLoader"
 
+// CARDS
+import ComplaintCard from "./cards/ComplaintCard"
+
 // TEXT
 import Label from './text/Label'
 import HeaderText from './text/HeaderText'
@@ -28,6 +31,9 @@ import FormPasswordInput from "./forms/FormPasswordInput"
 import InventoryTable from "./tables/InventoryTable"
 import AppointmentsTable from "./tables/AppointmentsTable"
 
+// PAGES
+import ComplaintInfo from "./complaints/ComplaintInfo"
+
 
 export {
     TopBar,
@@ -37,6 +43,9 @@ export {
     // UTILS
     Modals,
     ButtonLoader,
+
+    // CARDS
+    ComplaintCard,
 
     // TEXT
     Label,
@@ -59,4 +68,7 @@ export {
     // TABLES
     InventoryTable,
     AppointmentsTable,
+
+    // PAGES
+    ComplaintInfo,
 }

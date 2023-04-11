@@ -13,7 +13,7 @@ const Inventory = () => {
                     text={'Inventory'}
                     classes={'text-[14px] font-semibold'}
                 />
-                <p className="text-[12px] text-gray-500">List of people scheduled to donate blood</p>
+                <p className="text-[12px] text-gray-500">List of blood groups and units available</p>
             </div>
 
             <InventoryTable

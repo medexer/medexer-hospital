@@ -1,7 +1,9 @@
 import { Fragment } from "react"
+import CreateComplaintModal from "../modals/CreateComplaintModal"
 
 import DonationHistoryModal from "../modals/DonationHistoryModal"
 import InventoryItemActivityModal from "../modals/InventoryItemActivityModal"
+import ReplyComplaintThreadModal from "../modals/ReplyComplaintThreadModal"
 import RescheduleAppointmentModal from "../modals/RescheduleAppointmentModal"
 import UpdateInventoryItemModal from "../modals/UpdateInventoryItemModal"
 
@@ -23,6 +25,14 @@ const FormModal = (props) => {
 
 			{props.type === 'view__inventory__item__activity__modal' && (
 				<InventoryItemActivityModal />
+			)}
+
+			{props.type === 'view__create__complaint__modal' && (
+				<CreateComplaintModal />
+			)}
+
+			{props.type === 'view__reply__complaint__thread__modal' && (
+				<ReplyComplaintThreadModal />
 			)}
 
 		</Fragment >

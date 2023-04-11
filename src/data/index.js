@@ -93,6 +93,65 @@ export const AppInventoryItems = [
 ]
 
 
+export const AppComplaints = [
+    {
+        complaintNumber: 'CPT-82JSK3JS',
+        complaintSubject: 'Invalid Donors',
+        complaintStatus: 'OPENED',
+        dateCreated: new Date().toISOString(),
+    },
+    {
+        complaintNumber: 'CPT-82JSK3JS',
+        complaintSubject: 'Invalid Donors',
+        complaintStatus: 'IN PROGRESS',
+        dateCreated: new Date().toISOString(),
+    },
+    {
+        complaintNumber: 'CPT-82JSK3JS',
+        complaintSubject: 'Invalid Donors',
+        complaintStatus: 'OPENED',
+        dateCreated: new Date().toISOString(),
+    },
+    {
+        complaintNumber: 'CPT-82JSK3JS',
+        complaintSubject: 'Invalid Donors',
+        complaintStatus: 'CLOSED',
+        dateCreated: new Date().toISOString(),
+    },
+    {
+        complaintNumber: 'CPT-82JSK3JS',
+        complaintSubject: 'Invalid Donors',
+        complaintStatus: 'OPENED',
+        dateCreated: new Date().toISOString(),
+    },
+    {
+        complaintNumber: 'CPT-82JSK3JS',
+        complaintSubject: 'Invalid Donors',
+        complaintStatus: 'CLOSED',
+        dateCreated: new Date().toISOString(),
+    },
+]
+
+
+export const AppComplaintThreads = [
+    {
+        updateType: 'STATUS',
+        headline: 'Medexer CLOSED THIS COMPLAINT',
+        edited: true,
+        dateUpdated: new Date().toISOString(),
+        message: 'Lorem ipsum dolor sit, amet consectetur adipisicing elit. A aliquid, facilis sint maiores ducimus ad. Doloribus, aut! Ipsum, repellat esse.',
+    },
+    {
+        updateType: 'THREAD',
+        headline: 'You replied',
+        edited: false,
+        dateUpdated: new Date().toISOString(),
+        message: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquam amet libero magnam repudiandae ex vel dolor aliquid maiores? Repudiandae sapiente dolores maxime, sed dicta magni, nobis at nesciunt debitis ipsa ad minima. Consectetur ipsam in cumque labore, optio eligendi tenetur officiis laborum quasi porro, repellat doloremque vero ullam dolores fugit expedita consequatur odio perspiciatis. Fuga non pariatur dignissimos soluta laboriosam itaque adipisci nemo odit, perspiciatis suscipit perferendis, nisi mollitia minima sint modi, eaque sunt distinctio iusto illo. Voluptates at vitae tenetur voluptate molestias quas veritatis repellat rem provident? Odit animi excepturi recusandae doloribus ullam soluta numquam libero aut aliquam nisi?',
+    },
+]
+
+
+
 export const SidebarMenuItems = [
     {
         title: 'Home',
@@ -131,4 +190,6 @@ export const RootModals = {
     showUpdateInventoryItemModal: false,
     showInventoryItemHistoryModal: false,
     showRescheduleAppointmentModal: false,
+    showCreateComplaintModal: false,
+    showReplyComplaintThreadModal: false,
 }

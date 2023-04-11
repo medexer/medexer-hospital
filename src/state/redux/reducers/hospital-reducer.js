@@ -6,8 +6,11 @@ import { hospitalResetStateProperty } from '../actions/hospital.actions'
 const hospitalSlice = createSlice({
     name: 'hospital',
     initialState: {
+        complaintThread: null,
         currentAppointment: null,
+        currentComplaint: null,
         currentInventoryItem: null,
+        complaintStatusUpdate: null,
         hospitalLoading: false,
         hospitalRequestStatus: null,
     },
@@ -22,6 +25,9 @@ const hospitalSlice = createSlice({
             }
             if (action.payload.key === 'InventoryItem') {
                 state.currentInventoryItem = action.payload.data
+            }
+            if (action.payload.key === 'CurrentComplaint') {
+                state.currentComplaint = action.payload.data
             }
         })
         builder.addCase(hospitalResetStateProperty.rejected, (state, action) => {

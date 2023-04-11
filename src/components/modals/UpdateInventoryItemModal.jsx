@@ -5,6 +5,7 @@ import Label from '../text/Label'
 import ModalHeader from './ModalHeader'
 import HeaderOne from '../text/HeaderOne'
 import { useGlobalState } from '../../state/context'
+import { IconBlood } from '../../assets'
 
 
 const UpdateInventoryItemModal = () => {
@@ -40,12 +41,19 @@ const UpdateInventoryItemModal = () => {
         <div className="fixed grid h-screen z-10 bg-[#11111190] place-items-center w-full backdrop-blur-sm">
             <div className="bg-white w-[500px] px-[30px] py-[20px]">
                 <div className="flex justify-between items-center">
-                    <HeaderOne
-                        semibold={true}
-                        size={'text-[14px]'}
-                        color={'text-black'}
-                        text={`${currentInventoryItem?.name}`}
-                    />
+                    <div className="flex items-center space-x-2">
+                        <img
+                            alt=""
+                            src={IconBlood}
+                            className='w-[25px] rounded-full'
+                        />
+                        <HeaderOne
+                            semibold={true}
+                            size={'text-[14px]'}
+                            color={'text-black'}
+                            text={`${currentInventoryItem?.name}`}
+                        />
+                    </div>
 
                     <ModalHeader
                         modalHandler={() => updateModals({ showUpdateInventoryItemModal: !modals.showUpdateInventoryItemModal })}

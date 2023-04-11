@@ -33,6 +33,18 @@ const Modals = () => {
                 />
             )}
 
+            {modals.showCreateComplaintModal && (
+                <FormModal
+                    type="view__create__complaint__modal"
+                />
+            )}
+
+            {modals.showReplyComplaintThreadModal && (
+                <FormModal
+                    type="view__reply__complaint__thread__modal"
+                />
+            )}
+
         </Fragment>
     )
 }

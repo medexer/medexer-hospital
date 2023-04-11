@@ -6,7 +6,7 @@ import { AppointmentsTable, HeaderText } from '../../components'
 
 const Appointments = () => {
     return (
-        <div className='h-full flex flex-col overflow-y-auto font-poppins scrollbar-1 px-6 pt-4'>
+        <div className='h-full flex flex-col overflow-y-auto font-poppins scrollbar-1 px-6 py-4 pb-20'>
             <div className="flex flex-col">
                 <HeaderText
                     text={'Appointments'}
