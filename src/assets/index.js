@@ -24,6 +24,7 @@ import UserAvatar2 from './images/user__avatar__2.png'
 
 // IMAGES
 import Background1 from './images/bg__1.jpg'
+import Background2 from './images/bg__2.jpg'
 
 // ART
 import DashboardArt from './images/dashboard__art.svg'
@@ -59,6 +60,7 @@ export {
 
     // IMAGES
     Background1,
+    Background2,
 
 
     // ART

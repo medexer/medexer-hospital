@@ -1,7 +1,7 @@
 import React, { useReducer } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 
-import { Logo1 } from '../../assets'
+import { Background1, Logo1 } from '../../assets'
 import { CustomButton, FormPasswordInput, FormTextInput, HeaderText } from '../../components'
 
 
@@ -26,7 +26,14 @@ const Login = () => {
 
     return (
         <div className='h-screen flex justify-between  overflow-y-hidden font-poppins'>
-            <div className="w-[60%] bg-[url('src/assets/images/bg__1.jpg')] bg-cover bg-no-repeat"></div>
+            <div className="w-[60%] h-full">
+                {/* bg-[url('src/assets/images/bg__1.jpg')] bg-cover bg-no-repeat */}
+                <img
+                    alt="bg"
+                    src={Background1}
+                    className='w-full h-full'
+                />
+            </div>
             <div className="w-[40%] flex flex-col p-16 space-y-5">
                 <img
                     alt="logo"
