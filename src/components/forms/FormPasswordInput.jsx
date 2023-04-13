@@ -4,7 +4,7 @@ import { BsEyeSlash, BsEye } from 'react-icons/bs'
 import Label from '../text/Label'
 
 
-const FormPasswordInput = ({ classes, name, handleChange, label, labelSize,padding, placeHolder, showIcon = true }) => {
+const FormPasswordInput = ({ classes, name, handleChange, label, labelColor, labelSize, padding, placeHolder, showIcon = true }) => {
     const [config, updateConfig] = useReducer((prev, next) => {
         return { ...prev, ...next }
     }, {
@@ -13,7 +13,11 @@ const FormPasswordInput = ({ classes, name, handleChange, label, labelSize,paddi
 
     return (
         <div className='relative'>
-            <Label text={label} size={labelSize} />
+            <Label
+                text={label}
+                size={labelSize}
+                color={labelColor}
+            />
             <input
                 name={name}
                 onChange={handleChange}
@@ -21,7 +25,7 @@ const FormPasswordInput = ({ classes, name, handleChange, label, labelSize,paddi
                 type={config.hidePassword ? 'password' : 'text'}
                 className={`
                     ${classes} 
-                    ${padding? padding: 'px-5 py-4'} 
+                    ${padding ? padding : 'px-5 py-4'} 
                     border border-gray-300 placeholder:text-[12px] text-[12px] rounded w-full hover:outline-none focus:outline-none focus:border-sky-600 focus:ring-blue
                 `}
             />

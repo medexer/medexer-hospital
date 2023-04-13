@@ -23,6 +23,7 @@ import UserAvatar1 from './images/user__avatar__1.png'
 import UserAvatar2 from './images/user__avatar__2.png'
 
 // IMAGES
+import Background from './images/bg.jpg'
 import Background1 from './images/bg__1.jpg'
 import Background2 from './images/bg__2.jpg'
 
@@ -59,6 +60,7 @@ export {
 
 
     // IMAGES
+    Background,
     Background1,
     Background2,
 

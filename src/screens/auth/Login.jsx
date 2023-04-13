@@ -1,7 +1,7 @@
 import React, { useReducer } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 
-import { Background1, Logo1 } from '../../assets'
+import { Background, Background1, Logo1 } from '../../assets'
 import { CustomButton, FormPasswordInput, FormTextInput, HeaderText } from '../../components'
 
 
@@ -25,57 +25,59 @@ const Login = () => {
     }
 
     return (
-        <div className='h-screen flex justify-between  overflow-y-hidden font-poppins'>
-            <div className="w-[60%] h-full">
-                {/* bg-[url('src/assets/images/bg__1.jpg')] bg-cover bg-no-repeat */}
+        <div className='h-screen flex justify-center  overflow-y-hidden font-poppins' style={{ backgroundImage: `url(${Background})` }}>
+            {/* <div className="w-[60%] h-full">
                 <img
                     alt="bg"
                     src={Background1}
                     className='w-full h-full'
                 />
-            </div>
+            </div> */}
             <div className="w-[40%] flex flex-col p-16 space-y-5">
                 <img
                     alt="logo"
                     src={Logo1}
-                    className='w-[50px]'
+                    className='w-[50px] mx-auto'
                 />
                 {/* <p className='text-[80px] text-red-400'>
                     Login
                 </p> */}
                 <HeaderText
                     text={'Login'}
-                    classes={'text-[30px] font-medium'}
+                    classes={'text-[30px] font-medium text-white'}
                 />
 
                 <form onSubmit={handleSubmit}>
                     <FormTextInput
                         label={'Email'}
                         name={'email'}
+                        labelColor={'text-white'}
                         labelSize={'text-[12px]'}
                         handleChange={handleChange}
                         placeHolder={'Email address'}
-                        classes={'text-[14px] placeholder:text-[14px] rounded-md mb-5 py-3'}
+                        classes={'text-[14px] placeholder:text-[14px] placeholder:text-white text-white rounded-md mb-5 py-3 bg-[#ffffff30] backdrop-blur-sm border-0'}
                     />
                     <FormTextInput
                         label={'Hospital ID'}
                         name={'hospitalID'}
+                        labelColor={'text-white'}
                         labelSize={'text-[12px]'}
                         handleChange={handleChange}
                         placeHolder={'Hospital ID'}
-                        classes={'text-[14px] placeholder:text-[14px] rounded-md mb-5 py-3'}
+                        classes={'text-[14px] placeholder:text-[14px] placeholder:text-white text-white rounded-md mb-5 py-3 bg-[#ffffff30] backdrop-blur-sm border-0'}
                     />
                     <FormPasswordInput
                         label={'Password'}
                         name={'password'}
+                        labelColor={'text-white'}
                         labelSize={'text-[12px]'}
                         placeHolder={'Password'}
                         handleChange={handleChange}
-                        classes={'text-[14px] placeholder:text-[14px] rounded-md pr-14 py-3'}
+                        classes={'text-[14px] placeholder:text-[14px] placeholder:text-white text-white rounded-md pr-14 py-3 bg-[#ffffff30] backdrop-blur-sm border-0'}
                     />
                     <div className="flex justify-between mt-1">
                         <div></div>
-                        <Link to={'/forgot-password'} className='text-[12px] text-gray-600'>
+                        <Link to={'/forgot-password'} className='text-[12px] text-white'>
                             Forgot Password?
                         </Link>
                     </div>
@@ -91,8 +93,8 @@ const Login = () => {
                     </div>
 
                     <div className="flex justify-center space-x-2 mt-2">
-                        <p className="text-[12px]">Don't have an account?</p>
-                        <Link to={'/signup'} className='text-[12px] text-gray-600'>
+                        <p className="text-[12px] text-white">Don't have an account?</p>
+                        <Link to={'/signup'} className='text-[12px] text-white'>
                             Signup
                         </Link>
                     </div>

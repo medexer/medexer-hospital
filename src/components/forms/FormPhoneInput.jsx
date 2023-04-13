@@ -5,7 +5,7 @@ import Label from '../text/Label'
 import CountryCodes from '../../data/CountryCodes.json'
 
 
-const FormPhoneInput = ({ classes, inputClasses, formData, name, handleChange, label, labelSize, placeHolder, }) => {
+const FormPhoneInput = ({ classes, inputClasses, formData, name, handleChange, label, labelColor, labelSize, placeHolder, }) => {
     const [config, updateConfig] = useReducer((prev, next) => {
         return { ...prev, ...next }
     }, {
@@ -19,10 +19,14 @@ const FormPhoneInput = ({ classes, inputClasses, formData, name, handleChange, l
 
     return (
         <div>
-            <Label text={label} size={labelSize} />
+            <Label
+                text={label}
+                size={labelSize}
+                color={labelColor}
+            />
             <div className={`
-                w-full flex items-center space-x-4 relative border border-gray-300 px-4
                 ${classes}
+                w-full flex items-center space-x-4 relative border border-gray-300 px-4
             `}
             >
                 <div
@@ -30,7 +34,7 @@ const FormPhoneInput = ({ classes, inputClasses, formData, name, handleChange, l
                     className="flex items-center space-x-2 cursor-pointer"
                 >
                     <div className='text-[18px]'>{countryData.flag}</div>
-                    <IoIosArrowDown />
+                    <IoIosArrowDown className='text-white'/>
                 </div>
 
                 <input
@@ -38,14 +42,15 @@ const FormPhoneInput = ({ classes, inputClasses, formData, name, handleChange, l
                     type={"text"}
                     onChange={handleChange}
                     placeholder={placeHolder}
+                    onClick={() => updateConfig({ showDropDown: false })}
                     className={`
-                    ${inputClasses}
-                    border border-white placeholder:text-[14px] text-[14px] rounded w-full hover:outline-none focus:outline-none focus:border-white focus:ring-white
+                        ${inputClasses}
+                        border border-white placeholder:text-[14px] text-[14px] rounded w-full hover:outline-none focus:outline-none focus:border-white focus:ring-white
                     `}
                 />
 
                 {config.showDropDown && (
-                    <div className="absolute z-10 left-0 top-0 w-[300px] max-h-[300px] bg-white flex flex-col overflow-y-auto scrollbar-4 px-6 py-4 rounded-b-xl shadow-lg">
+                    <div className="absolute left-0 top-0 w-[300px] max-h-[300px] bg-white flex flex-col overflow-y-auto scrollbar-4 px-6 py-4 shadow-lg">
                         {CountryCodes.map((country, index) => (
                             <div
                                 key={index}
