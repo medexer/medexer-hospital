@@ -1,4 +1,6 @@
-import React from 'react'
+import React, { useEffect } from 'react'
+import { useSelector } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
 
 import { useGlobalState } from '../../state/context'
 import { Modals, SideBar, TopBar } from '../../components'
@@ -6,7 +8,16 @@ import { Appointments, Complaints, Home, Inventory, Notifications, Settings } fr
 
 
 const Dashboard = () => {
+	const navigate = useNavigate()
+
 	const { dashboardConfig } = useGlobalState()
+	const { user } = useSelector(state => state.auth)
+
+	useEffect(() => {
+		if (!user?.hospital?.is_kyc_updated) {
+			navigate('/kyb-capture', { replace: true })
+		}
+	}, [user])
 
 	return (
 		<div className='relative flex justify-between w-full font-poppins'>

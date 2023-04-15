@@ -17,6 +17,9 @@ import IconSettingsActive from './icons/icon__settings__active.svg'
 
 // ANIMATIONS
 import Animation1 from './animations/animation__1.json'
+import Animation2 from './animations/animation__2.json'
+import Animation3 from './animations/animation__3.json'
+import Animation4 from './animations/animation__4.json'
 
 // AVATARS
 import UserAvatar1 from './images/user__avatar__1.png'
@@ -52,6 +55,9 @@ export {
 
     // ANIMATIONS
     Animation1,
+    Animation2,
+    Animation3,
+    Animation4,
 
 
     // AVATARS

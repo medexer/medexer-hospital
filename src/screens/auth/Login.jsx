@@ -1,17 +1,22 @@
+import { toast } from 'react-toastify'
 import React, { useReducer } from 'react'
+import { useDispatch } from 'react-redux'
 import { Link, useNavigate } from 'react-router-dom'
 
-import { Background, Background1, Logo1 } from '../../assets'
+import { Background, Logo1 } from '../../assets'
+import { authHospitalSignin } from '../../state/redux/actions/auth.actions'
+import { validateHospitalSignin } from '../../state/validations/auth.validations'
 import { CustomButton, FormPasswordInput, FormTextInput, HeaderText } from '../../components'
 
 
 const Login = () => {
+    const dispatch = useDispatch()
     const navigate = useNavigate()
 
     const [formData, updateFormData] = useReducer((prev, next) => {
         return { ...prev, ...next }
     }, {
-        email: '', password: '',
+        email: '', password: '', hospitalID: ''
     })
 
     const handleChange = (e) => {
@@ -21,7 +26,11 @@ const Login = () => {
     const handleSubmit = (e) => {
         e.preventDefault()
 
-        navigate('/dashboard', { replace: true })
+        const message = validateHospitalSignin(formData)
+        if(message) return toast.error(message)
+
+        dispatch(authHospitalSignin({formData, toast, navigate}))
+        // navigate('/dashboard', { replace: true })
     }
 
     return (
@@ -33,7 +42,7 @@ const Login = () => {
                     className='w-full h-full'
                 />
             </div> */}
-            <div className="w-[40%] flex flex-col p-16 space-y-5">
+            <div className="w-[80%] lg:w-[40%] flex flex-col p-16 space-y-5">
                 <img
                     alt="logo"
                     src={Logo1}
@@ -44,7 +53,7 @@ const Login = () => {
                 </p> */}
                 <HeaderText
                     text={'Login'}
-                    classes={'text-[30px] font-medium text-white'}
+                    classes={'text-[30px] font-medium text-white mx-auto'}
                 />
 
                 <form onSubmit={handleSubmit}>

@@ -139,9 +139,9 @@ const Home = () => {
                     // width="600"
                     height="800"
                     style={{ border: '0' }}
-                    allowfullscreen=""
                     loading="lazy"
-                    referrerpolicy="no-referrer-when-downgrade"
+                    allowFullScreen=""
+                    referrerPolicy="no-referrer-when-downgrade"
                     src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3930.4495615151304!2d8.8562067143908!3d9.89646419292219!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x105373019cc3237b%3A0x5491611e7ca4de00!2sRayfield%20Medical%20Centre%2C%20Jos!5e0!3m2!1sen!2sng!4v1681137494860!5m2!1sen!2sng"
                 ></iframe>
             </div>

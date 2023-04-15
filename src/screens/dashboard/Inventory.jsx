@@ -1,10 +1,19 @@
-import React, { useReducer } from 'react'
+import React, { useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 
 import { AppInventoryItems } from '../../data'
 import { HeaderText, InventoryTable } from '../../components'
+import { hospitalFetchInventory } from '../../state/redux/actions/hospital.actions'
 
 
 const Inventory = () => {
+    const dispatch = useDispatch()
+
+    const { inventoryItems } = useSelector(state => state.hospital)
+
+    useEffect(() => {
+        dispatch(hospitalFetchInventory())
+    }, [])
 
     return (
         <div className='h-full flex flex-col overflow-y-auto font-poppins scrollbar-1 px-6 py-4 pb-20'>
@@ -17,7 +26,7 @@ const Inventory = () => {
             </div>
 
             <InventoryTable
-                data={AppInventoryItems}
+                data={inventoryItems}
             />
         </div>
     )

@@ -75,16 +75,16 @@ const InventoryTable = ({ data, setCurrentPageFetch }) => {
                                                 />
                                             </div>
                                             <BloodGroupInfo
-                                                bloodGroup={item.bloodGroup}
+                                                bloodGroup={item?.bloodGroup}
                                             />
                                         </td>
                                         <td className="text-sm text-gray-900 font-light py-3 whitespace-nowrap">
                                             <BloodUnitInfo
-                                                units={item?.units}
+                                                units={item?.bloodUnits}
                                             />
                                         </td>
                                         <td className="text-[12px] text-gray-900 font-light py-3 whitespace-nowrap">
-                                            {item?.recentActivity}
+                                            {item?.recentActivity ? item?.recentActivity : 'No recent activity'}
                                         </td>
                                         <td className="items-center space-x-5 text-sm py-3 text-gray-900 font-light whitespace-nowrap">
                                             <button

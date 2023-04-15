@@ -5,8 +5,8 @@ import LoadingToRedirect from "./LoadingToRedirect"
 
 
 const PrivateRoute = ({ children, redirectTo }) => {
-    const { user } = useSelector((state) => state.auth )
-    
+    const { user } = useSelector((state) => state.auth)
+
     return user ? children : <LoadingToRedirect path={redirectTo} />
 }
 

@@ -1,14 +1,17 @@
 import React from 'react'
+import { toast } from 'react-toastify'
 import { FiLogOut } from 'react-icons/fi'
-import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
 
 import { Logo } from '../../assets'
 import { SidebarMenuItems } from '../../data'
 import { useGlobalState } from '../../state/context'
+import { authLogout } from '../../state/redux/actions/auth.actions'
 
 
 const SideBar = () => {
+    const dispatch = useDispatch()
     const navigate = useNavigate()
 
     const { user } = useSelector(state => state.auth)
@@ -45,7 +48,7 @@ const SideBar = () => {
                 </ul>
             </div>
             <p
-                onClick={() => navigate('/', { replace: true })}
+                onClick={() => dispatch(authLogout({ toast, navigate }))}
                 className='cursor-pointer flex justify-center items-center text-[14px] text-red-500 space-x-2 font-bold mt-5'
             >
                 <FiLogOut />

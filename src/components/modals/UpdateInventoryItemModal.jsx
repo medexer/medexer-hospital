@@ -1,11 +1,12 @@
+import { toast } from 'react-toastify'
 import React, { useEffect, useReducer } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
-import Label from '../text/Label'
 import ModalHeader from './ModalHeader'
+import { IconBlood } from '../../assets'
 import HeaderOne from '../text/HeaderOne'
 import { useGlobalState } from '../../state/context'
-import { IconBlood } from '../../assets'
+import { hospitalUpdateInventoryItemUnits } from '../../state/redux/actions/hospital.actions'
 
 
 const UpdateInventoryItemModal = () => {
@@ -16,26 +17,25 @@ const UpdateInventoryItemModal = () => {
 
     const [formData, updateFormData] = useReducer((prev, next) => {
         return { ...prev, ...next }
-    }, { units: 0 })
+    }, { units: 0, count: 0, bloodGroup: '' })
+
 
     useEffect(() => {
         if (currentInventoryItem) {
             updateFormData({
-                units: currentInventoryItem?.units
+                units: currentInventoryItem?.bloodUnits,
+                bloodGroup: currentInventoryItem?.bloodGroup,
             })
         }
     }, [currentInventoryItem])
 
-    const handleChange = (e) => {
-        updateFormData({ [e.target.name]: e.target.value.trim() })
-    }
 
     const handleSubmit = (e) => {
         e.preventDefault()
 
-        console.log(currentInventoryItem)
+        console.log(formData)
+        dispatch(hospitalUpdateInventoryItemUnits({ formData, toast, updateModals }))
     }
-    console.log(formData)
 
     return (
         <div className="fixed grid h-screen z-10 bg-[#11111190] place-items-center w-full backdrop-blur-sm">
@@ -50,8 +50,8 @@ const UpdateInventoryItemModal = () => {
                         <HeaderOne
                             semibold={true}
                             size={'text-[14px]'}
-                            color={'text-black'}
-                            text={`${currentInventoryItem?.name}`}
+                            color={'text-red-600'}
+                            text={`Update ${currentInventoryItem?.bloodGroup} Units`}
                         />
                     </div>
 
@@ -64,7 +64,8 @@ const UpdateInventoryItemModal = () => {
                     <div className='flex justify-center space-x-10 items-center my-10'>
                         <div
                             onClick={() => {
-                                updateFormData({ units: formData.units - 1 })
+                                if (formData.units === 0) return
+                                updateFormData({ units: formData.units - 1, count: parseInt(formData.count + 1) })
                             }}
                             className='border rounded-md px-4 py-2 cursor-pointer'
                         >
@@ -79,7 +80,7 @@ const UpdateInventoryItemModal = () => {
 
                         <div
                             onClick={() => {
-                                updateFormData({ units: formData.units + 1 })
+                                updateFormData({ units: formData.units + 1, count: parseInt(formData.count + 1) })
                             }}
                             className='border rounded-md px-4 py-2 cursor-pointer'
                         >
@@ -93,13 +94,13 @@ const UpdateInventoryItemModal = () => {
                         <button
                             type="button"
                             onClick={() => updateModals({ showUpdateInventoryItemModal: !modals.showUpdateInventoryItemModal })}
-                            className="mt-4 border border-sky-800 text-sky-800 rounded text-[12px] py-2 px-6 hover:-translate-y-[2px] ease-in-out duration-700 transition-all focus:outline-none"
+                            className="mt-4 border border-red-600 text-red-600 rounded text-[12px] py-2 px-6 hover:-translate-y-[2px] ease-in-out duration-700 transition-all focus:outline-none"
                         >
                             Cancel
                         </button>
                         <button
                             type="submit"
-                            className="mt-4 bg-sky-600 rounded text-white text-[12px] py-2 px-6 hover:-translate-y-[2px] ease-in-out duration-700 transition-all focus:outline-none"
+                            className="mt-4 bg-red-600 rounded text-white text-[12px] py-2 px-6 hover:-translate-y-[2px] ease-in-out duration-700 transition-all focus:outline-none"
                         >
                             Update
                         </button>

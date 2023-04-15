@@ -5,7 +5,7 @@ import Label from '../text/Label'
 import CountryCodes from '../../data/CountryCodes.json'
 
 
-const FormPhoneInput = ({ classes, inputClasses, formData, name, handleChange, label, labelColor, labelSize, placeHolder, }) => {
+const FormPhoneInput = ({ classes, inputClasses, formData, name, handleChange, label, labelColor, labelSize, placeHolder, updateFormData }) => {
     const [config, updateConfig] = useReducer((prev, next) => {
         return { ...prev, ...next }
     }, {
@@ -34,7 +34,7 @@ const FormPhoneInput = ({ classes, inputClasses, formData, name, handleChange, l
                     className="flex items-center space-x-2 cursor-pointer"
                 >
                     <div className='text-[18px]'>{countryData.flag}</div>
-                    <IoIosArrowDown className='text-white'/>
+                    <IoIosArrowDown className='text-white' />
                 </div>
 
                 <input
@@ -45,7 +45,7 @@ const FormPhoneInput = ({ classes, inputClasses, formData, name, handleChange, l
                     onClick={() => updateConfig({ showDropDown: false })}
                     className={`
                         ${inputClasses}
-                        border border-white placeholder:text-[14px] text-[14px] rounded w-full hover:outline-none focus:outline-none focus:border-white focus:ring-white
+                        border border-white placeholder:text-[14px] text-white text-[14px] rounded w-full hover:outline-none focus:outline-none focus:border-white focus:ring-white
                     `}
                 />
 
@@ -55,8 +55,9 @@ const FormPhoneInput = ({ classes, inputClasses, formData, name, handleChange, l
                             <div
                                 key={index}
                                 onClick={() => {
-                                    setCountryData(CountryCodes.find(e => e.code === country.code))
                                     updateConfig({ showDropDown: false })
+                                    setCountryData(CountryCodes.find(e => e.code === country.code))
+                                    updateFormData({ country: country.name, countryCode: country.code })
                                 }}
                                 className='flex items-center space-x-3 cursor-pointer hover:scale-105 transition-all ease-in-out duration-500'
                             >

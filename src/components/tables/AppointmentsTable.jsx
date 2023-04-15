@@ -1,9 +1,11 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { Fragment } from 'react'
 import { useDispatch } from 'react-redux'
+import { UserAvatar1 } from '../../assets'
 
 import { useGlobalState } from '../../state/context'
 import { hospitalResetStateProperty } from '../../state/redux/actions/hospital.actions'
+import BloodGroupInfo from '../labels/BloodGroupInfo'
 
 
 const AppointmentsTable = ({ data, setCurrentPageFetch }) => {
@@ -73,17 +75,19 @@ const AppointmentsTable = ({ data, setCurrentPageFetch }) => {
                                             <div className="p-2 rounded-md bg-slate-100">
                                                 <img
                                                     alt=""
-                                                    src={appointment.avatar}
+                                                    src={UserAvatar1}
                                                     className='w-[40px] rounded-full'
                                                 />
                                             </div>
                                             <div>
-                                                <p className='font-medium'>{appointment?.name}</p>
-                                                <p className='font-medium text-gray-400 text-[12px]'>{appointment.gender}</p>
+                                                <p className='font-medium'>{appointment?.donorInfo?.fullName}</p>
+                                                <p className='font-medium text-gray-400 text-[12px]'>{appointment?.donorInfo?.gender ? appointment?.donorInfo?.gender : 'Male'}</p>
                                             </div>
                                         </td>
                                         <td className="text-sm text-gray-900 font-light py-3 whitespace-nowrap">
-                                            {appointment?.bloodGroup}
+                                            <BloodGroupInfo
+                                                bloodGroup={appointment?.donorInfo?.bloodGroup}
+                                            />
                                         </td>
                                         <td className="text-sm text-gray-900 font-light py-3 whitespace-nowrap">
                                             {appointment?.date.slice(0, 10)}

@@ -1,27 +1,44 @@
+import { toast } from 'react-toastify'
+import { Link, useNavigate } from 'react-router-dom'
 import React, { useReducer } from 'react'
-import { Link } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
 
-import { Background, Background2, Logo1 } from '../../assets'
+import { Background, Logo1 } from '../../assets'
+import { authHospitalSignup } from '../../state/redux/actions/auth.actions'
 import { CustomButton, FormPasswordInput, FormPhoneInput, FormTextInput, HeaderText } from '../../components'
+import { validateHospitalSignup } from '../../state/validations/auth.validations'
 
 
 const Signup = () => {
+    const dispatch = useDispatch()
+    const navigate = useNavigate()
+
     const [formData, updateFormData] = useReducer((prev, next) => {
         return { ...prev, ...next }
     }, {
-        email: '', password: '', countryCode: 'NG',
+        location: '', password: '', confirmPassword: '',
+        hospitalName: '', email: '', countryCode: 'NG', country: 'Nigeria',
     })
 
     const handleChange = (e) => {
+        if (e.target.name === 'location') {
+            return updateFormData({ location: `${e.target.value}, ${formData.country}` })
+        }
         updateFormData({ [e.target.name]: e.target.value })
     }
 
     const handleSubmit = (e) => {
         e.preventDefault()
+
+        const message = validateHospitalSignup(formData)
+        if (message) return toast.error(message)
+
+        console.log(formData)
+        dispatch(authHospitalSignup({ formData, toast, navigate }))
     }
 
     return (
-        <div className='h-screen flex justify-center overflow-y-hidden font-poppins' style={{backgroundImage: `url(${Background})`}}>
+        <div className='h-screen flex justify-center items-center overflow-y-hidden font-poppins' style={{ backgroundImage: `url(${Background})` }}>
             {/* <div className="w-[60%] h-full">
                 <img
                     alt="bg"
@@ -29,7 +46,7 @@ const Signup = () => {
                     className='w-full h-full'
                 />
             </div> */}
-            <div className="w-[40%] flex flex-col px-16 pt-4 space-y-2">
+            <div className="w-[80%] lg:w-[40%] flex flex-col px-16 pt-4 space-y-2">
                 <img
                     alt="logo"
                     src={Logo1}
@@ -40,12 +57,12 @@ const Signup = () => {
                 </p> */}
                 <HeaderText
                     text={'Signup'}
-                    classes={'text-[30px] font-medium text-white'}
+                    classes={'text-[30px] font-medium text-white mx-auto'}
                 />
 
                 <form onSubmit={handleSubmit}>
                     <FormTextInput
-                        padding={'px-5 py-2.5'}
+                        padding={'px-5 py-3.5'}
                         name={'hospitalName'}
                         labelColor={'text-white'}
                         label={'Hospital Name'}
@@ -58,36 +75,28 @@ const Signup = () => {
                         name={'email'}
                         label={'Email'}
                         labelColor={'text-white'}
-                        padding={'px-5 py-2.5'}
+                        padding={'px-5 py-3.5'}
                         labelSize={'text-[12px]'}
                         handleChange={handleChange}
                         placeHolder={'Email address'}
                         classes={'text-[14px] placeholder:text-white text-white rounded-md mb-1 bg-[#ffffff30] backdrop-blur-sm border-0'}
                     />
-                    <FormTextInput
-                        label={'Hospital ID'}
-                        padding={'px-5 py-2.5'}
-                        name={'hospitalID'}
-                        labelSize={'text-[12px]'}
-                        labelColor={'text-white'}
-                        handleChange={handleChange}
-                        placeHolder={'Hospital ID'}
-                        classes={'text-[14px] placeholder:text-white text-white rounded-md mb-1 bg-[#ffffff30] backdrop-blur-sm border-0'}
-                    />
                     <FormPhoneInput
                         name={'location'}
                         label={'Location'}
+                        labelSize={'text-[12px]'}
                         labelColor={'text-white'}
                         formData={formData}
                         placeHolder={'Location'}
                         handleChange={handleChange}
+                        updateFormData={updateFormData}
                         inputClasses={'bg-[#ffffff00] placeholder:text-white border-0'}
-                        classes={'rounded-md py-2 mb-1 bg-[#ffffff30] backdrop-blur-sm border-0 z-10'}
+                        classes={'rounded-md py-3 mb-1 bg-[#ffffff30] backdrop-blur-sm border-0 z-10'}
                     />
                     <FormPasswordInput
                         name={'password'}
                         label={'Password'}
-                        padding={'px-5 py-2.5'}
+                        padding={'px-5 py-3.5'}
                         labelColor={'text-white'}
                         placeHolder={'Password'}
                         labelSize={'text-[12px]'}
@@ -95,8 +104,8 @@ const Signup = () => {
                         classes={'text-[14px] placeholder:text-white text-white rounded-md mb-1 bg-[#ffffff30] backdrop-blur-sm border-0'}
                     />
                     <FormPasswordInput
-                        name={'password'}
-                        padding={'px-5 py-2.5'}
+                        name={'confirmPassword'}
+                        padding={'px-5 py-3.5'}
                         labelColor={'text-white'}
                         labelSize={'text-[12px]'}
                         label={'Confirm Password'}

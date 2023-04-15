@@ -1,22 +1,23 @@
 import axios from 'axios'
-import dayjs from 'dayjs'
 import { decode } from 'html-entities';
 
 
-let USERFROMLS = localStorage.getItem('medexer-hospital') ? JSON.parse(localStorage.getItem('medexer-hospital')) : null
+let USERFROMLS = localStorage.getItem('mdx-user') ? JSON.parse(localStorage.getItem('mdx-user')) : null
 
 const instance = axios.create({
-    baseURL: import.meta.env.VITE_APP_DEV_API,
-    headers: {
+	baseURL: import.meta.env.VITE_APP_DEV_API,
+	headers: {
 		'Content-Type': 'application/json',
+		// 'Access-Control-Allow-Origin': 'http://localhost:3000'
 	},
 })
 
 instance.interceptors.request.use(
 	(req) => {
-		USERFROMLS = localStorage.getItem('medexer-hospital') ? JSON.parse(localStorage.getItem('medexer-hospital')) : null
+		USERFROMLS = localStorage.getItem('mdx-user') ? JSON.parse(localStorage.getItem('mdx-user')) : null
 		if (USERFROMLS) {
-			req.headers['Authorization'] = `Bearer ${USERFROMLS.accessToken}`;
+			console.log(USERFROMLS)
+			req.headers['Authorization'] = `${USERFROMLS.access}`;
 		}
 		return req;
 	},
@@ -34,32 +35,33 @@ instance.interceptors.response.use(
 		const originalConfig = err.config;
 
 		if (err.response) {
-			if (err.response.status === 401 && err.response.data === "Invalid access token") {
-			
+			if (err.response.status === 401) {
 				try {
-                    const body = {
-                        refreshToken: USERFROMLS.refreshToken,
-                        accessToken: USERFROMLS.accessToken
-                    }
+					const body = {
+						access: USERFROMLS.access,
+						refresh: USERFROMLS.refresh,
+					}
 
-					const { data } = await API.post('auth/refresh-token', body);
-					const accessToken = data?.data?.accessToken ? data?.data?.accessToken : null;
-                    
+					const { data } = await API.post('/auth/refresh-token', body);
+					console.log(data)
+					const accessToken = data?.access ? data?.access : null;
+
 					if (accessToken != null) {
-                        localStorage.removeItem('medexer-hospital');
-                        localStorage.setItem('medexer-hospital', JSON.stringify({ ...USERFROMLS, accessToken: data.data.accessToken }));
+						localStorage.removeItem('mdx-user');
+						localStorage.setItem('mdx-user', JSON.stringify({ ...USERFROMLS, access: data.data.accessToken }));
 						instance.defaults.headers.common[
 							'Authorization'
-						] = accessToken;
+						] = `Bearer ${accessToken}`;
 
 					}
 					return instance(originalConfig);
 				} catch (_error) {
+					console.log(_error)
 					if (_error.response.status === 401) {
-                            alert('Session expired. Please login again!');
-                            window.location.href = '/'
-                            localStorage.removeItem('medexer-hospital');
-                            window.location.reload();
+						alert('Session expired. Please login again!');
+						window.location.href = '/'
+						localStorage.removeItem('mdx-user');
+						window.location.reload();
 						return Promise.reject(_error.response.data);
 					}
 					return Promise.reject(_error);

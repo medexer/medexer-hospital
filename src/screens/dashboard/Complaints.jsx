@@ -34,7 +34,7 @@ const Complaints = () => {
                         <button
                             type="submit"
                             onClick={() => updateModals({ showCreateComplaintModal: !modals.showCreateComplaintModal })}
-                            className="bg-teal-600 text-white text-[12px] py-2 px-4 hover:-translate-x-1 ease-in-out duration-700 transition-all focus:outline-none"
+                            className="bg-green-600 rounded text-white text-[12px] py-2 px-4 hover:-translate-x-1 ease-in-out duration-700 transition-all focus:outline-none"
                         >
                             Add New
                         </button>
