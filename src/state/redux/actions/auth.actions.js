@@ -1,6 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit"
 
-import { authCaptureKYBRoute, authSigninRoute, authSignupRoute } from "../routes/auth.routes"
+import { authCaptureKYBRoute, authSigninRoute, authSignupRoute, authUpdateHospitalProfileRoute } from "../routes/auth.routes"
 
 
 export const authHospitalSignup = createAsyncThunk(
@@ -82,13 +82,47 @@ export const authCaptureHospitalKYB = createAsyncThunk(
 )
 
 
+export const authUpdateHospitalProfile = createAsyncThunk(
+    'auth/authUpdateHospitalProfile',
+    async ({ formData, toast }, { rejectWithValue }) => {
+        try {
+            const { data } = await authUpdateHospitalProfileRoute(formData)
+
+            console.log(data)
+
+            toast.success("Profile update successful")
+            const USERFROMLS = localStorage.getItem('mdx-user') ? JSON.parse(localStorage.getItem('mdx-user')) : null
+
+            const USER = {
+                ...USERFROMLS,
+                hospital: data.data
+            }
+
+            await localStorage.setItem('mdx-user', JSON.stringify(USER))
+
+            return USER
+        } catch (error) {
+            console.log(error)
+            if (error.response.data.message) {
+                toast.error(error.response.data.message)
+                return rejectWithValue(null)
+            }
+            toast.error('An error ocurred while updating hospital profile')
+            return rejectWithValue(null)
+        }
+    }
+)
+
+
 export const authLogout = createAsyncThunk(
     'auth/authLogout',
-    async ({ toast, navigate }, { rejectWithValue }) => {
+    async ({ toast, navigate, updateDashboardConfig }, { rejectWithValue }) => {
         try {
 
             toast.success("Logout successful")
             await localStorage.removeItem('mdx-user')
+            updateDashboardConfig({ activeLink: 'Home' })
+
             navigate('/', { replace: true })
 
             return null

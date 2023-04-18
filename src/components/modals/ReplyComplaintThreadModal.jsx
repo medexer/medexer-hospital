@@ -1,3 +1,4 @@
+import { toast } from 'react-toastify'
 import React, { useReducer } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
@@ -5,17 +6,29 @@ import Label from '../text/Label'
 import ModalHeader from './ModalHeader'
 import HeaderOne from '../text/HeaderOne'
 import { useGlobalState } from '../../state/context'
+import { hospitalReplyComplaintThread } from '../../state/redux/actions/hospital.actions'
+import { useEffect } from 'react'
 
 
 const ReplyComplaintThreadModal = () => {
     const dispatch = useDispatch()
 
     const { modals, updateModals } = useGlobalState()
-    const { currentAppointment } = useSelector(state => state.hospital)
+    const { currentComplaint } = useSelector(state => state.hospital)
+
+    console.log(currentComplaint)
 
     const [formData, updateFormData] = useReducer((prev, next) => {
         return { ...prev, ...next }
-    }, { message: '' })
+    }, { id: 0, message: '' })
+
+    useEffect(() => {
+        if (currentComplaint) {
+            updateFormData({
+                id: currentComplaint?.pkid
+            })
+        }
+    }, [currentComplaint])
 
     const handleChange = (e) => {
         updateFormData({ [e.target.name]: e.target.value.trim() })
@@ -24,7 +37,8 @@ const ReplyComplaintThreadModal = () => {
     const handleSubmit = (e) => {
         e.preventDefault()
 
-        console.log(currentAppointment)
+        if (!formData.message) return toast.error('Message is required')
+        dispatch(hospitalReplyComplaintThread({ formData, toast, updateModals }))
     }
 
     return (

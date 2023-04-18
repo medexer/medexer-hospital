@@ -17,3 +17,24 @@ export const rescheduleAppointmentRoute = (formData) => API.put(`/hospital/appoi
 
 
 export const fetchDonorDonationHistoryRoute = (appointmentId) => API.get(`/hospital/appointment/donor/donation-history/${appointmentId}`)
+
+
+export const fetchComplaintsRoute = () => API.get(`/hospital/complaints/fetch-all`)
+
+
+export const generateComplaintRoute = (formData) => API.post(`/hospital/complaints/generate`, formData)
+
+
+export const fetchComplaintThreadRoute = (complaintId) => API.get(`/hospital/complaint/thread/${complaintId}/fetch-all`)
+
+
+export const patchComplaintStatusRoute = (formData) => API.put(`/hospital/complaints/${formData.complaintId}/update`, formData)
+
+
+export const replyComplaintThreadRoute = (formData) => API.post(`/hospital/complaint/thread/${formData.id}/reply`, formData)
+
+
+export const fetchNotificationsRoute = () => API.get(`/hospital/notifications`)
+
+
+export const patchNotificationRoute = (notificationId) => API.put(`/hospital/notifications/${notificationId}/update`, {})

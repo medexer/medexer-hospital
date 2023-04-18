@@ -48,7 +48,7 @@ const SideBar = () => {
                 </ul>
             </div>
             <p
-                onClick={() => dispatch(authLogout({ toast, navigate }))}
+                onClick={() => dispatch(authLogout({ toast, navigate, updateDashboardConfig }))}
                 className='cursor-pointer flex justify-center items-center text-[14px] text-red-500 space-x-2 font-bold mt-5'
             >
                 <FiLogOut />

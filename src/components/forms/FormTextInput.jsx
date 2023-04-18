@@ -4,7 +4,7 @@ import { FiMail } from 'react-icons/fi'
 import Label from '../text/Label'
 
 
-const FormTextInput = ({ classes, name, handleChange, label, labelColor, labelSize, padding, placeHolder, type, icon }) => {
+const FormTextInput = ({ currentValue, classes, name, handleChange, label, labelColor, labelSize, padding, placeHolder, type, icon }) => {
     return (
         <div className='relative'>
             <Label
@@ -17,6 +17,7 @@ const FormTextInput = ({ classes, name, handleChange, label, labelColor, labelSi
                 onChange={handleChange}
                 placeholder={placeHolder}
                 type={type ? type : "text"}
+                value={currentValue && currentValue}
                 className={`
                     ${classes} 
                     ${padding ? padding : 'px-5 py-4'} 

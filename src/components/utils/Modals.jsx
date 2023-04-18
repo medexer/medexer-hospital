@@ -45,6 +45,11 @@ const Modals = () => {
                 />
             )}
 
+            {modals.showReadNotificationModal && (
+                <FormModal
+                    type="view__read__notification__modal"
+                />
+            )}
         </Fragment>
     )
 }

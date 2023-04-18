@@ -8,6 +8,7 @@ import ButtonLoader from "./utils/ButtonLoader"
 
 // CARDS
 import ComplaintCard from "./cards/ComplaintCard"
+import NotificationCard from "./cards/NotificationCard"
 
 // TEXT
 import Label from './text/Label'
@@ -32,6 +33,7 @@ import InventoryTable from "./tables/InventoryTable"
 import AppointmentsTable from "./tables/AppointmentsTable"
 
 // PAGES
+import HomeMap from "./maps/HomeMap"
 import ComplaintInfo from "./complaints/ComplaintInfo"
 
 
@@ -46,6 +48,7 @@ export {
 
     // CARDS
     ComplaintCard,
+    NotificationCard,
 
     // TEXT
     Label,
@@ -70,5 +73,6 @@ export {
     AppointmentsTable,
 
     // PAGES
+    HomeMap,
     ComplaintInfo,
 }

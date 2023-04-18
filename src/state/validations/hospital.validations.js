@@ -7,3 +7,13 @@ export const validateAppointmentReschedule = (data) => {
 
     return message
 }
+
+export const validateGenerateComplaint = (data) => {
+    let message;
+
+    if (!data.title) message = 'Title is required'
+
+    if (!data.message) message = 'Message is required'
+
+    return message
+}

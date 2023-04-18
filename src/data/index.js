@@ -1,5 +1,19 @@
 import { IconAppointment, IconAppointmentActive, IconComplaint, IconComplaintActive, IconHome, IconHomeActive, IconInventory, IconInventoryActive, IconNotification, IconNotificationActive, IconSettings, IconSettingsActive, UserAvatar1, UserAvatar2 } from "../assets"
 
+export const cat_colors = {
+    A: "#EF4444",
+    B: "#3B82F6",
+    C: "#F97316",
+    D: "#A855F7",
+    E: "#22C55E",
+}
+
+export const status_colors = {
+    ACTIVE: "#009D1D",
+    INACTIVE: "#B20404",
+}
+
+
 
 export const AppAppointments = [
     {
@@ -192,4 +206,5 @@ export const RootModals = {
     showRescheduleAppointmentModal: false,
     showCreateComplaintModal: false,
     showReplyComplaintThreadModal: false,
+    showReadNotificationModal: false,
 }

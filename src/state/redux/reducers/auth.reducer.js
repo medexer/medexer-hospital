@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit'
-import { authCaptureHospitalKYB, authHospitalSignin, authHospitalSignup, authLogout } from '../actions/auth.actions'
+import { authCaptureHospitalKYB, authHospitalSignin, authHospitalSignup, authLogout, authUpdateHospitalProfile } from '../actions/auth.actions'
 
 
 const USERFROMLS = localStorage.getItem('mdx-user') ? JSON.parse(localStorage.getItem('mdx-user')) : null
@@ -46,6 +46,19 @@ const authSlice = createSlice({
             state.user = action.payload
         })
         builder.addCase(authCaptureHospitalKYB.rejected, (state, action) => {
+            state.authLoading = false
+        })
+
+
+
+        builder.addCase(authUpdateHospitalProfile.pending, (state, action) => {
+            state.authLoading = true
+        })
+        builder.addCase(authUpdateHospitalProfile.fulfilled, (state, action) => {
+            state.authLoading = false
+            state.user = action.payload
+        })
+        builder.addCase(authUpdateHospitalProfile.rejected, (state, action) => {
             state.authLoading = false
         })
 

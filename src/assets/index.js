@@ -20,6 +20,8 @@ import Animation1 from './animations/animation__1.json'
 import Animation2 from './animations/animation__2.json'
 import Animation3 from './animations/animation__3.json'
 import Animation4 from './animations/animation__4.json'
+import Animation5 from './animations/animation__5.json'
+import Animation6 from './animations/animation__6.json'
 
 // AVATARS
 import UserAvatar1 from './images/user__avatar__1.png'
@@ -58,6 +60,8 @@ export {
     Animation2,
     Animation3,
     Animation4,
+    Animation5,
+    Animation6,
 
 
     // AVATARS

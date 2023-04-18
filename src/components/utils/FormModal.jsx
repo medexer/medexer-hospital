@@ -3,6 +3,7 @@ import CreateComplaintModal from "../modals/CreateComplaintModal"
 
 import DonationHistoryModal from "../modals/DonationHistoryModal"
 import InventoryItemActivityModal from "../modals/InventoryItemActivityModal"
+import ReadNotificationModal from "../modals/ReadNotificationModal"
 import ReplyComplaintThreadModal from "../modals/ReplyComplaintThreadModal"
 import RescheduleAppointmentModal from "../modals/RescheduleAppointmentModal"
 import UpdateInventoryItemModal from "../modals/UpdateInventoryItemModal"
@@ -33,6 +34,10 @@ const FormModal = (props) => {
 
 			{props.type === 'view__reply__complaint__thread__modal' && (
 				<ReplyComplaintThreadModal />
+			)}
+
+			{props.type === 'view__read__notification__modal' && (
+				<ReadNotificationModal />
 			)}
 
 		</Fragment >

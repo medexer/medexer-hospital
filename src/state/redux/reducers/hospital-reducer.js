@@ -1,20 +1,23 @@
 import { createSlice } from '@reduxjs/toolkit'
 
-import { hospitalFetchAppointments, hospitalFetchDonorDonationHistory, hospitalFetchInventory, hospitalFetchInventoryItemHistory, hospitalRescheduleAppointment, hospitalResetStateProperty, hospitalUpdateInventoryItemUnits } from '../actions/hospital.actions'
+import { hospitalFetchAppointments, hospitalFetchComplaints, hospitalFetchComplaintThread, hospitalFetchDonorDonationHistory, hospitalFetchInventory, hospitalFetchInventoryItemHistory, hospitalFetchNotifications, hospitalGenerateComplaint, hospitalReplyComplaintThread, hospitalRescheduleAppointment, hospitalResetStateProperty, hospitalUpdateComplaintStatus, hospitalUpdateInventoryItemUnits, hospitalUpdateNotification } from '../actions/hospital.actions'
 
 
 const hospitalSlice = createSlice({
     name: 'hospital',
     initialState: {
         appointments: null,
+        complaints: null,
         complaintThread: null,
         currentAppointment: null,
         currentComplaint: null,
         currentInventoryItem: null,
         complaintStatusUpdate: null,
         donationHistory: null,
+        currentNotification: null,
         inventoryItems: null,
         inventoryItemHistory: null,
+        notifications: null,
         hospitalLoading: false,
         hospitalRequestStatus: null,
     },
@@ -91,6 +94,90 @@ const hospitalSlice = createSlice({
 
 
 
+        builder.addCase(hospitalFetchComplaints.pending, (state, action) => {
+            state.hospitalLoading = true
+        })
+        builder.addCase(hospitalFetchComplaints.fulfilled, (state, action) => {
+            state.hospitalLoading = false
+            state.complaints = action.payload
+        })
+        builder.addCase(hospitalFetchComplaints.rejected, (state, action) => {
+            state.hospitalLoading = false
+        })
+
+        builder.addCase(hospitalFetchComplaintThread.pending, (state, action) => {
+            state.hospitalLoading = true
+        })
+        builder.addCase(hospitalFetchComplaintThread.fulfilled, (state, action) => {
+            state.hospitalLoading = false
+            state.complaintThread = action.payload
+        })
+        builder.addCase(hospitalFetchComplaintThread.rejected, (state, action) => {
+            state.hospitalLoading = false
+        })
+
+        builder.addCase(hospitalGenerateComplaint.pending, (state, action) => {
+            state.hospitalLoading = true
+        })
+        builder.addCase(hospitalGenerateComplaint.fulfilled, (state, action) => {
+            state.hospitalLoading = false
+            state.complaints = [action.payload, ...state.complaints]
+        })
+        builder.addCase(hospitalGenerateComplaint.rejected, (state, action) => {
+            state.hospitalLoading = false
+        })
+
+        builder.addCase(hospitalUpdateComplaintStatus.pending, (state, action) => {
+            state.hospitalLoading = true
+        })
+        builder.addCase(hospitalUpdateComplaintStatus.fulfilled, (state, action) => {
+            state.hospitalLoading = false
+            const index = state.complaints.findIndex(complaint => complaint.pkid === action.payload.pkid)
+            state.complaints[index] = action.payload
+            state.currentComplaint = action.payload
+        })
+        builder.addCase(hospitalUpdateComplaintStatus.rejected, (state, action) => {
+            state.hospitalLoading = false
+        })
+
+        builder.addCase(hospitalReplyComplaintThread.pending, (state, action) => {
+            state.hospitalLoading = true
+        })
+        builder.addCase(hospitalReplyComplaintThread.fulfilled, (state, action) => {
+            state.hospitalLoading = false
+            state.complaintThread = [action.payload, ...state.complaintThread]
+        })
+        builder.addCase(hospitalReplyComplaintThread.rejected, (state, action) => {
+            state.hospitalLoading = false
+        })
+
+
+
+        builder.addCase(hospitalFetchNotifications.pending, (state, action) => {
+            state.hospitalLoading = true
+        })
+        builder.addCase(hospitalFetchNotifications.fulfilled, (state, action) => {
+            state.hospitalLoading = false
+            state.notifications = action.payload
+        })
+        builder.addCase(hospitalFetchNotifications.rejected, (state, action) => {
+            state.hospitalLoading = false
+        })
+
+        builder.addCase(hospitalUpdateNotification.pending, (state, action) => {
+            state.hospitalLoading = true
+        })
+        builder.addCase(hospitalUpdateNotification.fulfilled, (state, action) => {
+            state.hospitalLoading = false
+            const index = state.notifications.findIndex(notification => notification.pkid === action.payload.pkid)
+            state.notifications[index] = action.payload
+        })
+        builder.addCase(hospitalUpdateNotification.rejected, (state, action) => {
+            state.hospitalLoading = false
+        })
+
+
+
         builder.addCase(hospitalResetStateProperty.pending, (state, action) => {
             state.hospitalLoading = true
         })
@@ -104,6 +191,9 @@ const hospitalSlice = createSlice({
             }
             if (action.payload.key === 'CurrentComplaint') {
                 state.currentComplaint = action.payload.data
+            }
+            if (action.payload.key === 'CurrentNotification') {
+                state.currentNotification = action.payload.data
             }
         })
         builder.addCase(hospitalResetStateProperty.rejected, (state, action) => {

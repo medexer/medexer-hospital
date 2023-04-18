@@ -5,6 +5,9 @@ import Label from '../text/Label'
 import ModalHeader from './ModalHeader'
 import HeaderOne from '../text/HeaderOne'
 import { useGlobalState } from '../../state/context'
+import { validateGenerateComplaint } from '../../state/validations/hospital.validations'
+import { toast } from 'react-toastify'
+import { hospitalGenerateComplaint } from '../../state/redux/actions/hospital.actions'
 
 
 const CreateComplaintModal = () => {
@@ -15,7 +18,7 @@ const CreateComplaintModal = () => {
 
     const [formData, updateFormData] = useReducer((prev, next) => {
         return { ...prev, ...next }
-    }, { message: '' })
+    }, { title: '', message: '' })
 
     const handleChange = (e) => {
         updateFormData({ [e.target.name]: e.target.value.trim() })
@@ -24,7 +27,10 @@ const CreateComplaintModal = () => {
     const handleSubmit = (e) => {
         e.preventDefault()
 
-        console.log(currentAppointment)
+        const message = validateGenerateComplaint(formData)
+        if (message) return toast.error(message)
+
+        dispatch(hospitalGenerateComplaint({ formData, toast, updateModals }))
     }
 
     return (
@@ -45,20 +51,26 @@ const CreateComplaintModal = () => {
 
                 <form onSubmit={handleSubmit}>
                     <div>
-                        <Label text={'Subject'} size={'text-[12px]'} />
+                        <div className="flex items-center">
+                            <Label text={'Title'} size={'text-[12px]'} />
+                            <p className="text-red-500">*</p>
+                        </div>
                         <input
                             type="text"
-                            name="subject"
-                            placeholder='Subject'
+                            name="title"
+                            placeholder='Title'
                             className="border border-gray-300 placeholder:text-[12px] text-[12px] rounded w-full h-5 px-5 py-5 hover:outline-none focus:outline-none focus:border-gray-600 focus:ring-blue "
                             onChange={(e) => handleChange(e)}
                         />
                     </div>
                     <div className='mt-2'>
-                        <Label text={'Message'} size={'text-[12px]'} />
+                        <div className="flex items-center">
+                            <Label text={'Message'} size={'text-[12px]'} />
+                            <p className="text-red-500">*</p>
+                        </div>
                         <textarea
                             name="message"
-                            rows="4"
+                            rows="8"
                             placeholder=''
                             onChange={handleChange}
                             className='w-full placeholder:text-[12px] text-[12px] bg-white border border-gray-200 rounded resize-none focus:outline-none px-3 py-3 focus:border-gray-600 scrollbar-4'

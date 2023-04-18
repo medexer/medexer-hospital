@@ -43,3 +43,17 @@ export const validateHospitalKYBCapture = (data) => {
 
     return message
 }
+
+export const validateHospitalProfileUpdate = (data) => {
+    let message;
+
+    if (!data.hospitalName) message = 'Hospital name is required'
+
+    if (!data.email) message = 'Hospital email is required'
+
+    if (!data.currentPassword) message = 'Current password is required'
+
+    if (!data.newPassword) message = 'New password is required'
+
+    return message
+}

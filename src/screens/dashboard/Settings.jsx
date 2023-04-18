@@ -1,19 +1,39 @@
 import { useRef } from 'react'
+import { toast } from 'react-toastify'
 import { GoPencil } from 'react-icons/go'
-import React, { useReducer } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import React, { useEffect, useReducer } from 'react'
 
 import { UserAvatar1 } from '../../assets'
 import { CustomButton, FormPasswordInput, FormTextInput, HeaderText } from '../../components'
+import { validateHospitalProfileUpdate } from '../../state/validations/auth.validations'
+import { authUpdateHospitalProfile } from '../../state/redux/actions/auth.actions'
 
 
 const Settings = () => {
-    const imageRef = useRef()
+    const imageRef = useRef(null)
+    const dispatch = useDispatch()
+
+    const { hospital } = useSelector(state => state.auth.user)
+
+    console.log(hospital);
 
     const [formData, updateFormData] = useReducer((prev, next) => {
         return { ...prev, ...next }
     }, {
-        email: '', password: '', imagePreview: ''
+        email: '', 
+        imagePreview: '', hospitalName: '',
+        currentPassword: '', newPassword: '',
     })
+
+    useEffect(() => {
+        if (hospital) {
+            updateFormData({
+                email: hospital?.email,
+                hospitalName: hospital?.hospitalName,
+            })
+        }
+    }, [hospital])
 
     const handleChange = (e) => {
         updateFormData({ [e.target.name]: e.target.value })
@@ -25,6 +45,12 @@ const Settings = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault()
+        
+        console.log(formData)
+        const message = validateHospitalProfileUpdate(formData)
+        if(message) return toast.error(message)
+
+        dispatch(authUpdateHospitalProfile({formData, toast}))
     }
 
     return (
@@ -61,29 +87,42 @@ const Settings = () => {
                 <form onSubmit={handleSubmit}>
                     <FormTextInput
                         label={'Name'}
-                        name={'name'}
+                        padding={'px-5 py-2'}
+                        name={'hospitalName'}
                         labelSize={'text-[12px]'}
                         handleChange={handleChange}
                         placeHolder={'Daisy Land Hospital'}
-                        padding={'px-5 py-3'}
+                        currentValue={formData.hospitalName}
                         classes={'text-[14px] placeholder:text-[14px] rounded-md mb-'}
                     />
                     <FormTextInput
-                        label={'Email'}
                         name={'email'}
+                        label={'Email'}
+                        padding={'px-5 py-2'}
                         labelSize={'text-[12px]'}
                         handleChange={handleChange}
+                        currentValue={formData.email}
                         placeHolder={'info@daisylandhospital.com'}
-                        padding={'px-5 py-3'}
                         classes={'text-[14px] placeholder:text-[14px] rounded-md mb-'}
                     />
                     <FormPasswordInput
-                        name={'password'}
-                        label={'Password'}
-                        padding={'px-5 py-3'}
+                        name={'currentPassword'}
+                        label={'Current Password'}
+                        padding={'px-5 py-2'}
                         placeHolder={'Password'}
                         labelSize={'text-[12px]'}
                         handleChange={handleChange}
+                        currentValue={formData.currentPassword}
+                        classes={'text-[14px] placeholder:text-[14px] rounded-md pr-14 mb-1'}
+                        />
+                    <FormPasswordInput
+                        name={'newPassword'}
+                        label={'New Password'}
+                        padding={'px-5 py-2'}
+                        placeHolder={'Password'}
+                        labelSize={'text-[12px]'}
+                        handleChange={handleChange}
+                        currentValue={formData.newPassword}
                         classes={'text-[14px] placeholder:text-[14px] rounded-md pr-14 mb-1'}
                     />
 
