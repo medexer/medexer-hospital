@@ -23,43 +23,49 @@ const AppointmentsTable = ({ data, setCurrentPageFetch }) => {
                                 <tr>
                                     <th
                                         scope="col"
-                                        className="text-sm font-medium text-gray-900 pl-4 py-3 text-left"
+                                        className="text-[12px] font-medium text-gray-900 pl-4 py-3 text-left"
                                     >
 
                                     </th>
                                     <th
                                         scope="col"
-                                        className="text-sm font-medium text-gray-900 py-3 text-left"
+                                        className="text-[12px] font-medium text-gray-900 py-3 text-left"
                                     >
-                                        Donor
+                                        Name
                                     </th>
                                     <th
                                         scope="col"
-                                        className="text-sm font-medium text-gray-900 py-3 text-left"
+                                        className="text-[12px] font-medium text-gray-900 py-3 text-left"
+                                    >
+                                        Donor ID
+                                    </th>
+                                    <th
+                                        scope="col"
+                                        className="text-[12px] font-medium text-gray-900 py-3 text-left"
                                     >
                                         Blood Group
                                     </th>
                                     <th
                                         scope="col"
-                                        className="text-sm font-medium text-gray-900 py-3 text-left"
+                                        className="text-[12px] font-medium text-gray-900 py-3 text-left"
                                     >
                                         Date
                                     </th>
                                     <th
                                         scope="col"
-                                        className="text-sm font-medium text-gray-900 py-3 text-left"
+                                        className="text-[12px] font-medium text-gray-900 py-3 text-left"
                                     >
                                         Recent Activity
                                     </th>
                                     <th
                                         scope="col"
-                                        className="text-sm font-medium text-gray-900 py-3 text-left"
+                                        className="text-[12px] font-medium text-gray-900 py-3 text-left"
                                     >
 
                                     </th>
                                     <th
                                         scope="col"
-                                        className="text-sm font-medium text-gray-900 py-3 text-left"
+                                        className="text-[12px] font-medium text-gray-900 py-3 text-left"
                                     >
 
                                     </th>
@@ -71,7 +77,7 @@ const AppointmentsTable = ({ data, setCurrentPageFetch }) => {
                                         <td className="text-[10px] text-gray-900 font-semibold pl-4 py-3 whitespace-nowrap">
                                             {index + 1}
                                         </td>
-                                        <td className="flex items-center space-x-4 text-sm text-gray-900 font-light py-3 whitespace-nowrap">
+                                        <td className="flex items-center space-x-4 text-[12px] text-gray-900 font-light py-3 whitespace-nowrap">
                                             <div className="p-2 rounded-md bg-slate-100">
                                                 <img
                                                     alt=""
@@ -84,18 +90,21 @@ const AppointmentsTable = ({ data, setCurrentPageFetch }) => {
                                                 <p className='font-medium text-gray-400 text-[12px]'>{appointment?.donorInfo?.gender ? appointment?.donorInfo?.gender : 'Male'}</p>
                                             </div>
                                         </td>
-                                        <td className="text-sm text-gray-900 font-light py-3 whitespace-nowrap">
+                                        <td className="text-[12px] text-gray-900 font-light py-3 whitespace-nowrap">
+                                            {appointment?.donorInfo?.donorId}
+                                        </td>
+                                        <td className="text-[12px] text-gray-900 font-light py-3 whitespace-nowrap">
                                             <BloodGroupInfo
                                                 bloodGroup={appointment?.donorInfo?.bloodGroup}
                                             />
                                         </td>
-                                        <td className="text-sm text-gray-900 font-light py-3 whitespace-nowrap">
-                                            {appointment?.date.slice(0, 10)}
+                                        <td className="text-[12px] text-gray-900 font-light py-3 whitespace-nowrap">
+                                            {appointment?.date?.slice(0, 10)}
                                         </td>
                                         <td className="text-[12px] text-gray-900 font-light py-3 whitespace-nowrap">
                                             {appointment?.recentActivity}
                                         </td>
-                                        <td className="items-center space-x-5 text-sm py-3 text-gray-900 font-light whitespace-nowrap">
+                                        <td className="items-center space-x-5 text-[12px] py-3 text-gray-900 font-light whitespace-nowrap">
                                             <button
                                                 type="submit"
                                                 onClick={() => {
@@ -107,7 +116,7 @@ const AppointmentsTable = ({ data, setCurrentPageFetch }) => {
                                                 History
                                             </button>
                                         </td>
-                                        <td className="items-center space-x-5 text-sm py-3 text-gray-900 font-light whitespace-nowrap">
+                                        <td className="items-center space-x-5 text-[12px] py-3 text-gray-900 font-light whitespace-nowrap">
                                             <button
                                                 type="submit"
                                                 onClick={() => {

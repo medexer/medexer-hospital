@@ -40,7 +40,7 @@ const RescheduleAppointmentModal = () => {
 
         const message = validateAppointmentReschedule(formData)
         if (message) return toast.error(message)
-        // console.log(currentAppointment)
+        console.log(formData)
 
         dispatch(hospitalRescheduleAppointment({ formData, toast, updateModals }))
     }
@@ -75,16 +75,18 @@ const RescheduleAppointmentModal = () => {
                 </div>
 
                 <form onSubmit={handleSubmit}>
-                    <div>
-                        <Label text={'Previous date'} size={'text-[12px]'} />
-                        <input
-                            type="date"
-                            name="date"
-                            disabled
-                            value={formData?.previousDate?.slice(0, 10)}
-                            className="border border-gray-300 placeholder:text-[12px] text-[12px] rounded w-full h-5 px-5 py-5 hover:outline-none focus:outline-none focus:border-gray-600 focus:ring-blue "
-                        />
-                    </div>
+                    {formData.previousDate && (
+                        <div>
+                            <Label text={'Previous date'} size={'text-[12px]'} />
+                            <input
+                                type="date"
+                                name="date"
+                                disabled
+                                value={formData?.previousDate?.slice(0, 10)}
+                                className="border border-gray-300 placeholder:text-[12px] text-[12px] rounded w-full h-5 px-5 py-5 hover:outline-none focus:outline-none focus:border-gray-600 focus:ring-blue "
+                            />
+                        </div>
+                    )}
                     <div>
                         <div className="flex items-center mt-2">
                             <Label text={'New date'} size={'text-[12px]'} />
@@ -94,14 +96,15 @@ const RescheduleAppointmentModal = () => {
                             type="date"
                             name="date"
                             min={new Date().toISOString().slice(0, 10)}
-                            value={formData?.date?.slice(0, 10)}
+                            // value={formData?.date?.slice(0, 10)}
                             className="border border-gray-300 placeholder:text-[12px] text-[12px] rounded w-full h-5 px-5 py-5 hover:outline-none focus:outline-none focus:border-gray-600 focus:ring-blue "
                             onChange={(e) => handleChange(e)}
                         />
                     </div>
+                    
                     <div className='mt-2'>
                         <div className="flex items-center mt-2">
-                            <Label text={'New date'} size={'text-[12px]'} />
+                            <Label text={'Message'} size={'text-[12px]'} />
                             <span className='text-red-500'>*</span>
                         </div>
                         <textarea
