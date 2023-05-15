@@ -20,6 +20,7 @@ import BloodGroupInfo from "./labels/BloodGroupInfo"
 
 // BUTTONS
 import CustomButton from "./buttons/CustomButton"
+import LoadingButtonOne from "./buttons/LoadingButtonOne"
 
 // FORMS
 import FormTextInput from "./forms/FormTextInput"
@@ -60,6 +61,7 @@ export {
 
     // BUTTONS
     CustomButton,
+    LoadingButtonOne,
 
     // FORMS
     FormTextInput,

@@ -27,13 +27,16 @@ const authSlice = createSlice({
 
         builder.addCase(authHospitalSignin.pending, (state, action) => {
             state.authLoading = true
+            state.authRequestStatus = 'PENDING'
         })
         builder.addCase(authHospitalSignin.fulfilled, (state, action) => {
             state.authLoading = false
             state.user = action.payload
+            state.authRequestStatus = 'SUCCESS'
         })
         builder.addCase(authHospitalSignin.rejected, (state, action) => {
             state.authLoading = false
+            state.authRequestStatus = 'FAILED'
         })
 
 

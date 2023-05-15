@@ -1,17 +1,19 @@
 import { toast } from 'react-toastify'
 import { Link, useNavigate } from 'react-router-dom'
 import React, { useReducer } from 'react'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 
 import { Background, Logo1 } from '../../assets'
 import { authHospitalSignup } from '../../state/redux/actions/auth.actions'
-import { CustomButton, FormPasswordInput, FormPhoneInput, FormTextInput, HeaderText } from '../../components'
 import { validateHospitalSignup } from '../../state/validations/auth.validations'
+import { CustomButton, FormPasswordInput, FormTextInput, HeaderText } from '../../components'
 
 
 const Signup = () => {
     const dispatch = useDispatch()
     const navigate = useNavigate()
+
+    const { authRequestStatus } = useSelector(state => state.auth)
 
     const [config, updateConfig] = useReducer((prev, next) => {
         return { ...prev, ...next }
@@ -48,7 +50,7 @@ const Signup = () => {
         if (!formData.address) return toast.error('Address is required')
         if (!formData.state) return toast.error('State is required')
         if (!formData.lga) return toast.error('LGA/Town is required')
-        if (!formData.postalCode) return toast.error('Postal code is required')
+        // if (!formData.postalCode) return toast.error('Postal code is required')
 
         console.log(formData)
         dispatch(authHospitalSignup({ formData, toast, navigate }))
@@ -185,13 +187,20 @@ const Signup = () => {
                         />
 
                         <div className="mt-5">
-                            <CustomButton
-                                type={'submit'}
-                                title={'Signup'}
-                                textColor={'text-white'}
-                                width={'w-full md:w-full'}
-                                classes={'py-4 text-[14px] rounded-md bg-red-500'}
-                            />
+                            {authRequestStatus === 'PENDING' ? (
+                                <LoadingButtonOne
+                                    loadingType={'one'}
+                                    classes={'py-3 text-[14px] rounded-md bg-red-500 w-full'}
+                                />
+                            ) : (
+                                <CustomButton
+                                    type={'submit'}
+                                    title={'Signup'}
+                                    textColor={'text-white'}
+                                    width={'w-full md:w-full'}
+                                    classes={'py-4 text-[14px] rounded-md bg-red-500'}
+                                />
+                            )}
                         </div>
 
                         <div className="flex justify-center space-x-2 mt-2">

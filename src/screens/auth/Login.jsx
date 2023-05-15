@@ -1,17 +1,19 @@
 import { toast } from 'react-toastify'
 import React, { useReducer } from 'react'
-import { useDispatch } from 'react-redux'
 import { Link, useNavigate } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
 
 import { Background, Logo1 } from '../../assets'
 import { authHospitalSignin } from '../../state/redux/actions/auth.actions'
 import { validateHospitalSignin } from '../../state/validations/auth.validations'
-import { CustomButton, FormPasswordInput, FormTextInput, HeaderText } from '../../components'
+import { CustomButton, FormPasswordInput, FormTextInput, HeaderText, LoadingButtonOne } from '../../components'
 
 
 const Login = () => {
     const dispatch = useDispatch()
     const navigate = useNavigate()
+
+    const { authRequestStatus } = useSelector(state => state.auth)
 
     const [formData, updateFormData] = useReducer((prev, next) => {
         return { ...prev, ...next }
@@ -27,9 +29,9 @@ const Login = () => {
         e.preventDefault()
 
         const message = validateHospitalSignin(formData)
-        if(message) return toast.error(message)
+        if (message) return toast.error(message)
 
-        dispatch(authHospitalSignin({formData, toast, navigate}))
+        dispatch(authHospitalSignin({ formData, toast, navigate }))
         // navigate('/dashboard', { replace: true })
     }
 
@@ -92,13 +94,20 @@ const Login = () => {
                     </div>
 
                     <div className="mt-5">
-                        <CustomButton
-                            type={'submit'}
-                            title={'Login'}
-                            textColor={'text-white'}
-                            width={'w-full md:w-full'}
-                            classes={'py-4 text-[14px] rounded-md bg-red-500'}
-                        />
+                        {authRequestStatus === 'PENDING' ? (
+                            <LoadingButtonOne
+                                loadingType={'one'}
+                                classes={'py-3 text-[14px] rounded-md bg-red-500 w-full'}
+                            />
+                        ) : (
+                            <CustomButton
+                                type={'submit'}
+                                title={'Login'}
+                                textColor={'text-white'}
+                                width={'w-full md:w-full'}
+                                classes={'py-4 text-[14px] rounded-md bg-red-500'}
+                            />
+                        )}
                     </div>
 
                     <div className="flex justify-center space-x-2 mt-2">

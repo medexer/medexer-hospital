@@ -1,27 +1,11 @@
 import React, { useReducer } from 'react'
-import { BsStar } from 'react-icons/bs';
-import { Link } from 'react-router-dom'
-import { LineChart, Line } from 'recharts';
-import { DashboardArt, IconBlood, IconStar } from '../../assets';
-import { CustomButton, HomeMap } from '../../components';
+import { LineChart, Line } from 'recharts'
+
+import { CustomButton } from '../../components'
+import { DashboardArt, IconBlood, IconStar } from '../../assets'
 
 
 const Home = () => {
-    const [formData, updateFormData] = useReducer((prev, next) => {
-        return { ...prev, ...next }
-    }, {
-        email: '', password: '',
-    })
-
-
-    const handleChange = (e) => {
-        updateFormData({ [e.target.name]: e.target.value })
-    }
-
-    const handleSubmit = (e) => {
-        e.preventDefault()
-    }
-
     const data = [
         {
             name: 'Page A',
@@ -69,21 +53,11 @@ const Home = () => {
 
     return (
         <div className='h-full w-full flex flex-col justify-between overflow-y-auto font-poppins scrollbar-1 px-6 pt-4'>
-            <div className="h-full overflow-y-auto mt-5 w-full">
-                {/* <iframe
-                    className='w-full h-full'
-                    // width="600"
-                    // height="900"
-                    style={{ border: '0' }}
-                    loading="lazy"
-                    allowFullScreen=""
-                    referrerPolicy="no-referrer-when-downgrade"
-                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3930.4495615151304!2d8.8562067143908!3d9.89646419292219!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x105373019cc3237b%3A0x5491611e7ca4de00!2sRayfield%20Medical%20Centre%2C%20Jos!5e0!3m2!1sen!2sng!4v1681137494860!5m2!1sen!2sng"
-                ></iframe> */}
+            {/* <div className="h-full overflow-y-auto mt-5 w-full">
                 <HomeMap />
-            </div>
+            </div> */}
 
-            <div className="h-[0%] w-full flex flex-col justify-between items-start mt-10">
+            <div className="w-full flex flex-col justify-between items-start ">
                 <div className="w-[50%] flex justify-start flex-col space-y-4">
                     <div className="flex justify-between items-center">
                         <p className='text-[12px] font-semibold'>Blood Donation History</p>
