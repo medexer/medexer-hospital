@@ -641,10 +641,6 @@ video {
   margin-top: 0.25rem;
 }
 
-.mt-10{
-  margin-top: 2.5rem;
-}
-
 .mt-2{
   margin-top: 0.5rem;
 }
@@ -695,10 +691,6 @@ video {
 
 .h-5{
   height: 1.25rem;
-}
-
-.h-\[0\%\]{
-  height: 0%;
 }
 
 .h-\[200px\]{
