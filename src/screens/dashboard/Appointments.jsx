@@ -1,8 +1,8 @@
 import Lottie from 'lottie-react'
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { Animation2 } from '../../assets'
 
+import { Animation2 } from '../../assets'
 import { AppointmentsTable, HeaderText } from '../../components'
 import { hospitalFetchAppointments } from '../../state/redux/actions/hospital.actions'
 
@@ -31,7 +31,7 @@ const Appointments = () => {
                     data={appointments}
                 />
             )}
-            
+
             {appointments?.length === 0 && (
                 <div className="flex flex-col items-center h-[400px]">
                     <Lottie

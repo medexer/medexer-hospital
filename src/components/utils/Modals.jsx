@@ -9,9 +9,21 @@ const Modals = () => {
 
     return (
         <Fragment>
+            {modals.showPaymentInitializationModal && (
+                <FormModal
+                    type="view__payment__initialization__modal"
+                />
+            )}
+
             {modals.showDonationHistoryModal && (
                 <FormModal
                     type="view__donation__history__modal"
+                />
+            )}
+
+            {modals.showProcessDonationModal && (
+                <FormModal
+                    type="view__process__donation__modal"
                 />
             )}
 

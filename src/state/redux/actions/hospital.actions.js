@@ -1,6 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit"
 
-import { fetchAppointmentsRoute, fetchComplaintsRoute, fetchComplaintThreadRoute, fetchDonorDonationHistoryRoute, fetchInventoryItemHistoryRoute, fetchInventoryItemsRoute, fetchNotificationsRoute, generateComplaintRoute, patchComplaintStatusRoute, patchNotificationRoute, replyComplaintThreadRoute, rescheduleAppointmentRoute, updateInventoryItemUnitsRoute } from "../routes/hospital.routes"
+import { fetchAppointmentsRoute, fetchComplaintsRoute, fetchComplaintThreadRoute, fetchDonorDonationHistoryRoute, fetchInventoryItemHistoryRoute, fetchInventoryItemRecordRoute, fetchInventoryItemsRoute, fetchNotificationsRoute, generateComplaintRoute, initializeDonationPaymentRoute, patchComplaintStatusRoute, patchNotificationRoute, processDonationRoute, referenceDonationPaymentRoute, replyComplaintThreadRoute, rescheduleAppointmentRoute, updateInventoryItemUnitsRoute, verifyDonationPaymentRoute } from "../routes/hospital.routes"
 
 
 export const hospitalFetchAppointments = createAsyncThunk(
@@ -57,11 +57,109 @@ export const hospitalRescheduleAppointment = createAsyncThunk(
 )
 
 
+export const hospitalProcessDonation = createAsyncThunk(
+    'hospital/hospitalProcessDonation',
+    async ({ formData, toast, updateModals }, { rejectWithValue }) => {
+        try {
+            const { data } = await processDonationRoute(formData)
+
+            console.log(data)
+            toast.success('Donation processed successfully')
+            updateModals({ showProcessDonationModal: false })
+
+            return data.data
+        } catch (error) {
+            console.log(error)
+            toast.error('An error occured while processing donation.')
+            return rejectWithValue(null)
+        }
+    }
+)
+
+
+export const hospitalInitializePayment = createAsyncThunk(
+    'hospital/hospitalInitializePayment',
+    async ({ formData, toast, updateModals }, { rejectWithValue }) => {
+        try {
+            const { data } = await initializeDonationPaymentRoute(formData)
+
+            await localStorage.setItem('MDX-PAYMENT-DATA', JSON.stringify(formData))
+
+            console.log(data)
+            updateModals({ showPaymentInitializationModal: false })
+
+            return data.data
+        } catch (error) {
+            console.log(error)
+            updateModals({ showPaymentInitializationModal: false })
+            toast.error('An error occured while initializing payment.')
+            return rejectWithValue(null)
+        }
+    }
+)
+
+
+export const hospitalVerifyPayment = createAsyncThunk(
+    'hospital/hospitalVerifyPayment',
+    async ({ reference }, { rejectWithValue }) => {
+        try {
+            const { data } = await referenceDonationPaymentRoute(reference)
+
+            console.log(data)
+            // toast.error('Payment verif.')
+
+            return data.data.data
+        } catch (error) {
+            console.log(error)
+            toast.error('An error occured while verifying payment.')
+            return rejectWithValue(null)
+        }
+    }
+)
+
+
+export const hospitalGeneratePaymentHistory = createAsyncThunk(
+    'hospital/hospitalGeneratePaymentHistory',
+    async ({ formData, toast, navigate }, { rejectWithValue }) => {
+        try {
+            const { data } = await verifyDonationPaymentRoute(formData)
+
+            console.log(data)
+            navigate('/dashboard', { replace: true })
+            toast.success('Payment verified successfully.')
+
+            return null
+        } catch (error) {
+            console.log(error)
+            toast.error('An error occured while generating payment record.')
+            return rejectWithValue(null)
+        }
+    }
+)
+
+
 export const hospitalFetchInventory = createAsyncThunk(
     'hospital/hospitalFetchInventory',
     async (_, { rejectWithValue }) => {
         try {
             const { data } = await fetchInventoryItemsRoute()
+
+            console.log(data)
+
+            return data.data
+        } catch (error) {
+            console.log(error)
+            return rejectWithValue(null)
+        }
+    }
+)
+
+
+export const hospitalFetchInventoryItemRecord = createAsyncThunk(
+    'hospital/hospitalFetchInventoryItemRecord',
+    async ({ bloodGroup }, { rejectWithValue }) => {
+        try {
+            const { data } = await fetchInventoryItemRecordRoute(bloodGroup)
 
             console.log(data)
 

@@ -1,15 +1,15 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { Fragment } from 'react'
 import { useDispatch } from 'react-redux'
+
 import { IconBlood } from '../../assets'
-
-import { useGlobalState } from '../../state/context'
-import { hospitalResetStateProperty } from '../../state/redux/actions/hospital.actions'
-import BloodGroupInfo from '../labels/BloodGroupInfo'
 import BloodUnitInfo from '../labels/BloodUnitInfo'
+import { useGlobalState } from '../../state/context'
+import BloodGroupInfo from '../labels/BloodGroupInfo'
+import { hospitalResetStateProperty } from '../../state/redux/actions/hospital.actions'
 
 
-const InventoryTable = ({ data, updateConfig }) => {
+const InventoryItemRecordTable = ({ data, updateConfig }) => {
     const dispatch = useDispatch()
 
     const { modals, updateModals } = useGlobalState()
@@ -32,6 +32,18 @@ const InventoryTable = ({ data, updateConfig }) => {
                                         scope="col"
                                         className="text-sm font-medium text-gray-900 py-3 text-left"
                                     >
+                                        Donation ID
+                                    </th>
+                                    <th
+                                        scope="col"
+                                        className="text-sm font-medium text-gray-900 py-3 text-left"
+                                    >
+                                        Donor
+                                    </th>
+                                    <th
+                                        scope="col"
+                                        className="text-sm font-medium text-gray-900 py-3 text-left"
+                                    >
                                         Blood Group
                                     </th>
                                     <th
@@ -39,12 +51,6 @@ const InventoryTable = ({ data, updateConfig }) => {
                                         className="text-sm font-medium text-gray-900 py-3 text-left"
                                     >
                                         Units
-                                    </th>
-                                    <th
-                                        scope="col"
-                                        className="text-sm font-medium text-gray-900 py-3 text-left"
-                                    >
-                                        Recent Activity
                                     </th>
                                     {/* <th
                                         scope="col"
@@ -72,60 +78,28 @@ const InventoryTable = ({ data, updateConfig }) => {
                                         <td className="text-[10px] text-gray-900 font-semibold pl-4 py-3 whitespace-nowrap">
                                             {index + 1}
                                         </td>
-                                        <td className="flex items-center space-x-4 text-sm text-gray-900 font-light py-3 whitespace-nowrap">
-                                            <div className="p-2 rounded-md bg-slate-100">
-                                                <img
-                                                    alt=""
-                                                    src={IconBlood}
-                                                    className='w-[20px] rounded-full'
-                                                />
-                                            </div>
-                                            <BloodGroupInfo
-                                                bloodGroup={item?.bloodGroup}
-                                            />
+                                        <td className="text-sm text-gray-900 font-light py-3 whitespace-nowrap">
+                                            {item.appointmentID}
                                         </td>
                                         <td className="text-sm text-gray-900 font-light py-3 whitespace-nowrap">
-                                            <BloodUnitInfo
-                                                units={item?.bloodUnits}
-                                            />
+                                            {item.donorName}
+                                        </td>
+                                        <td className="text-sm text-gray-900 font-light py-3 whitespace-nowrap">
+                                            {item.bloodGroup}
                                         </td>
                                         <td className="text-[12px] text-gray-900 font-light py-3 whitespace-nowrap">
-                                            {item?.recentActivity ? item?.recentActivity : 'No recent activity'}
+                                            {item.bloodUnits}
                                         </td>
-                                        {/* <td className="items-center space-x-5 text-sm py-3 text-gray-900 font-light whitespace-nowrap">
+                                        <td className="items-center space-x-5 text-sm py-3 text-gray-900 font-light whitespace-nowrap">
                                             <button
                                                 type="submit"
                                                 onClick={() => {
                                                     dispatch(hospitalResetStateProperty({ key: 'InventoryItem', data: item }))
                                                     updateModals({ showUpdateInventoryItemModal: !modals.showUpdateInventoryItemModal })
                                                 }}
-                                                className="bg-sky-600 text-white text-[12px] font-medium py-1 px-4 hover:-translate-x-1 ease-in-out duration-700 transition-all focus:outline-none rounded"
+                                                className="bg-red-600 text-white text-[12px] font-medium py-1 px-4 hover:-translate-x-1 ease-in-out duration-700 transition-all focus:outline-none rounded"
                                             >
-                                                Update
-                                            </button>
-                                        </td> */}
-                                        <td className="items-center space-x-5 text-sm py-3 text-gray-900 font-light whitespace-nowrap">
-                                            <button
-                                                type="submit"
-                                                onClick={() => {
-                                                    dispatch(hospitalResetStateProperty({ key: 'InventoryItem', data: item }))
-                                                    updateConfig({ showInventoryItem: true })
-                                                }}
-                                                className="bg-teal-600 text-white text-[12px] font-medium py-1 px-4 hover:-translate-x-1 ease-in-out duration-700 transition-all focus:outline-none rounded"
-                                            >
-                                                Manage
-                                            </button>
-                                        </td>
-                                        <td className="items-center space-x-5 text-sm py-3 text-gray-900 font-light whitespace-nowrap">
-                                            <button
-                                                type="submit"
-                                                onClick={() => {
-                                                    dispatch(hospitalResetStateProperty({ key: 'InventoryItem', data: item }))
-                                                    updateModals({ showInventoryItemHistoryModal: !modals.showInventoryItemHistoryModal })
-                                                }}
-                                                className="bg-sky-200 text-sky-600 text-[12px] font-medium py-1 px-4 hover:-translate-x-1 ease-in-out duration-700 transition-all focus:outline-none rounded"
-                                            >
-                                                History
+                                                Dispense
                                             </button>
                                         </td>
                                     </tr>
@@ -144,4 +118,4 @@ const InventoryTable = ({ data, updateConfig }) => {
     )
 }
 
-export default InventoryTable
+export default InventoryItemRecordTable

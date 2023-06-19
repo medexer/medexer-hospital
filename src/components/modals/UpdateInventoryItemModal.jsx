@@ -17,12 +17,13 @@ const UpdateInventoryItemModal = () => {
 
     const [formData, updateFormData] = useReducer((prev, next) => {
         return { ...prev, ...next }
-    }, { units: 0, count: 0, bloodGroup: '' })
+    }, {inventoryItem: 0, units: 0, count: 0, bloodGroup: '' })
 
 
     useEffect(() => {
         if (currentInventoryItem) {
             updateFormData({
+                inventoryItem: currentInventoryItem?.pkid,
                 units: currentInventoryItem?.bloodUnits,
                 bloodGroup: currentInventoryItem?.bloodGroup,
             })
@@ -36,6 +37,8 @@ const UpdateInventoryItemModal = () => {
         console.log(formData)
         dispatch(hospitalUpdateInventoryItemUnits({ formData, toast, updateModals }))
     }
+
+    console.log(currentInventoryItem)
 
     return (
         <div className="fixed grid h-screen z-10 bg-[#11111190] place-items-center w-full backdrop-blur-sm">

@@ -7,11 +7,11 @@ import ModalHeader from './ModalHeader'
 import HeaderOne from '../text/HeaderOne'
 import { UserAvatar1 } from '../../assets'
 import { useGlobalState } from '../../state/context'
-import { hospitalRescheduleAppointment } from '../../state/redux/actions/hospital.actions'
-import { validateAppointmentReschedule } from '../../state/validations/hospital.validations'
+import { hospitalProcessDonation } from '../../state/redux/actions/hospital.actions'
+import { validateProcessDonation } from '../../state/validations/hospital.validations'
 
 
-const RescheduleAppointmentModal = () => {
+const ProcessDonationModal = () => {
     const dispatch = useDispatch()
 
     const { modals, updateModals } = useGlobalState()
@@ -19,14 +19,12 @@ const RescheduleAppointmentModal = () => {
 
     const [formData, updateFormData] = useReducer((prev, next) => {
         return { ...prev, ...next }
-    }, { id: 0, date: '', message: '', previousDate: '' })
+    }, { id: 0, donationDate: '', pints: '', })
 
     useEffect(() => {
         if (currentAppointment) {
             updateFormData({
                 id: currentAppointment?.pkid,
-                date: currentAppointment?.date,
-                previousDate: currentAppointment?.date,
             })
         }
     }, [currentAppointment])
@@ -38,11 +36,11 @@ const RescheduleAppointmentModal = () => {
     const handleSubmit = (e) => {
         e.preventDefault()
 
-        const message = validateAppointmentReschedule(formData)
+        const message = validateProcessDonation(formData)
         if (message) return toast.error(message)
         console.log(formData)
 
-        dispatch(hospitalRescheduleAppointment({ formData, toast, updateModals }))
+        dispatch(hospitalProcessDonation({ formData, toast, updateModals }))
     }
 
     return (
@@ -52,12 +50,12 @@ const RescheduleAppointmentModal = () => {
                     <HeaderOne
                         semibold={true}
                         size={'text-[14px]'}
-                        color={'text-sky-600'}
-                        text={`Reschedule Appointment`}
+                        color={'text-teal-600'}
+                        text={`Process Appointment`}
                     />
 
                     <ModalHeader
-                        modalHandler={() => updateModals({ showRescheduleAppointmentModal: !modals.showRescheduleAppointmentModal })}
+                        modalHandler={() => updateModals({ showProcessDonationModal: !modals.showProcessDonationModal })}
                     />
                 </div>
 
@@ -75,53 +73,40 @@ const RescheduleAppointmentModal = () => {
                 </div>
 
                 <form onSubmit={handleSubmit}>
-                    {formData.previousDate && (
-                        <div>
-                            <Label text={'Previous date'} size={'text-[12px]'} />
-                            <input
-                                type="date"
-                                name="date"
-                                disabled
-                                value={formData?.previousDate?.slice(0, 10)}
-                                className="border border-gray-300 placeholder:text-[12px] text-[12px] rounded w-full h-5 px-5 py-5 hover:outline-none focus:outline-none focus:border-gray-600 focus:ring-blue "
-                            />
-                        </div>
-                    )}
                     <div>
                         <div className="flex items-center mt-2">
-                            <Label text={'New date'} size={'text-[12px]'} />
+                            <Label text={'Number of Pints'} size={'text-[12px]'} />
                             <span className='text-red-500'>*</span>
                         </div>
                         <input
-                            type="date"
-                            name="date"
-                            min={new Date().toISOString().slice(0, 10)}
-                            // value={formData?.date?.slice(0, 10)}
+                            type="number"
+                            name="pints"
+                            min={1}
+                            placeholder='Number of Pints'
                             className="border border-gray-300 placeholder:text-[12px] text-[12px] rounded w-full h-5 px-5 py-5 hover:outline-none focus:outline-none focus:border-gray-600 focus:ring-blue "
                             onChange={(e) => handleChange(e)}
                         />
                     </div>
-                    
-                    <div className='mt-2'>
+                    <div>
                         <div className="flex items-center mt-2">
-                            <Label text={'Message'} size={'text-[12px]'} />
+                            <Label text={'Donation Date'} size={'text-[12px]'} />
                             <span className='text-red-500'>*</span>
                         </div>
-                        <textarea
-                            name="message"
-                            rows="4"
-                            placeholder=''
-                            onChange={handleChange}
-                            className='w-full placeholder:text-[12px] text-[12px] bg-white border border-gray-200 rounded resize-none focus:outline-none px-3 py-3 focus:border-gray-600 scrollbar-4'
-                        >
-                        </textarea>
+                        <input
+                            type="date"
+                            name="donationDate"
+                            // min={new Date().toISOString().slice(0, 10)}
+                            max={new Date().toISOString().slice(0, 10)}
+                            className="border border-gray-300 placeholder:text-[12px] text-[12px] rounded w-full h-5 px-5 py-5 hover:outline-none focus:outline-none focus:border-gray-600 focus:ring-blue "
+                            onChange={(e) => handleChange(e)}
+                        />
                     </div>
 
                     <button
                         type="submit"
-                        className="w-full mt-4 bg-sky-600 rounded text-white text-[12px] py-2 px-6 hover:-translate-y-[2px] ease-in-out duration-700 transition-all focus:outline-none"
+                        className="w-full mt-4 bg-teal-600 rounded text-white text-[12px] py-2 px-6 hover:-translate-y-[2px] ease-in-out duration-700 transition-all focus:outline-none"
                     >
-                        Reschedule
+                        Submit
                     </button>
                 </form>
 
@@ -130,4 +115,4 @@ const RescheduleAppointmentModal = () => {
     )
 }
 
-export default RescheduleAppointmentModal
+export default ProcessDonationModal

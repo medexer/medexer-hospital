@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit'
 
-import { hospitalFetchAppointments, hospitalFetchComplaints, hospitalFetchComplaintThread, hospitalFetchDonorDonationHistory, hospitalFetchInventory, hospitalFetchInventoryItemHistory, hospitalFetchNotifications, hospitalGenerateComplaint, hospitalReplyComplaintThread, hospitalRescheduleAppointment, hospitalResetStateProperty, hospitalUpdateComplaintStatus, hospitalUpdateInventoryItemUnits, hospitalUpdateNotification } from '../actions/hospital.actions'
+import { hospitalFetchAppointments, hospitalFetchComplaints, hospitalFetchComplaintThread, hospitalFetchDonorDonationHistory, hospitalFetchInventory, hospitalFetchInventoryItemHistory, hospitalFetchInventoryItemRecord, hospitalFetchNotifications, hospitalGenerateComplaint, hospitalGeneratePaymentHistory, hospitalInitializePayment, hospitalProcessDonation, hospitalReplyComplaintThread, hospitalRescheduleAppointment, hospitalResetStateProperty, hospitalUpdateComplaintStatus, hospitalUpdateInventoryItemUnits, hospitalUpdateNotification, hospitalVerifyPayment } from '../actions/hospital.actions'
 
 
 const hospitalSlice = createSlice({
@@ -16,8 +16,11 @@ const hospitalSlice = createSlice({
         donationHistory: null,
         currentNotification: null,
         inventoryItems: null,
+        inventoryItemRecord: null,
         inventoryItemHistory: null,
         notifications: null,
+        paymentConfiguration: null,
+        paymentVerification: null,
         hospitalLoading: false,
         hospitalRequestStatus: null,
     },
@@ -45,6 +48,53 @@ const hospitalSlice = createSlice({
             state.hospitalLoading = false
         })
 
+        builder.addCase(hospitalProcessDonation.pending, (state, action) => {
+            state.hospitalLoading = true
+        })
+        builder.addCase(hospitalProcessDonation.fulfilled, (state, action) => {
+            state.hospitalLoading = false
+            const index = state.appointments.findIndex(appointment => appointment.id === action.payload.id)
+            state.appointments[index] = action.payload
+        })
+        builder.addCase(hospitalProcessDonation.rejected, (state, action) => {
+            state.hospitalLoading = false
+        })
+
+        builder.addCase(hospitalInitializePayment.pending, (state, action) => {
+            state.hospitalLoading = true
+        })
+        builder.addCase(hospitalInitializePayment.fulfilled, (state, action) => {
+            state.hospitalLoading = false
+            state.paymentConfiguration = action.payload
+        })
+        builder.addCase(hospitalInitializePayment.rejected, (state, action) => {
+            state.hospitalLoading = false
+        })
+
+        builder.addCase(hospitalVerifyPayment.pending, (state, action) => {
+            state.hospitalLoading = true
+        })
+        builder.addCase(hospitalVerifyPayment.fulfilled, (state, action) => {
+            state.hospitalLoading = false
+            state.paymentVerification = action.payload
+        })
+        builder.addCase(hospitalVerifyPayment.rejected, (state, action) => {
+            state.hospitalLoading = false
+        })
+
+        builder.addCase(hospitalGeneratePaymentHistory.pending, (state, action) => {
+            state.hospitalLoading = true
+        })
+        builder.addCase(hospitalGeneratePaymentHistory.fulfilled, (state, action) => {
+            state.hospitalLoading = false
+            state.paymentVerification = null
+        })
+        builder.addCase(hospitalGeneratePaymentHistory.rejected, (state, action) => {
+            state.hospitalLoading = false
+        })
+
+
+
         builder.addCase(hospitalFetchDonorDonationHistory.pending, (state, action) => {
             state.hospitalLoading = true
         })
@@ -69,13 +119,24 @@ const hospitalSlice = createSlice({
             state.hospitalLoading = false
         })
 
+        builder.addCase(hospitalFetchInventoryItemRecord.pending, (state, action) => {
+            state.hospitalLoading = true
+        })
+        builder.addCase(hospitalFetchInventoryItemRecord.fulfilled, (state, action) => {
+            state.hospitalLoading = false
+            state.inventoryItemRecord = action.payload
+        })
+        builder.addCase(hospitalFetchInventoryItemRecord.rejected, (state, action) => {
+            state.hospitalLoading = false
+        })
+
         builder.addCase(hospitalUpdateInventoryItemUnits.pending, (state, action) => {
             state.hospitalLoading = true
         })
         builder.addCase(hospitalUpdateInventoryItemUnits.fulfilled, (state, action) => {
             state.hospitalLoading = false
-            const index = state.inventoryItems.findIndex(item => item.id === action.payload.id)
-            state.inventoryItems[index] = action.payload
+            const index = state.inventoryItemRecord.findIndex(item => item.pkid === action.payload.pkid)
+            state.inventoryItemRecord[index] = action.payload
         })
         builder.addCase(hospitalUpdateInventoryItemUnits.rejected, (state, action) => {
             state.hospitalLoading = false

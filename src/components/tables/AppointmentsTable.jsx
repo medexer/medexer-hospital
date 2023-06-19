@@ -1,17 +1,27 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { Fragment } from 'react'
-import { useDispatch } from 'react-redux'
+import { toast } from 'react-toastify'
+import React, { Fragment, useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+
 import { UserAvatar1 } from '../../assets'
-
 import { useGlobalState } from '../../state/context'
-import { hospitalResetStateProperty } from '../../state/redux/actions/hospital.actions'
 import BloodGroupInfo from '../labels/BloodGroupInfo'
+import { hospitalInitializePayment, hospitalResetStateProperty } from '../../state/redux/actions/hospital.actions'
 
 
-const AppointmentsTable = ({ data, setCurrentPageFetch }) => {
+const AppointmentsTable = ({ data }) => {
     const dispatch = useDispatch()
 
     const { modals, updateModals } = useGlobalState()
+    const { paymentConfiguration } = useSelector(state => state.hospital)
+
+    useEffect(() => {
+        if (paymentConfiguration) {
+            window.location.href = paymentConfiguration?.authorization_url
+        }
+    }, [paymentConfiguration])
+
+    console.log(paymentConfiguration)
 
     return (
         <div className="flex justify-between items-center w-full mt-5 font-poppins">
@@ -69,11 +79,17 @@ const AppointmentsTable = ({ data, setCurrentPageFetch }) => {
                                     >
 
                                     </th>
+                                    <th
+                                        scope="col"
+                                        className="text-[12px] font-medium text-gray-900 py-3 text-left"
+                                    >
+
+                                    </th>
                                 </tr>
                             </thead>
                             <tbody className=' bg-white'>
                                 {data?.map((appointment, index) => (
-                                    <tr key={index}>
+                                    <tr key={index} className='border-b'>
                                         <td className="text-[10px] text-gray-900 font-semibold pl-4 py-3 whitespace-nowrap">
                                             {index + 1}
                                         </td>
@@ -127,6 +143,32 @@ const AppointmentsTable = ({ data, setCurrentPageFetch }) => {
                                             >
                                                 Reschedule
                                             </button>
+                                        </td>
+                                        <td className="items-center space-x-5 text-[12px] py-3 text-gray-900 font-light whitespace-nowrap">
+                                            {!appointment.isDonated && (
+                                                <button
+                                                    type="submit"
+                                                    onClick={() => {
+                                                        updateModals({ showProcessDonationModal: true })
+                                                        dispatch(hospitalResetStateProperty({ key: 'Appointment', data: appointment }))
+                                                    }}
+                                                    className="bg-teal-600 text-white text-[12px] font-medium py-1 px-4 hover:-translate-x-1 ease-in-out duration-700 transition-all focus:outline-none rounded"
+                                                >
+                                                    Process
+                                                </button>
+                                            )}
+                                            {appointment.isDonated && (
+                                                <button
+                                                    type="submit"
+                                                    onClick={() => {
+                                                        updateModals({ showPaymentInitializationModal: true })
+                                                        dispatch(hospitalInitializePayment({ formData: appointment, toast, updateModals }))
+                                                    }}
+                                                    className="bg-teal-600 text-white text-[12px] font-medium py-1 px-4 hover:-translate-x-1 ease-in-out duration-700 transition-all focus:outline-none rounded"
+                                                >
+                                                    Process Payment
+                                                </button>
+                                            )}
                                         </td>
 
                                     </tr>

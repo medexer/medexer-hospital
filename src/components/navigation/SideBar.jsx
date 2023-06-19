@@ -23,13 +23,13 @@ const SideBar = () => {
                 <img
                     src={Logo}
                     alt="icon"
-                    className='w-[35px]'
+                    className='w-[40px]'
                 />
 
                 <h1 className='text-white text-[14px] font-medium'>Medexer</h1>
             </div>
 
-            <div className="flex flex-col mt-5">
+            <div className="flex flex-col mt-5 mb-5">
                 <ul className='relative space-y-'>
                     {SidebarMenuItems?.map((menu, index) => (
                         <li
@@ -49,7 +49,7 @@ const SideBar = () => {
             </div>
             <p
                 onClick={() => dispatch(authLogout({ toast, navigate, updateDashboardConfig }))}
-                className='cursor-pointer flex justify-center items-center text-[14px] text-red-500 space-x-2 font-bold mt-5'
+                className='cursor-pointer flex flex-col md:flex-row justify-center items-center text-[14px] text-red-500 space-x-2 font-semibold mt-5'
             >
                 <FiLogOut />
                 <span>Logout</span>

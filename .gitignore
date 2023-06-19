@@ -106,5 +106,8 @@ dist
 .vscode
 package-lock.json
 *.env.production
+*.env.build
 *.env.development
 yarn.lock
+src-tauri
+./src-tauri

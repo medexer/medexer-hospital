@@ -39,12 +39,12 @@ export const validateHospitalKYBCapture = (data) => {
 
     if (!data.description) message = 'Brief description is required'
 
-    if (typeof(data.logo) !== 'object') message = 'Logo is required, use image/jpeg or image/jpg'
+    if (typeof (data.logo) !== 'object') message = 'Logo is required, use image/jpeg or image/jpg'
 
     return message
 }
 
-export const validateHospitalProfileUpdate = (data) => {
+export const validateHospitalAuthDataUpdate = (data) => {
     let message;
 
     if (!data.hospitalName) message = 'Hospital name is required'
@@ -54,6 +54,24 @@ export const validateHospitalProfileUpdate = (data) => {
     if (!data.currentPassword) message = 'Current password is required'
 
     if (!data.newPassword) message = 'New password is required'
+
+    return message
+}
+
+export const validateHospitalProfileUpdate = (data) => {
+    let message;
+
+    if (!data.address) message = 'Hospital address is required'
+
+    if (!data.state) message = 'State is required'
+
+    if (!data.city_province) message = 'LGA/province is required'
+
+    if (!data.contact_number) message = 'Contact number is required'
+
+    if (!data.hospitalImage) message = 'Hospital image is required'
+
+    if (data.hospitalImage && typeof(data.hospitalImage) !== 'object') message = 'Invalid image'
 
     return message
 }

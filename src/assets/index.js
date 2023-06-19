@@ -22,6 +22,9 @@ import Animation3 from './animations/animation__3.json'
 import Animation4 from './animations/animation__4.json'
 import Animation5 from './animations/animation__5.json'
 import Animation6 from './animations/animation__6.json'
+import Animation7 from './animations/animation__7.json'
+import Animation8 from './animations/animation__8.json'
+import Animation9 from './animations/animation__9.json'
 
 // AVATARS
 import UserAvatar1 from './images/user__avatar__1.png'
@@ -31,6 +34,7 @@ import UserAvatar2 from './images/user__avatar__2.png'
 import Background from './images/bg.jpg'
 import Background1 from './images/bg__1.jpg'
 import Background2 from './images/bg__2.jpg'
+import Hospital from './images/hospital__1.jpg'
 
 // ART
 import DashboardArt from './images/dashboard__art.svg'
@@ -62,6 +66,9 @@ export {
     Animation4,
     Animation5,
     Animation6,
+    Animation7,
+    Animation8,
+    Animation9,
 
 
     // AVATARS
@@ -73,6 +80,7 @@ export {
     Background,
     Background1,
     Background2,
+    Hospital,
 
 
     // ART

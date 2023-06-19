@@ -2,7 +2,7 @@ import axios from 'axios'
 import { decode } from 'html-entities';
 
 
-let USERFROMLS = localStorage.getItem('mdx-user') ? JSON.parse(localStorage.getItem('mdx-user')) : null
+let USERFROMLS = localStorage.getItem('mdx-dnt-center') ? JSON.parse(localStorage.getItem('mdx-dnt-center')) : null
 
 const instance = axios.create({
 	baseURL: import.meta.env.VITE_APP_DEV_API,
@@ -14,7 +14,7 @@ const instance = axios.create({
 
 instance.interceptors.request.use(
 	(req) => {
-		USERFROMLS = localStorage.getItem('mdx-user') ? JSON.parse(localStorage.getItem('mdx-user')) : null
+		USERFROMLS = localStorage.getItem('mdx-dnt-center') ? JSON.parse(localStorage.getItem('mdx-dnt-center')) : null
 		if (USERFROMLS) {
 			console.log(USERFROMLS)
 			req.headers['Authorization'] = `${USERFROMLS.access}`;
@@ -35,6 +35,7 @@ instance.interceptors.response.use(
 		const originalConfig = err.config;
 
 		if (err.response) {
+			console.log(err.response)
 			if (err.response.status === 401) {
 				try {
 					const body = {
@@ -47,8 +48,8 @@ instance.interceptors.response.use(
 					const accessToken = data?.access ? data?.access : null;
 
 					if (accessToken != null) {
-						localStorage.removeItem('mdx-user');
-						localStorage.setItem('mdx-user', JSON.stringify({ ...USERFROMLS, access: data.data.accessToken }));
+						localStorage.removeItem('mdx-dnt-center');
+						localStorage.setItem('mdx-dnt-center', JSON.stringify({ ...USERFROMLS, access: data.data.accessToken }));
 						instance.defaults.headers.common[
 							'Authorization'
 						] = `Bearer ${accessToken}`;
@@ -60,7 +61,7 @@ instance.interceptors.response.use(
 					if (_error.response.status === 401) {
 						alert('Session expired. Please login again!');
 						window.location.href = '/'
-						localStorage.removeItem('mdx-user');
+						localStorage.removeItem('mdx-dnt-center');
 						window.location.reload();
 						return Promise.reject(_error.response.data);
 					}

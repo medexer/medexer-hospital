@@ -1,6 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit"
 
-import { authCaptureKYBRoute, authSigninRoute, authSignupRoute, authUpdateHospitalProfileRoute } from "../routes/auth.routes"
+import { authCaptureKYBRoute, authFetchHospitalProfileRoute, authSigninRoute, authSignupRoute, authUpdateHospitalAuthDataRoute, authUpdateHospitalProfileRoute } from "../routes/auth.routes"
 
 
 export const authHospitalSignup = createAsyncThunk(
@@ -36,7 +36,7 @@ export const authHospitalSignin = createAsyncThunk(
             console.log(data)
 
             toast.success("Login successful")
-            await localStorage.setItem('mdx-user', JSON.stringify(data.data))
+            await localStorage.setItem('mdx-dnt-center', JSON.stringify(data.data))
             navigate('/dashboard', { replace: true })
 
             return data.data
@@ -62,20 +62,69 @@ export const authCaptureHospitalKYB = createAsyncThunk(
             console.log(data)
 
             toast.success("KYC capture successful")
-            const USERFROMLS = localStorage.getItem('mdx-user') ? JSON.parse(localStorage.getItem('mdx-user')) : null
+            const USERFROMLS = localStorage.getItem('mdx-dnt-center') ? JSON.parse(localStorage.getItem('mdx-dnt-center')) : null
 
             const USER = {
                 ...USERFROMLS,
                 hospital: data.data.hospital
             }
 
-            await localStorage.setItem('mdx-user', JSON.stringify(USER))
+            await localStorage.setItem('mdx-dnt-center', JSON.stringify(USER))
             navigate('/dashboard', { replace: true })
 
             return USER
         } catch (error) {
             console.log(error)
             toast.error('An error ocurred during KYB capture')
+            return rejectWithValue(null)
+        }
+    }
+)
+
+
+export const authUpdateHospitalAuthData = createAsyncThunk(
+    'auth/authUpdateHospitalAuthData',
+    async ({ formData, toast }, { rejectWithValue }) => {
+        try {
+            const { data } = await authUpdateHospitalAuthDataRoute(formData)
+
+            console.log(data)
+
+            toast.success("Profile update successful")
+            const USERFROMLS = localStorage.getItem('mdx-dnt-center') ? JSON.parse(localStorage.getItem('mdx-dnt-center')) : null
+
+            const USER = {
+                ...USERFROMLS,
+                hospital: data.data
+            }
+
+            await localStorage.setItem('mdx-dnt-center', JSON.stringify(USER))
+
+            return USER
+        } catch (error) {
+            console.log(error)
+            if (error.response.data.message) {
+                toast.error(error.response.data.message)
+                return rejectWithValue(null)
+            }
+            toast.error('An error ocurred while updating hospital auth data')
+            return rejectWithValue(null)
+        }
+    }
+)
+
+
+export const authFetchHospitalProfile = createAsyncThunk(
+    'auth/authFetchHospitalProfile',
+    async (_, { rejectWithValue }) => {
+        try {
+            const { data } = await authFetchHospitalProfileRoute()
+
+            console.log(data)
+
+            return data.data
+        } catch (error) {
+            console.log(error)
             return rejectWithValue(null)
         }
     }
@@ -91,16 +140,8 @@ export const authUpdateHospitalProfile = createAsyncThunk(
             console.log(data)
 
             toast.success("Profile update successful")
-            const USERFROMLS = localStorage.getItem('mdx-user') ? JSON.parse(localStorage.getItem('mdx-user')) : null
 
-            const USER = {
-                ...USERFROMLS,
-                hospital: data.data
-            }
-
-            await localStorage.setItem('mdx-user', JSON.stringify(USER))
-
-            return USER
+            return data.data
         } catch (error) {
             console.log(error)
             if (error.response.data.message) {
@@ -120,7 +161,7 @@ export const authLogout = createAsyncThunk(
         try {
 
             toast.success("Logout successful")
-            await localStorage.removeItem('mdx-user')
+            await localStorage.removeItem('mdx-dnt-center')
             updateDashboardConfig({ activeLink: 'Home' })
 
             navigate('/', { replace: true })

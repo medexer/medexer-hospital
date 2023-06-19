@@ -7,17 +7,27 @@ import ReadNotificationModal from "../modals/ReadNotificationModal"
 import ReplyComplaintThreadModal from "../modals/ReplyComplaintThreadModal"
 import RescheduleAppointmentModal from "../modals/RescheduleAppointmentModal"
 import UpdateInventoryItemModal from "../modals/UpdateInventoryItemModal"
+import ProcessDonationModal from "../modals/ProcessDonationModal"
+import PaymentInitializationModal from "../modals/PaymentInitializationModal"
 
 
 const FormModal = (props) => {
 	return (
 		<Fragment>
+			{props.type === 'view__payment__initialization__modal' && (
+				<PaymentInitializationModal />
+			)}
+
 			{props.type === 'view__donation__history__modal' && (
 				<DonationHistoryModal />
 			)}
 
 			{props.type === 'view__reschedule__appointment__modal' && (
 				<RescheduleAppointmentModal />
+			)}
+
+			{props.type === 'view__process__donation__modal' && (
+				<ProcessDonationModal />
 			)}
 
 			{props.type === 'view__update__inventory__item__modal' && (

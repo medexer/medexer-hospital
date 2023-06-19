@@ -10,4 +10,10 @@ export const authSigninRoute = (formData) => API.post(`/auth/hospital/signin`, f
 export const authCaptureKYBRoute = (formData) => API.post(`/registration/hospital/kyb-capture`, formData, { headers: { 'Content-Type': 'multipart/form-data' } })
 
 
-export const authUpdateHospitalProfileRoute = (formData) => API.put(`/auth/hospital/update-profile`, formData)
+export const authUpdateHospitalAuthDataRoute = (formData) => API.put(`/auth/hospital/update-profile`, formData)
+
+
+export const authFetchHospitalProfileRoute = () => API.get(`/profile/hospital/fetch`)
+
+
+export const authUpdateHospitalProfileRoute = (formData) => API.put(`/profile/hospital/update`, formData, { headers: { 'Content-Type': 'multipart/form-data' } })

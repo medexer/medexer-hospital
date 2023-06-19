@@ -32,10 +32,12 @@ import FormPasswordInput from "./forms/FormPasswordInput"
 // TABLES
 import InventoryTable from "./tables/InventoryTable"
 import AppointmentsTable from "./tables/AppointmentsTable"
+import InventoryItemRecordTable from "./tables/InventoryItemRecordTable"
 
 // PAGES
 import HomeMap from "./maps/HomeMap"
 import ComplaintInfo from "./complaints/ComplaintInfo"
+import ManageInventoryItem from "./inventory/ManageInventoryItem"
 
 
 export {
@@ -73,8 +75,10 @@ export {
     // TABLES
     InventoryTable,
     AppointmentsTable,
+    InventoryItemRecordTable,
 
     // PAGES
     HomeMap,
     ComplaintInfo,
+    ManageInventoryItem,
 }

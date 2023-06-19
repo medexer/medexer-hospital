@@ -64,8 +64,8 @@ const Home = () => {
                         <p className='text-[12px] text-gray-500'>last 30days</p>
                     </div>
 
-                    <LineChart width={400} height={80} data={data}>
-                        <Line type="monotone" dataKey="pv" stroke="#d88a84" strokeWidth={2} />
+                    <LineChart width={600} height={200} data={data}>
+                        <Line type="monotone" dataKey="uv" stroke="#d88a84" strokeWidth={2} />
                     </LineChart>
 
                     <div className="flex flex-col space-y-5">
@@ -100,7 +100,7 @@ const Home = () => {
                     </div>
                 </div>
 
-                <div className="w-full rounded-xl h-[300px] flex justify-between items-center bg-sky-400 space-y-4">
+                <div className="w-full rounded-xl md:h-[300px] flex flex-wrap justify-between items-center bg-sky-400 space-y-4 mt-4">
                     <div className='flex flex-col space-y-2 justify-center w-[50%] pl-6'>
                         <p className='text-[30px] font-bold text-slate-800'>We are working to constantly improve our service</p>
 
@@ -109,6 +109,13 @@ const Home = () => {
                             title={'Visit our website'}
                             textColor={'text-purple-500'}
                             width={'w-[150px] md:w-[150px]'}
+                            handleClick={() => {
+                                const link = document.createElement('a')
+                                link.href = "https://medexer.com.ng"
+                                link.target = "_blank"
+
+                                link.click()
+                            }}
                             classes={'py-4 text-[14px] font-medium rounded-md bg-white border-2 border-purple-500'}
                         />
                     </div>

@@ -1,8 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit'
-import { authCaptureHospitalKYB, authHospitalSignin, authHospitalSignup, authLogout, authUpdateHospitalProfile } from '../actions/auth.actions'
+import { authCaptureHospitalKYB, authFetchHospitalProfile, authHospitalSignin, authHospitalSignup, authLogout, authUpdateHospitalAuthData, authUpdateHospitalProfile } from '../actions/auth.actions'
 
 
-const USERFROMLS = localStorage.getItem('mdx-user') ? JSON.parse(localStorage.getItem('mdx-user')) : null
+const USERFROMLS = localStorage.getItem('mdx-dnt-center') ? JSON.parse(localStorage.getItem('mdx-dnt-center')) : null
 
 
 const authSlice = createSlice({
@@ -10,6 +10,7 @@ const authSlice = createSlice({
     initialState: {
         user: USERFROMLS ? USERFROMLS : null,
         newHospital: null,
+        hospitalProfile: null,
         authLoading: false,
         authRequestStatus: null,
     },
@@ -54,12 +55,34 @@ const authSlice = createSlice({
 
 
 
+        builder.addCase(authUpdateHospitalAuthData.pending, (state, action) => {
+            state.authLoading = true
+        })
+        builder.addCase(authUpdateHospitalAuthData.fulfilled, (state, action) => {
+            state.authLoading = false
+            state.user = action.payload
+        })
+        builder.addCase(authUpdateHospitalAuthData.rejected, (state, action) => {
+            state.authLoading = false
+        })
+
+        builder.addCase(authFetchHospitalProfile.pending, (state, action) => {
+            state.authLoading = true
+        })
+        builder.addCase(authFetchHospitalProfile.fulfilled, (state, action) => {
+            state.authLoading = false
+            state.hospitalProfile = action.payload
+        })
+        builder.addCase(authFetchHospitalProfile.rejected, (state, action) => {
+            state.authLoading = false
+        })
+
         builder.addCase(authUpdateHospitalProfile.pending, (state, action) => {
             state.authLoading = true
         })
         builder.addCase(authUpdateHospitalProfile.fulfilled, (state, action) => {
             state.authLoading = false
-            state.user = action.payload
+            state.hospitalProfile = action.payload
         })
         builder.addCase(authUpdateHospitalProfile.rejected, (state, action) => {
             state.authLoading = false

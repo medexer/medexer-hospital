@@ -3,7 +3,7 @@ import 'react-toastify/dist/ReactToastify.css'
 import { ToastContainer } from 'react-toastify'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 
-import { Login, Signup, ForgotPassword, ResetPassword, NotFound, PrivateRoute, Dashboard, KnowYourBusiness, } from './screens'
+import { Login, Signup, ForgotPassword, ResetPassword, NotFound, PrivateRoute, Dashboard, KnowYourBusiness, VerifyPayment, } from './screens'
 
 
 const App = () => {
@@ -24,6 +24,9 @@ const App = () => {
 						<Dashboard />
 					</PrivateRoute>
 				} />
+
+				{/* PUBLIC */}
+				<Route path="/payment/verify" element={<VerifyPayment />} />
 
 				{/* 404 */}
 				<Route path='*' element={<NotFound />} />

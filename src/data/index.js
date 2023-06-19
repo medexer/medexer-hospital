@@ -201,9 +201,11 @@ export const SidebarMenuItems = [
 
 export const RootModals = {
     showDonationHistoryModal: false,
+    showProcessDonationModal: false,
+    showPaymentInitializationModal: false,
+    showRescheduleAppointmentModal: false,
     showUpdateInventoryItemModal: false,
     showInventoryItemHistoryModal: false,
-    showRescheduleAppointmentModal: false,
     showCreateComplaintModal: false,
     showReplyComplaintThreadModal: false,
     showReadNotificationModal: false,

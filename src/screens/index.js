@@ -18,6 +18,9 @@ import Complaints from "./dashboard/Complaints"
 import Notifications from "./dashboard/Notifications"
 import Settings from "./dashboard/Settings"
 
+// PUBLIC
+import VerifyPayment from './public/VerifyPayment'
+
 
 export {
     // UTILS
@@ -39,4 +42,7 @@ export {
     Complaints,
     Notifications,
     Settings,
+
+    // PUBLIC
+    VerifyPayment
 }

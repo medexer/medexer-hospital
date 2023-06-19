@@ -47,7 +47,7 @@ const DonationHistoryModal = () => {
                             className="flex items-center space-x-4 border-b py-3"
                         >
                             <p className='text-[12px] font-medium'>{index + 1}</p>
-                            <p className='text-[14px]'>{item.message}</p>
+                            <p className='text-[12px]'>{item.message}</p>
                         </div>
                     ))}
                 </div>

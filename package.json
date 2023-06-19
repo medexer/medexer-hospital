@@ -7,8 +7,7 @@
     "tailwind": "npx tailwindcss -i ./src/index.css -o ./src/output.css --watch",
     "dev": "env-cmd -f .env.development vite & npm run tailwind",
     "build": "vite build",
-    "build-2": "env-cmd -f .env.production vite build",
-    "build-desktop": "env-cmd -f .env.production vite build",
+    "build-desktop": "env-cmd -f .env.development vite build",
     "preview": "vite preview",
     "tauri": "tauri"
   },
