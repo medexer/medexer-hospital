@@ -1,4 +1,4 @@
-import { IconAppointment, IconAppointmentActive, IconComplaint, IconComplaintActive, IconHome, IconHomeActive, IconInventory, IconInventoryActive, IconNotification, IconNotificationActive, IconSettings, IconSettingsActive, UserAvatar1, UserAvatar2 } from "../assets"
+import { IconAppointment, IconAppointmentActive, IconComplaint, IconComplaintActive, IconHome, IconHomeActive, IconInventory, IconInventoryActive, IconNotification, IconNotificationActive, IconPeople, IconPeopleActive, IconSearch, IconSearchActive, IconSettings, IconSettingsActive, UserAvatar1, UserAvatar2 } from "../assets"
 
 export const cat_colors = {
     A: "#EF4444",
@@ -178,6 +178,11 @@ export const SidebarMenuItems = [
         activeIcon: IconAppointmentActive,
     },
     {
+        title: 'Donors',
+        icon: IconPeople,
+        activeIcon: IconPeopleActive,
+    },
+    {
         title: 'Inventory',
         icon: IconInventory,
         activeIcon: IconInventoryActive,
@@ -201,6 +206,10 @@ export const SidebarMenuItems = [
 
 export const RootModals = {
     showDonationHistoryModal: false,
+    showDonorSearchModal: false,
+    showAddMedicalHistoryModal: false,
+    showViewMedicalHistoryModal: false,
+    showDonorProfileModal: false,
     showProcessDonationModal: false,
     showPaymentInitializationModal: false,
     showRescheduleAppointmentModal: false,

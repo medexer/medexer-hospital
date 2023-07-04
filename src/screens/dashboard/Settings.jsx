@@ -30,7 +30,7 @@ const Settings = () => {
         imagePreview: '', hospitalName: '',
         currentPassword: '', newPassword: '',
         email: '', hospitalImage: '', hospitalImagePreview: '', currentHospitalImage: '',
-        address: '', state: '', lga_province: '', contact_number: '', about_hospital: '',
+        address: '', state: '', city_province: '', contact_number: '', about_hospital: '',
     })
 
     useEffect(() => {
@@ -51,7 +51,7 @@ const Settings = () => {
             updateFormData({
                 address: hospitalProfile?.address,
                 state: hospitalProfile?.state,
-                lga_province: hospitalProfile?.lga_province,
+                city_province: hospitalProfile?.city_province,
                 contact_number: hospitalProfile?.contact_number,
                 about_hospital: hospitalProfile?.about_hospital,
             })
@@ -209,7 +209,7 @@ const Settings = () => {
             )}
 
             {config.currentTab === 'Profile' && (
-                <div className="w-full flex flex-wrap md:space-x-10 mt-5">
+                <div className="w-full flex md:space-x-10 mt-5">
                     <div className="flex justify-center relative md:w-[40%] h-[400px] mx-auto md:mx-0">
                         <img
                             alt=""

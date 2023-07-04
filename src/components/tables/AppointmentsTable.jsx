@@ -90,10 +90,22 @@ const AppointmentsTable = ({ data }) => {
                             <tbody className=' bg-white'>
                                 {data?.map((appointment, index) => (
                                     <tr key={index} className='border-b'>
-                                        <td className="text-[10px] text-gray-900 font-semibold pl-4 py-3 whitespace-nowrap">
+                                        <td
+                                            onClick={() => {
+                                                dispatch(hospitalResetStateProperty({ key: 'DonorProfile', data: appointment?.donorInfo }))
+                                                updateModals({ showDonorProfileModal: !modals.showDonorProfileModal })
+                                            }}
+                                            className="text-[10px] text-gray-900 font-semibold pl-4 py-3 whitespace-nowrap cursor-pointer"
+                                        >
                                             {index + 1}
                                         </td>
-                                        <td className="flex items-center space-x-4 text-[12px] text-gray-900 font-light py-3 whitespace-nowrap">
+                                        <td
+                                            onClick={() => {
+                                                dispatch(hospitalResetStateProperty({ key: 'DonorProfile', data: appointment?.donorInfo }))
+                                                updateModals({ showDonorProfileModal: !modals.showDonorProfileModal })
+                                            }}
+                                            className="flex items-center space-x-4 text-[12px] text-gray-900 font-light py-3 whitespace-nowrap cursor-pointer"
+                                        >
                                             <div className="p-2 rounded-md bg-slate-100">
                                                 <img
                                                     alt=""
@@ -106,18 +118,42 @@ const AppointmentsTable = ({ data }) => {
                                                 <p className='font-medium text-gray-400 text-[12px]'>{appointment?.donorInfo?.gender ? appointment?.donorInfo?.gender : 'Male'}</p>
                                             </div>
                                         </td>
-                                        <td className="text-[12px] text-gray-900 font-light py-3 whitespace-nowrap">
+                                        <td
+                                            onClick={() => {
+                                                dispatch(hospitalResetStateProperty({ key: 'DonorProfile', data: appointment?.donorInfo }))
+                                                updateModals({ showDonorProfileModal: !modals.showDonorProfileModal })
+                                            }}
+                                            className="text-[12px] text-gray-900 font-light py-3 whitespace-nowrap cursor-pointer"
+                                        >
                                             {appointment?.donorInfo?.donorId}
                                         </td>
-                                        <td className="text-[12px] text-gray-900 font-light py-3 whitespace-nowrap">
+                                        <td
+                                            onClick={() => {
+                                                dispatch(hospitalResetStateProperty({ key: 'DonorProfile', data: appointment?.donorInfo }))
+                                                updateModals({ showDonorProfileModal: !modals.showDonorProfileModal })
+                                            }}
+                                            className="text-[12px] text-gray-900 font-light py-3 whitespace-nowrap cursor-pointer"
+                                        >
                                             <BloodGroupInfo
                                                 bloodGroup={appointment?.donorInfo?.bloodGroup}
                                             />
                                         </td>
-                                        <td className="text-[12px] text-gray-900 font-light py-3 whitespace-nowrap">
+                                        <td
+                                            onClick={() => {
+                                                dispatch(hospitalResetStateProperty({ key: 'DonorProfile', data: appointment?.donorInfo }))
+                                                updateModals({ showDonorProfileModal: !modals.showDonorProfileModal })
+                                            }}
+                                            className="text-[12px] text-gray-900 font-light py-3 whitespace-nowrap cursor-pointer"
+                                        >
                                             {appointment?.date?.slice(0, 10)}
                                         </td>
-                                        <td className="text-[12px] text-gray-900 font-light py-3 whitespace-nowrap">
+                                        <td
+                                            onClick={() => {
+                                                dispatch(hospitalResetStateProperty({ key: 'DonorProfile', data: appointment?.donorInfo }))
+                                                updateModals({ showDonorProfileModal: !modals.showDonorProfileModal })
+                                            }}
+                                            className="text-[12px] text-gray-900 font-light py-3 whitespace-nowrap cursor-pointer"
+                                        >
                                             {appointment?.recentActivity}
                                         </td>
                                         <td className="items-center space-x-5 text-[12px] py-3 text-gray-900 font-light whitespace-nowrap">
@@ -148,6 +184,7 @@ const AppointmentsTable = ({ data }) => {
                                             {!appointment.isDonated && (
                                                 <button
                                                     type="submit"
+                                                    disabled={appointment?.date?.slice(0, 10) !== new Date().toISOString().slice(0, 10)}
                                                     onClick={() => {
                                                         updateModals({ showProcessDonationModal: true })
                                                         dispatch(hospitalResetStateProperty({ key: 'Appointment', data: appointment }))

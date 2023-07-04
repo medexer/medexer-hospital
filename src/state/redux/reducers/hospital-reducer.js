@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit'
 
-import { hospitalFetchAppointments, hospitalFetchComplaints, hospitalFetchComplaintThread, hospitalFetchDonorDonationHistory, hospitalFetchInventory, hospitalFetchInventoryItemHistory, hospitalFetchInventoryItemRecord, hospitalFetchNotifications, hospitalGenerateComplaint, hospitalGeneratePaymentHistory, hospitalInitializePayment, hospitalProcessDonation, hospitalReplyComplaintThread, hospitalRescheduleAppointment, hospitalResetStateProperty, hospitalUpdateComplaintStatus, hospitalUpdateInventoryItemUnits, hospitalUpdateNotification, hospitalVerifyPayment } from '../actions/hospital.actions'
+import { hospitalAddDonorMedicalHistory, hospitalFetchAppointments, hospitalFetchComplaints, hospitalFetchComplaintThread, hospitalFetchDonorDonationHistory, hospitalFetchDonorMedicalHistory, hospitalFetchInventory, hospitalFetchInventoryItemHistory, hospitalFetchInventoryItemRecord, hospitalFetchMedicalHistoryDonors, hospitalFetchNotifications, hospitalFetchRecentDonorAppointments, hospitalGenerateComplaint, hospitalGeneratePaymentHistory, hospitalInitializePayment, hospitalProcessDonation, hospitalReplyComplaintThread, hospitalRescheduleAppointment, hospitalResetStateProperty, hospitalSearchDonors, hospitalUpdateComplaintStatus, hospitalUpdateInventoryItemUnits, hospitalUpdateNotification, hospitalVerifyPayment } from '../actions/hospital.actions'
 
 
 const hospitalSlice = createSlice({
@@ -9,8 +9,12 @@ const hospitalSlice = createSlice({
         appointments: null,
         complaints: null,
         complaintThread: null,
+        currentDonor: null,
+        donors: null,
         currentAppointment: null,
         currentComplaint: null,
+        currentDonorProfile: null,
+        currentMedicalHistory: null,
         currentInventoryItem: null,
         complaintStatusUpdate: null,
         donationHistory: null,
@@ -18,13 +22,75 @@ const hospitalSlice = createSlice({
         inventoryItems: null,
         inventoryItemRecord: null,
         inventoryItemHistory: null,
+        medicalHistory: null,
         notifications: null,
+        searchResults: null,
         paymentConfiguration: null,
         paymentVerification: null,
+        recentAppointments: null,
         hospitalLoading: false,
         hospitalRequestStatus: null,
     },
     extraReducers: (builder) => {
+        builder.addCase(hospitalSearchDonors.pending, (state, action) => {
+            state.hospitalLoading = true
+        })
+        builder.addCase(hospitalSearchDonors.fulfilled, (state, action) => {
+            state.hospitalLoading = false
+            state.searchResults = action.payload
+        })
+        builder.addCase(hospitalSearchDonors.rejected, (state, action) => {
+            state.hospitalLoading = false
+        })
+
+
+
+        builder.addCase(hospitalFetchMedicalHistoryDonors.pending, (state, action) => {
+            state.hospitalLoading = true
+        })
+        builder.addCase(hospitalFetchMedicalHistoryDonors.fulfilled, (state, action) => {
+            state.hospitalLoading = false
+            state.donors = action.payload
+        })
+        builder.addCase(hospitalFetchMedicalHistoryDonors.rejected, (state, action) => {
+            state.hospitalLoading = false
+        })
+
+        builder.addCase(hospitalFetchDonorMedicalHistory.pending, (state, action) => {
+            state.hospitalLoading = true
+        })
+        builder.addCase(hospitalFetchDonorMedicalHistory.fulfilled, (state, action) => {
+            state.hospitalLoading = false
+            state.medicalHistory = action.payload
+        })
+        builder.addCase(hospitalFetchDonorMedicalHistory.rejected, (state, action) => {
+            state.hospitalLoading = false
+        })
+
+        builder.addCase(hospitalFetchRecentDonorAppointments.pending, (state, action) => {
+            state.hospitalLoading = true
+        })
+        builder.addCase(hospitalFetchRecentDonorAppointments.fulfilled, (state, action) => {
+            state.hospitalLoading = false
+            state.recentAppointments = action.payload
+        })
+        builder.addCase(hospitalFetchRecentDonorAppointments.rejected, (state, action) => {
+            state.hospitalLoading = false
+        })
+
+        builder.addCase(hospitalAddDonorMedicalHistory.pending, (state, action) => {
+            state.hospitalLoading = true
+        })
+        builder.addCase(hospitalAddDonorMedicalHistory.fulfilled, (state, action) => {
+            state.hospitalLoading = false
+            state.medicalHistory = [action.payload, ...state.medicalHistory]
+        })
+        builder.addCase(hospitalAddDonorMedicalHistory.rejected, (state, action) => {
+            state.hospitalLoading = false
+        })
+
+
+
         builder.addCase(hospitalFetchAppointments.pending, (state, action) => {
             state.hospitalLoading = true
         })
@@ -135,8 +201,9 @@ const hospitalSlice = createSlice({
         })
         builder.addCase(hospitalUpdateInventoryItemUnits.fulfilled, (state, action) => {
             state.hospitalLoading = false
-            const index = state.inventoryItemRecord.findIndex(item => item.pkid === action.payload.pkid)
-            state.inventoryItemRecord[index] = action.payload
+            // const index = state.inventoryItemRecord.findIndex(item => item.pkid === action.payload.pkid)
+            // state.inventoryItemRecord[index] = action.payload
+            state.inventoryItemRecord = state.inventoryItemRecord.filter(item => item.pkid !== action.payload.pkid)
         })
         builder.addCase(hospitalUpdateInventoryItemUnits.rejected, (state, action) => {
             state.hospitalLoading = false
@@ -247,14 +314,26 @@ const hospitalSlice = createSlice({
             if (action.payload.key === 'Appointment') {
                 state.currentAppointment = action.payload.data
             }
+            if (action.payload.key === 'DonorProfile') {
+                state.currentDonorProfile = action.payload.data
+            }
+            if (action.payload.key === 'MedicalHistory') {
+                state.currentMedicalHistory = action.payload.data
+            }
             if (action.payload.key === 'InventoryItem') {
                 state.currentInventoryItem = action.payload.data
             }
             if (action.payload.key === 'CurrentComplaint') {
                 state.currentComplaint = action.payload.data
             }
+            if (action.payload.key === 'CurrentDonor') {
+                state.currentDonor = action.payload.data
+            }
             if (action.payload.key === 'CurrentNotification') {
                 state.currentNotification = action.payload.data
+            }
+            if (action.payload.key === 'Reset-Search-Results') {
+                state.searchResults = action.payload.data
             }
         })
         builder.addCase(hospitalResetStateProperty.rejected, (state, action) => {

@@ -1,6 +1,95 @@
 import { createAsyncThunk } from "@reduxjs/toolkit"
 
-import { fetchAppointmentsRoute, fetchComplaintsRoute, fetchComplaintThreadRoute, fetchDonorDonationHistoryRoute, fetchInventoryItemHistoryRoute, fetchInventoryItemRecordRoute, fetchInventoryItemsRoute, fetchNotificationsRoute, generateComplaintRoute, initializeDonationPaymentRoute, patchComplaintStatusRoute, patchNotificationRoute, processDonationRoute, referenceDonationPaymentRoute, replyComplaintThreadRoute, rescheduleAppointmentRoute, updateInventoryItemUnitsRoute, verifyDonationPaymentRoute } from "../routes/hospital.routes"
+import { fetchMedicalHistoryDonorsRoute, fetchAppointmentsRoute, fetchComplaintsRoute, fetchComplaintThreadRoute, fetchDonorDonationHistoryRoute, fetchInventoryItemHistoryRoute, fetchInventoryItemRecordRoute, fetchInventoryItemsRoute, fetchNotificationsRoute, generateComplaintRoute, initializeDonationPaymentRoute, patchComplaintStatusRoute, patchNotificationRoute, processDonationRoute, referenceDonationPaymentRoute, replyComplaintThreadRoute, rescheduleAppointmentRoute, updateInventoryItemUnitsRoute, verifyDonationPaymentRoute, fetchDonorMedicalHistoryRoute, fetchRecentDonorAppointmentsRoute, fetchAddDonorMedicalHistoryRoute, searchDonorsRoute } from "../routes/hospital.routes"
+
+
+export const hospitalSearchDonors = createAsyncThunk(
+    'hospital/hospitalSearchDonors',
+    async ({ query }, { rejectWithValue }) => {
+        try {
+            const { data } = await searchDonorsRoute(query)
+
+            console.log(data)
+
+            return data.data
+        } catch (error) {
+            console.log(error)
+            return rejectWithValue(null)
+        }
+    }
+)
+
+
+export const hospitalFetchMedicalHistoryDonors = createAsyncThunk(
+    'hospital/hospitalFetchMedicalHistoryDonors',
+    async (_, { rejectWithValue }) => {
+        try {
+            const { data } = await fetchMedicalHistoryDonorsRoute()
+
+            console.log(data)
+
+            return data.data
+        } catch (error) {
+            console.log(error)
+            return rejectWithValue(null)
+        }
+    }
+)
+
+
+export const hospitalFetchDonorMedicalHistory = createAsyncThunk(
+    'hospital/hospitalFetchDonorMedicalHistory',
+    async ({ donor }, { rejectWithValue }) => {
+        try {
+            const { data } = await fetchDonorMedicalHistoryRoute(donor)
+
+            console.log(data)
+
+            return data.data
+        } catch (error) {
+            console.log(error)
+            return rejectWithValue(null)
+        }
+    }
+)
+
+
+export const hospitalFetchRecentDonorAppointments = createAsyncThunk(
+    'hospital/hospitalFetchRecentDonorAppointments',
+    async ({ donor }, { rejectWithValue }) => {
+        try {
+            const { data } = await fetchRecentDonorAppointmentsRoute(donor)
+
+            console.log(data)
+
+            return data.data
+        } catch (error) {
+            console.log(error)
+            return rejectWithValue(null)
+        }
+    }
+)
+
+
+export const hospitalAddDonorMedicalHistory = createAsyncThunk(
+    'hospital/hospitalAddDonorMedicalHistory',
+    async ({ formData, toast, updateModals }, { rejectWithValue }) => {
+        try {
+            const { data } = await fetchAddDonorMedicalHistoryRoute(formData)
+
+            console.log(data)
+            toast.success('Medical history added successfully')
+
+            updateModals({ showAddMedicalHistoryModal: false })
+
+            return data.data
+        } catch (error) {
+            console.log(error)
+            toast.error('An error occured while adding donor medical history.')
+            return rejectWithValue(null)
+        }
+    }
+)
 
 
 export const hospitalFetchAppointments = createAsyncThunk(

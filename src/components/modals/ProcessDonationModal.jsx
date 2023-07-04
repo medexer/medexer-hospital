@@ -19,7 +19,7 @@ const ProcessDonationModal = () => {
 
     const [formData, updateFormData] = useReducer((prev, next) => {
         return { ...prev, ...next }
-    }, { id: 0, donationDate: '', pints: '', })
+    }, { id: 0, donationDate: '', pints: 1, bloodGroup: '' })
 
     useEffect(() => {
         if (currentAppointment) {
@@ -45,12 +45,12 @@ const ProcessDonationModal = () => {
 
     return (
         <div className="fixed grid h-screen z-10 bg-[#11111190] place-items-center w-full backdrop-blur-sm">
-            <div className="bg-white w-[600px] px-[30px] py-[20px]">
+            <div className="bg-white rounded-md w-[600px] px-[30px] py-[20px]">
                 <div className="flex justify-between items-center">
                     <HeaderOne
                         semibold={true}
                         size={'text-[14px]'}
-                        color={'text-teal-600'}
+                        color={'text-sky-600'}
                         text={`Process Appointment`}
                     />
 
@@ -75,16 +75,48 @@ const ProcessDonationModal = () => {
                 <form onSubmit={handleSubmit}>
                     <div>
                         <div className="flex items-center mt-2">
+                            <Label text={'Blood Group'} size={'text-[12px]'} />
+                            <span className='text-red-500'>*</span>
+                        </div>
+                        {/* <select
+                            name="bloodGroup"
+                            placeholder='Blood Group'
+                            value={formData.bloodGroup}
+                            onChange={(e) => handleChange(e)}
+                            className="border border-gray-300 text-black placeholder:text-[12px] text-[12px] rounded w-full h-5 px-5 py-5 hover:outline-none focus:outline-none focus:border-gray-600 focus:ring-blue "
+                        >
+                            <option value="Blood Group" className='text-black'>Blood Group</option>
+                            {['O+', 'O-', 'A+', 'A-', 'B+', 'B-', 'AB+', 'AB-'].map((group, index) => (
+                                <option
+                                    key={index}
+                                    value={group}
+                                    className='text-black'
+                                >{group}</option>
+                            ))}
+                        </select> */}
+                        <input
+                            type='text'
+                            name="bloodGroup"
+                            placeholder='Blood Group'
+                            onChange={(e) => handleChange(e)}
+                            className="border border-gray-300 text-black placeholder:text-[12px] text-[12px] rounded w-full h-5 px-5 py-5 hover:outline-none focus:outline-none focus:border-gray-600 focus:ring-blue "
+                        />
+                    </div>
+                    <div>
+                        <div className="flex items-center mt-2">
                             <Label text={'Number of Pints'} size={'text-[12px]'} />
                             <span className='text-red-500'>*</span>
                         </div>
                         <input
+                            min={1}
+                            max={1}
                             type="number"
                             name="pints"
-                            min={1}
+                            disabled
+                            value={1}
                             placeholder='Number of Pints'
+                            // onChange={(e) => handleChange(e)}
                             className="border border-gray-300 placeholder:text-[12px] text-[12px] rounded w-full h-5 px-5 py-5 hover:outline-none focus:outline-none focus:border-gray-600 focus:ring-blue "
-                            onChange={(e) => handleChange(e)}
                         />
                     </div>
                     <div>
@@ -95,7 +127,7 @@ const ProcessDonationModal = () => {
                         <input
                             type="date"
                             name="donationDate"
-                            // min={new Date().toISOString().slice(0, 10)}
+                            min={new Date().toISOString().slice(0, 10)}
                             max={new Date().toISOString().slice(0, 10)}
                             className="border border-gray-300 placeholder:text-[12px] text-[12px] rounded w-full h-5 px-5 py-5 hover:outline-none focus:outline-none focus:border-gray-600 focus:ring-blue "
                             onChange={(e) => handleChange(e)}
@@ -104,7 +136,7 @@ const ProcessDonationModal = () => {
 
                     <button
                         type="submit"
-                        className="w-full mt-4 bg-teal-600 rounded text-white text-[12px] py-2 px-6 hover:-translate-y-[2px] ease-in-out duration-700 transition-all focus:outline-none"
+                        className="w-full mt-4 bg-sky-600 rounded text-white text-[12px] py-2 px-6 hover:-translate-y-[2px] ease-in-out duration-700 transition-all focus:outline-none"
                     >
                         Submit
                     </button>

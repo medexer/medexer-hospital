@@ -1,6 +1,21 @@
 import { API } from "../config"
 
 
+export const searchDonorsRoute = (query) => API.get(`/hospital/donors/${query}/search`)
+
+
+export const fetchMedicalHistoryDonorsRoute = () => API.get(`/medical-data/hospital/donors/fetch-all`)
+
+
+export const fetchDonorMedicalHistoryRoute = (donor) => API.get(`/medical-data/hospital/${donor}/medical-history/fetch-all`)
+
+
+export const fetchRecentDonorAppointmentsRoute = (donor) => API.get(`/medical-data/hospital/${donor}/recent-appointments`)
+
+
+export const fetchAddDonorMedicalHistoryRoute = (formData) => API.post(`/medical-data/hospital/${formData.donor}/${formData.appointment}/medical-history/add`, formData)
+
+
 export const fetchAppointmentsRoute = () => API.get(`/hospital/appointments`)
 
 

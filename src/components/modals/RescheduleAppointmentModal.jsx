@@ -47,7 +47,7 @@ const RescheduleAppointmentModal = () => {
 
     return (
         <div className="fixed grid h-screen z-10 bg-[#11111190] place-items-center w-full backdrop-blur-sm">
-            <div className="bg-white w-[600px] px-[30px] py-[20px]">
+            <div className="bg-white rounded-md w-[600px] px-[30px] py-[20px]">
                 <div className="flex justify-between items-center">
                     <HeaderOne
                         semibold={true}
@@ -64,13 +64,11 @@ const RescheduleAppointmentModal = () => {
                 <div className="my-2 flex items-center space-x-5">
                     <img
                         alt="avatar"
-                        src={UserAvatar1}
-                        className='rounded-full w-[80px]'
+                        src={`${import.meta.env.VITE_APP_DEV_API_ROOT}${currentAppointment?.donorInfo?.avatar}`}
+                        className='rounded-md w-[100px] h-[100px]'
                     />
                     <div className="flex flex-col">
                         <p className="text-[14px] font-medium">{currentAppointment?.donorInfo?.fullName}</p>
-                        <p className="text-[12px] font-medium text-gray-600">Blood Group: <span className="text-black font-semibold">{currentAppointment?.donorInfo?.bloodGroup}</span></p>
-                        {/* <p className="text-[12px] font-medium text-gray-600">{currentAppointment?.phone}</p> */}
                     </div>
                 </div>
 

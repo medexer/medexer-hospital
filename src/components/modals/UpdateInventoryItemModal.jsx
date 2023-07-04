@@ -17,7 +17,7 @@ const UpdateInventoryItemModal = () => {
 
     const [formData, updateFormData] = useReducer((prev, next) => {
         return { ...prev, ...next }
-    }, {inventoryItem: 0, units: 0, count: 0, bloodGroup: '' })
+    }, { inventoryItem: 0, units: 0, count: 0, bloodGroup: '' })
 
 
     useEffect(() => {
@@ -42,7 +42,7 @@ const UpdateInventoryItemModal = () => {
 
     return (
         <div className="fixed grid h-screen z-10 bg-[#11111190] place-items-center w-full backdrop-blur-sm">
-            <div className="bg-white w-[500px] px-[30px] py-[20px]">
+            <div className="bg-white rounded-md w-[500px] px-[30px] py-[20px]">
                 <div className="flex justify-between items-center">
                     <div className="flex items-center space-x-2">
                         <img
@@ -67,8 +67,8 @@ const UpdateInventoryItemModal = () => {
                     <div className='flex justify-center space-x-10 items-center my-10'>
                         <div
                             onClick={() => {
-                                if (formData.units === 0) return
-                                updateFormData({ units: formData.units - 1, count: parseInt(formData.count + 1) })
+                                // if (formData.units === 0) return
+                                // updateFormData({ units: formData.units - 1, count: parseInt(formData.count + 1) })
                             }}
                             className='border rounded-md px-4 py-2 cursor-pointer'
                         >
@@ -82,8 +82,9 @@ const UpdateInventoryItemModal = () => {
                         />
 
                         <div
+                            disabled
                             onClick={() => {
-                                updateFormData({ units: formData.units + 1, count: parseInt(formData.count + 1) })
+                                // updateFormData({ units: formData.units + 1, count: parseInt(formData.count + 1) })
                             }}
                             className='border rounded-md px-4 py-2 cursor-pointer'
                         >

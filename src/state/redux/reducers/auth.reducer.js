@@ -17,13 +17,16 @@ const authSlice = createSlice({
     extraReducers: (builder) => {
         builder.addCase(authHospitalSignup.pending, (state, action) => {
             state.authLoading = true
+            state.authRequestStatus = 'PENDING'
         })
         builder.addCase(authHospitalSignup.fulfilled, (state, action) => {
             state.authLoading = false
+            state.authRequestStatus = 'SUCCESS'
             state.newHospital = action.payload
         })
         builder.addCase(authHospitalSignup.rejected, (state, action) => {
             state.authLoading = false
+            state.authRequestStatus = ''
         })
 
         builder.addCase(authHospitalSignin.pending, (state, action) => {

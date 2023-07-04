@@ -1,16 +1,39 @@
-import React from 'react'
+import Lottie from 'lottie-react'
+import React, { useEffect } from 'react'
 import { Wrapper } from "@googlemaps/react-wrapper"
+import { useDispatch, useSelector } from 'react-redux'
 
 import Map from './Map'
-import MapMarker from './MapMarker';
+import MapMarker from './MapMarker'
+import { Animation10 } from '../../assets'
+import { authFetchHospitalProfile } from '../../state/redux/actions/auth.actions'
 
 
 const HomeMap = () => {
-    const [zoom, setZoom] = React.useState(12)
+    const dispatch = useDispatch()
+
+    const { searchResults } = useSelector(state => state.hospital)
+    const { hospitalProfile } = useSelector(state => state.auth)
+
+    const [clicks, setClicks] = React.useState([]);
+    const [zoom, setZoom] = React.useState(13)
     const [center, setCenter] = React.useState({
         lat: 9.8965,
         lng: 8.8583,
     });
+
+    useEffect(() => {
+        dispatch(authFetchHospitalProfile())
+    }, [])
+
+    useEffect(() => {
+        if(hospitalProfile){
+            setCenter({
+                lat: parseFloat(hospitalProfile?.latitude),
+                lng: parseFloat(hospitalProfile?.longitude),
+            })
+        }
+    }, [hospitalProfile])
 
     const onMapClick = (e) => {
         // avoid directly mutating state
@@ -20,30 +43,38 @@ const HomeMap = () => {
     const onMapIdle = (m) => {
         //console.log("onIdle");
         setZoom(m.getZoom());
-        setCenter(m.getCenter().toJSON());
+        setCenter(m.getCenter()?.toJSON());
     };
 
     const renderMap = (status) => {
-        return <span className='text-center text-gray-500'>
-            <p className='py-[30vh] text-3xl font-medium'>Map Status is: {status}</p>
-        </span>;
+        return <div className="flex flex-col items-center h-[400px]">
+            <Lottie
+                loop={true}
+                className='h-full'
+                animationData={Animation10}
+            />
+        </div>
     };
+
+
+    console.log(searchResults)
 
     return (
         <Wrapper apiKey={import.meta.env.VITE_APP_DEV_MAPS_API_KEY} render={renderMap}>
             <Map
+                disableDefaultUI={true}
                 center={center}
                 onClick={onMapClick}
                 onIdle={onMapIdle}
                 zoom={zoom}
                 mapTypeId={"roadmap"}
-                streetViewControl={false}
                 mapTypeControl={false}
+                streetViewControl={false}
                 style={{ flexGrow: "1", height: "100%" }}
             >
-                <MapMarker data={[]} />
+                <MapMarker data={searchResults} />
             </Map>
-        </Wrapper>
+        </Wrapper >
     )
 }
 

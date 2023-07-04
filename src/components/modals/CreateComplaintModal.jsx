@@ -35,12 +35,12 @@ const CreateComplaintModal = () => {
 
     return (
         <div className="fixed grid h-screen z-10 bg-[#11111190] place-items-center w-full backdrop-blur-sm">
-            <div className="bg-white w-[500px] px-[30px] py-[20px]">
+            <div className="bg-white rounded-md w-[500px] px-[30px] py-[20px]">
                 <div className="flex justify-between items-center">
                     <HeaderOne
                         semibold={true}
                         size={'text-[14px]'}
-                        color={'text-teal-600'}
+                        color={'text-sky-600'}
                         text={`Generate Complaint`}
                     />
 
@@ -80,7 +80,7 @@ const CreateComplaintModal = () => {
 
                     <button
                         type="submit"
-                        className="w-full mt-4 bg-teal-600 rounded text-white text-[12px] py-2 px-6 hover:-translate-y-[2px] ease-in-out duration-700 transition-all focus:outline-none"
+                        className="w-full mt-4 bg-sky-600 rounded text-white text-[12px] py-2 px-6 hover:-translate-y-[2px] ease-in-out duration-700 transition-all focus:outline-none"
                     >
                         Submit
                     </button>

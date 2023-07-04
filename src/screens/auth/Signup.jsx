@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { Background, Logo1 } from '../../assets'
 import { authHospitalSignup } from '../../state/redux/actions/auth.actions'
 import { validateHospitalSignup } from '../../state/validations/auth.validations'
-import { CustomButton, FormPasswordInput, FormTextInput, HeaderText } from '../../components'
+import { CustomButton, FormPasswordInput, FormTextInput, HeaderText, LoadingButtonOne } from '../../components'
 
 
 const Signup = () => {

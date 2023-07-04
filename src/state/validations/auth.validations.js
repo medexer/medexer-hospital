@@ -33,13 +33,23 @@ export const validateHospitalSignup = (data) => {
 export const validateHospitalKYBCapture = (data) => {
     let message;
 
-    if (!data.cacRegistrationID) message = 'CAC registration ID is required'
+    // if (!data.business_type) message = 'Business type is required'
 
-    if (!data.address) message = 'Address is required'
+    // if (!data.incorporation_date) message = 'Business incorporation date is required'
 
-    if (!data.description) message = 'Brief description is required'
+    // if (!data.cacRegistrationID) message = 'Business registration ID is required'
 
-    if (typeof (data.logo) !== 'object') message = 'Logo is required, use image/jpeg or image/jpg'
+    if (!data.address) message = 'Business address is required'
+
+    if (!data.state) message = 'Business state is required'
+
+    if (typeof (data.hospitalImage) !== 'object') message = 'Business image is required'
+
+    if (!data.city_province) message = 'Business city/Province is required'
+
+    // if (!data.description) message = 'Business description is required'
+
+    // if (typeof (data.logo) !== 'object') message = 'Logo is required, use image/jpeg or image/jpg'
 
     return message
 }

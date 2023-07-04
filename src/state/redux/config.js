@@ -8,7 +8,7 @@ const instance = axios.create({
 	baseURL: import.meta.env.VITE_APP_DEV_API,
 	headers: {
 		'Content-Type': 'application/json',
-		// 'Access-Control-Allow-Origin': 'http://localhost:3000'
+		// 'Access-Control-Allow-Origin': '*'
 	},
 })
 
@@ -57,7 +57,7 @@ instance.interceptors.response.use(
 					}
 					return instance(originalConfig);
 				} catch (_error) {
-					console.log(_error)
+					console.log(_error.response)
 					if (_error.response.status === 401) {
 						alert('Session expired. Please login again!');
 						window.location.href = '/'

@@ -6,7 +6,7 @@ import { useGlobalState } from '../../state/context'
 import { hospitalResetStateProperty } from '../../state/redux/actions/hospital.actions'
 
 
-const InventoryItemRecordTable = ({ data, updateConfig }) => {
+const DonorMedicalHistoryTable = ({ data, updateConfig }) => {
     const dispatch = useDispatch()
 
     const { modals, updateModals } = useGlobalState()
@@ -29,37 +29,31 @@ const InventoryItemRecordTable = ({ data, updateConfig }) => {
                                         scope="col"
                                         className="text-sm font-medium text-gray-900 py-3 text-left"
                                     >
-                                        Donation ID
+                                        Appointment ID
                                     </th>
                                     <th
                                         scope="col"
                                         className="text-sm font-medium text-gray-900 py-3 text-left"
                                     >
-                                        Donor
+                                        Donation Date
                                     </th>
                                     <th
                                         scope="col"
                                         className="text-sm font-medium text-gray-900 py-3 text-left"
                                     >
-                                        Blood Group
+                                        Genotype
                                     </th>
                                     <th
                                         scope="col"
                                         className="text-sm font-medium text-gray-900 py-3 text-left"
                                     >
-                                        Units
+                                        BloodGroup
                                     </th>
-                                    {/* <th
-                                        scope="col"
-                                        className="text-sm font-medium text-gray-900 py-3 text-left"
-                                    >
-
-                                    </th> */}
                                     <th
                                         scope="col"
                                         className="text-sm font-medium text-gray-900 py-3 text-left"
                                     >
-
+                                        VDRL
                                     </th>
                                     <th
                                         scope="col"
@@ -76,27 +70,30 @@ const InventoryItemRecordTable = ({ data, updateConfig }) => {
                                             {index + 1}
                                         </td>
                                         <td className="text-sm text-gray-900 font-light py-3 whitespace-nowrap">
-                                            {item.appointmentID}
+                                            {item?.appointmentInfo?.appointmentID}
                                         </td>
                                         <td className="text-sm text-gray-900 font-light py-3 whitespace-nowrap">
-                                            {item.donorName}
+                                            {item?.appointmentInfo?.donationDate}
                                         </td>
                                         <td className="text-sm text-gray-900 font-light py-3 whitespace-nowrap">
+                                            {item?.genotype}
+                                        </td>
+                                        <td className="text-[12px] text-gray-900 font-light py-3 whitespace-nowrap">
                                             {item.bloodGroup}
                                         </td>
                                         <td className="text-[12px] text-gray-900 font-light py-3 whitespace-nowrap">
-                                            {item.bloodUnits}
+                                            {item.vdrl}
                                         </td>
                                         <td className="items-center space-x-5 text-sm py-3 text-gray-900 font-light whitespace-nowrap">
                                             <button
                                                 type="submit"
                                                 onClick={() => {
-                                                    dispatch(hospitalResetStateProperty({ key: 'InventoryItem', data: item }))
-                                                    updateModals({ showUpdateInventoryItemModal: !modals.showUpdateInventoryItemModal })
+                                                    updateModals({ showViewMedicalHistoryModal: true })
+                                                    dispatch(hospitalResetStateProperty({ key: 'MedicalHistory', data: item }))
                                                 }}
-                                                className="bg-red-600 text-white text-[12px] font-medium py-1 px-4 hover:-translate-x-1 ease-in-out duration-700 transition-all focus:outline-none rounded"
+                                                className="bg-sky-400 text-white text-[12px] font-medium py-1 px-4 hover:-translate-x-1 ease-in-out duration-700 transition-all focus:outline-none rounded"
                                             >
-                                                Dispense
+                                                View
                                             </button>
                                         </td>
                                     </tr>
@@ -115,4 +112,4 @@ const InventoryItemRecordTable = ({ data, updateConfig }) => {
     )
 }
 
-export default InventoryItemRecordTable
+export default DonorMedicalHistoryTable

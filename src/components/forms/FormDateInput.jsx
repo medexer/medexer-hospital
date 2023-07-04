@@ -3,7 +3,7 @@ import React, { useRef } from 'react'
 import Label from '../text/Label'
 
 
-const FormDateInput = ({ classes, name, handleChange, label, placeHolder }) => {
+const FormDateInput = ({ classes, name, handleChange, label, padding }) => {
     const dateRef = useRef(null)
 
     return (
@@ -12,17 +12,17 @@ const FormDateInput = ({ classes, name, handleChange, label, placeHolder }) => {
             onClick={() => dateRef.current.click()}
         >
             <Label text={label} />
-        
+
             <input
                 name={name}
                 ref={dateRef}
                 type={"date"}
                 onChange={handleChange}
-                placeholder={placeHolder}
                 id='date'
+                // padding={padding ? padding : 'px-5 py-3'}
                 className={`
                     ${classes}
-                    border border-gray-300 placeholder:text-[12px] text-[12px] rounded w-full px-5 py-4 hover:outline-none focus:outline-none focus:border-gray-600 focus:ring-blue
+                    border border-gray-300 placeholder:text-[12px] text-[12px] rounded w-full hover:outline-none focus:outline-none focus:border-gray-600 focus:ring-blue
                 `}
             />
 

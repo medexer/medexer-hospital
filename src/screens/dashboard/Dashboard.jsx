@@ -2,9 +2,10 @@ import React, { useEffect } from 'react'
 import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 
+import { IconSearch } from '../../assets'
 import { useGlobalState } from '../../state/context'
 import { Modals, SideBar, TopBar } from '../../components'
-import { Appointments, Complaints, Home, Inventory, Notifications, Settings } from '../'
+import { Appointments, Complaints, Home, Inventory, Notifications, Donors, Settings } from '../'
 
 
 const Dashboard = () => {
@@ -30,6 +31,10 @@ const Dashboard = () => {
 
 				{dashboardConfig.activeLink === 'Home' && (
 					<Home />
+				)}
+
+				{dashboardConfig.activeLink === 'Donors' && (
+					<Donors />
 				)}
 
 				{dashboardConfig.activeLink === 'Appointments' && (

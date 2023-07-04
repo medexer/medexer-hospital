@@ -4,6 +4,10 @@ import IconStar from './icons/icon__star.svg'
 import IconBlood from './icons/icon__blood.svg'
 import IconHome from './icons/icon__home.svg'
 import IconHomeActive from './icons/icon__home__active.svg'
+import IconPeople from './icons/icon__people.svg'
+import IconPeopleActive from './icons/icon__people__active.svg'
+import IconSearch from './icons/icon__search.svg'
+import IconSearchActive from './icons/icon__search__active.svg'
 import IconAppointment from './icons/icon__appointment.svg'
 import IconAppointmentActive from './icons/icon__appointment__active.svg'
 import IconInventory from './icons/icon__inventory.svg'
@@ -13,6 +17,7 @@ import IconComplaintActive from './icons/icon__complaint__active.svg'
 import IconNotification from './icons/icon__notification.svg'
 import IconNotificationActive from './icons/icon__notification__active.svg'
 import IconSettings from './icons/icon__settings.svg'
+import IconMarker1 from './icons/icon__marker__1.png'
 import IconSettingsActive from './icons/icon__settings__active.svg'
 
 // ANIMATIONS
@@ -25,6 +30,7 @@ import Animation6 from './animations/animation__6.json'
 import Animation7 from './animations/animation__7.json'
 import Animation8 from './animations/animation__8.json'
 import Animation9 from './animations/animation__9.json'
+import Animation10 from './animations/animation__10.json'
 
 // AVATARS
 import UserAvatar1 from './images/user__avatar__1.png'
@@ -44,6 +50,10 @@ export {
     Logo,
     Logo1,
     IconHome,
+    IconSearch,
+    IconSearchActive,
+    IconPeople,
+    IconPeopleActive,
     IconStar,
     IconBlood,
     IconHomeActive,
@@ -56,6 +66,7 @@ export {
     IconNotification,
     IconNotificationActive,
     IconSettings,
+    IconMarker1,
     IconSettingsActive,
 
 
@@ -69,7 +80,8 @@ export {
     Animation7,
     Animation8,
     Animation9,
-
+    Animation10,
+    
 
     // AVATARS
     UserAvatar1,

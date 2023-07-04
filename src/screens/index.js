@@ -12,6 +12,7 @@ import ForgotPassword from "./auth/forgot-password/ForgotPassword"
 // DASHBOARD
 import Dashboard from "./dashboard/Dashboard"
 import Home from "./dashboard/Home"
+import Donors from "./dashboard/Donors"
 import Appointments from "./dashboard/Appointments"
 import Inventory from "./dashboard/Inventory"
 import Complaints from "./dashboard/Complaints"
@@ -37,6 +38,7 @@ export {
     // DASHBOARD
     Dashboard,
     Home,
+    Donors,
     Appointments,
     Inventory,
     Complaints,

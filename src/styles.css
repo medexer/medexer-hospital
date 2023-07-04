@@ -65,3 +65,19 @@
     display: none;
     -webkit-appearance: none;
 }
+
+
+
+
+
+/* MAIN-TOPBAR */
+.topbar {
+	padding-top: 28px;
+	/* padding-bottom: 25px; */
+}
+
+#search__input:focus {
+	outline: none;
+	border-color: rgb(38, 120, 191);
+	box-shadow: 0 0 10px rgb(38, 104, 191);
+}

@@ -15,9 +15,33 @@ const Modals = () => {
                 />
             )}
 
+            {modals.showDonorSearchModal && (
+                <FormModal
+                    type="view__search__donor__modal"
+                />
+            )}
+
+            {modals.showAddMedicalHistoryModal && (
+                <FormModal
+                    type="view__add__medicalhistory__modal"
+                />
+            )}
+
+            {modals.showViewMedicalHistoryModal && (
+                <FormModal
+                    type="view__medicalhistory__item__modal"
+                />
+            )}
+
             {modals.showDonationHistoryModal && (
                 <FormModal
                     type="view__donation__history__modal"
+                />
+            )}
+
+            {modals.showDonorProfileModal && (
+                <FormModal
+                    type="view__donor__profile__modal"
                 />
             )}
 

@@ -111,7 +111,7 @@ const InventoryTable = ({ data, updateConfig }) => {
                                                     dispatch(hospitalResetStateProperty({ key: 'InventoryItem', data: item }))
                                                     updateConfig({ showInventoryItem: true })
                                                 }}
-                                                className="bg-teal-600 text-white text-[12px] font-medium py-1 px-4 hover:-translate-x-1 ease-in-out duration-700 transition-all focus:outline-none rounded"
+                                                className="bg-sky-600 text-white text-[12px] font-medium py-1 px-4 hover:-translate-x-1 ease-in-out duration-700 transition-all focus:outline-none rounded"
                                             >
                                                 Manage
                                             </button>

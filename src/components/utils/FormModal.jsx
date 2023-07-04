@@ -9,6 +9,10 @@ import RescheduleAppointmentModal from "../modals/RescheduleAppointmentModal"
 import UpdateInventoryItemModal from "../modals/UpdateInventoryItemModal"
 import ProcessDonationModal from "../modals/ProcessDonationModal"
 import PaymentInitializationModal from "../modals/PaymentInitializationModal"
+import DonorProfileModal from "../modals/DonorProfileModal"
+import DonorSearchModal from "../modals/DonorSearchModal"
+import AddMedicalHistoryRecordModal from "../modals/AddMedicalHistoryRecordModal"
+import ViewMedicalHistoryItemModal from "../modals/ViewMedicalHistoryItemModal"
 
 
 const FormModal = (props) => {
@@ -18,8 +22,28 @@ const FormModal = (props) => {
 				<PaymentInitializationModal />
 			)}
 
+			{props.type === 'view__search__donor__modal' && (
+				<DonorSearchModal />
+			)}
+
+			{props.type === 'view__add__medicalhistory__modal' && (
+				<AddMedicalHistoryRecordModal />
+			)}
+
+			{props.type === 'view__add__medicalhistory__modal' && (
+				<AddMedicalHistoryRecordModal />
+			)}
+
+			{props.type === 'view__medicalhistory__item__modal' && (
+				<ViewMedicalHistoryItemModal />
+			)}
+
 			{props.type === 'view__donation__history__modal' && (
 				<DonationHistoryModal />
+			)}
+
+			{props.type === 'view__donor__profile__modal' && (
+				<DonorProfileModal />
 			)}
 
 			{props.type === 'view__reschedule__appointment__modal' && (

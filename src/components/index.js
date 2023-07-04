@@ -27,17 +27,21 @@ import FormTextInput from "./forms/FormTextInput"
 import FormDateInput from "./forms/FormDateInput"
 import FormPhoneInput from "./forms/FormPhoneInput"
 import FormSelectInput from "./forms/FormSelectInput"
+import FormTextAreaInput from "./forms/FormTextAreaInput"
 import FormPasswordInput from "./forms/FormPasswordInput"
 
 // TABLES
 import InventoryTable from "./tables/InventoryTable"
 import AppointmentsTable from "./tables/AppointmentsTable"
+import DonorMedicalHistoryTable from "./tables/DonorMedicalHistoryTable"
 import InventoryItemRecordTable from "./tables/InventoryItemRecordTable"
+import MedicalHistoryDonorsTable from "./tables/MedicalHistoryDonorsTable"
 
 // PAGES
 import HomeMap from "./maps/HomeMap"
 import ComplaintInfo from "./complaints/ComplaintInfo"
 import ManageInventoryItem from "./inventory/ManageInventoryItem"
+import ManageDonorMedicalHistory from "./medical-history/ManageDonorMedicalHistory"
 
 
 export {
@@ -70,15 +74,19 @@ export {
     FormDateInput,
     FormPhoneInput,
     FormSelectInput,
+    FormTextAreaInput,
     FormPasswordInput,
 
     // TABLES
     InventoryTable,
     AppointmentsTable,
+    DonorMedicalHistoryTable,
     InventoryItemRecordTable,
+    MedicalHistoryDonorsTable,
 
     // PAGES
     HomeMap,
     ComplaintInfo,
     ManageInventoryItem,
+    ManageDonorMedicalHistory,
 }

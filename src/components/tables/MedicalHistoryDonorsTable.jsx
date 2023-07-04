@@ -6,7 +6,7 @@ import { useGlobalState } from '../../state/context'
 import { hospitalResetStateProperty } from '../../state/redux/actions/hospital.actions'
 
 
-const InventoryItemRecordTable = ({ data, updateConfig }) => {
+const MedicalHistoryDonorsTable = ({ data, updateConfig }) => {
     const dispatch = useDispatch()
 
     const { modals, updateModals } = useGlobalState()
@@ -29,37 +29,25 @@ const InventoryItemRecordTable = ({ data, updateConfig }) => {
                                         scope="col"
                                         className="text-sm font-medium text-gray-900 py-3 text-left"
                                     >
-                                        Donation ID
+                                        Donor ID
                                     </th>
                                     <th
                                         scope="col"
                                         className="text-sm font-medium text-gray-900 py-3 text-left"
                                     >
-                                        Donor
+                                        Fullname
                                     </th>
                                     <th
                                         scope="col"
                                         className="text-sm font-medium text-gray-900 py-3 text-left"
                                     >
-                                        Blood Group
+                                        Email
                                     </th>
                                     <th
                                         scope="col"
                                         className="text-sm font-medium text-gray-900 py-3 text-left"
                                     >
-                                        Units
-                                    </th>
-                                    {/* <th
-                                        scope="col"
-                                        className="text-sm font-medium text-gray-900 py-3 text-left"
-                                    >
-
-                                    </th> */}
-                                    <th
-                                        scope="col"
-                                        className="text-sm font-medium text-gray-900 py-3 text-left"
-                                    >
-
+                                        Nationality
                                     </th>
                                     <th
                                         scope="col"
@@ -76,27 +64,27 @@ const InventoryItemRecordTable = ({ data, updateConfig }) => {
                                             {index + 1}
                                         </td>
                                         <td className="text-sm text-gray-900 font-light py-3 whitespace-nowrap">
-                                            {item.appointmentID}
+                                            {item.donorID}
                                         </td>
                                         <td className="text-sm text-gray-900 font-light py-3 whitespace-nowrap">
-                                            {item.donorName}
+                                            {item.fullName}
                                         </td>
                                         <td className="text-sm text-gray-900 font-light py-3 whitespace-nowrap">
-                                            {item.bloodGroup}
+                                            {item.email}
                                         </td>
                                         <td className="text-[12px] text-gray-900 font-light py-3 whitespace-nowrap">
-                                            {item.bloodUnits}
+                                            {item.profile.nationality}
                                         </td>
                                         <td className="items-center space-x-5 text-sm py-3 text-gray-900 font-light whitespace-nowrap">
                                             <button
                                                 type="submit"
                                                 onClick={() => {
-                                                    dispatch(hospitalResetStateProperty({ key: 'InventoryItem', data: item }))
-                                                    updateModals({ showUpdateInventoryItemModal: !modals.showUpdateInventoryItemModal })
+                                                    updateConfig({ manageDonorHistory: true })
+                                                    dispatch(hospitalResetStateProperty({ key: 'CurrentDonor', data: item }))
                                                 }}
-                                                className="bg-red-600 text-white text-[12px] font-medium py-1 px-4 hover:-translate-x-1 ease-in-out duration-700 transition-all focus:outline-none rounded"
+                                                className="bg-sky-600 text-white text-[12px] font-medium py-1 px-4 hover:-translate-x-1 ease-in-out duration-700 transition-all focus:outline-none rounded"
                                             >
-                                                Dispense
+                                                Manage
                                             </button>
                                         </td>
                                     </tr>
@@ -115,4 +103,4 @@ const InventoryItemRecordTable = ({ data, updateConfig }) => {
     )
 }
 
-export default InventoryItemRecordTable
+export default MedicalHistoryDonorsTable

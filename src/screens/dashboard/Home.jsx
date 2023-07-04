@@ -100,7 +100,7 @@ const Home = () => {
                     </div>
                 </div>
 
-                <div className="w-full rounded-xl md:h-[300px] flex flex-wrap justify-between items-center bg-sky-400 space-y-4 mt-4">
+                <div className="w-full rounded-xl mb-4 md:h-[300px] flex flex-wrap justify-between items-center bg-sky-400 space-y-4 mt-4">
                     <div className='flex flex-col space-y-2 justify-center w-[50%] pl-6'>
                         <p className='text-[30px] font-bold text-slate-800'>We are working to constantly improve our service</p>
 
@@ -119,7 +119,7 @@ const Home = () => {
                             classes={'py-4 text-[14px] font-medium rounded-md bg-white border-2 border-purple-500'}
                         />
                     </div>
-                    <div className='w-[50%]'>
+                    <div className=''>
                         <img
                             alt=""
                             src={DashboardArt}

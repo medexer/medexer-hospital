@@ -43,7 +43,7 @@ const ReplyComplaintThreadModal = () => {
 
     return (
         <div className="fixed grid h-screen z-10 bg-[#11111190] place-items-center w-full backdrop-blur-sm">
-            <div className="bg-white w-[500px] px-[30px] py-[20px]">
+            <div className="bg-white rounded-md w-[500px] px-[30px] py-[20px]">
                 <div className="flex justify-between items-center">
                     <HeaderOne
                         semibold={true}
