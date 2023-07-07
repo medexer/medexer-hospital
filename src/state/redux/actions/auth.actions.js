@@ -1,3 +1,4 @@
+import axios from 'axios'
 import { createAsyncThunk } from "@reduxjs/toolkit"
 
 import { authCaptureKYBRoute, authFetchHospitalProfileRoute, authSigninRoute, authSignupRoute, authUpdateHospitalAuthDataRoute, authUpdateHospitalProfileRoute } from "../routes/auth.routes"
@@ -7,7 +8,7 @@ export const authHospitalSignup = createAsyncThunk(
     'auth/authHospitalSignup',
     async ({ formData, toast, navigate }, { rejectWithValue }) => {
         try {
-            const { data } = await authSignupRoute(formData)
+            const { data } = await axios.post(`${import.meta.env.VITE_APP_DEV_API}/auth/hospital/signup`, formData)
 
             console.log(data)
             toast.success("Hospital registred successfully")
@@ -31,7 +32,7 @@ export const authHospitalSignin = createAsyncThunk(
     'auth/authHospitalSignin',
     async ({ formData, toast, navigate }, { rejectWithValue }) => {
         try {
-            const { data } = await authSigninRoute(formData)
+            const { data } = await axios.post(`${import.meta.env.VITE_APP_DEV_API}/auth/hospital/signin`, formData)
 
             console.log(data)
 

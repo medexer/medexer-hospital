@@ -47,13 +47,16 @@ const authSlice = createSlice({
 
         builder.addCase(authCaptureHospitalKYB.pending, (state, action) => {
             state.authLoading = true
+            state.authRequestStatus = 'PENDING'
         })
         builder.addCase(authCaptureHospitalKYB.fulfilled, (state, action) => {
             state.authLoading = false
             state.user = action.payload
+            state.authRequestStatus = 'SUCCESS'
         })
         builder.addCase(authCaptureHospitalKYB.rejected, (state, action) => {
             state.authLoading = false
+            state.authRequestStatus = ''
         })
 
 
@@ -82,13 +85,16 @@ const authSlice = createSlice({
 
         builder.addCase(authUpdateHospitalProfile.pending, (state, action) => {
             state.authLoading = true
+            state.authRequestStatus = 'PENDING'
         })
         builder.addCase(authUpdateHospitalProfile.fulfilled, (state, action) => {
             state.authLoading = false
+            state.authRequestStatus = 'SUCCESS'
             state.hospitalProfile = action.payload
         })
         builder.addCase(authUpdateHospitalProfile.rejected, (state, action) => {
             state.authLoading = false
+            state.authRequestStatus = ''
         })
 
 

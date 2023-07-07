@@ -81,7 +81,7 @@ export const validateHospitalProfileUpdate = (data) => {
 
     if (!data.hospitalImage) message = 'Hospital image is required'
 
-    if (data.hospitalImage && typeof(data.hospitalImage) !== 'object') message = 'Invalid image'
+    // if (data.hospitalImage && typeof(data.hospitalImage) !== 'object') message = 'Invalid image'
 
     return message
 }

@@ -16,7 +16,7 @@ const HomeMap = () => {
     const { hospitalProfile } = useSelector(state => state.auth)
 
     const [clicks, setClicks] = React.useState([]);
-    const [zoom, setZoom] = React.useState(13)
+    const [zoom, setZoom] = React.useState(12)
     const [center, setCenter] = React.useState({
         lat: 9.8965,
         lng: 8.8583,

@@ -7,14 +7,17 @@ import React, { useEffect, useReducer } from 'react'
 import { Hospital } from '../../assets'
 import { authFetchHospitalProfile, authUpdateHospitalAuthData, authUpdateHospitalProfile } from '../../state/redux/actions/auth.actions'
 import { validateHospitalAuthDataUpdate, validateHospitalProfileUpdate } from '../../state/validations/auth.validations'
-import { CustomButton, FormPasswordInput, FormTextInput, HeaderText, Label } from '../../components'
+import { CustomButton, FormPasswordInput, FormTextInput, HeaderText, Label, LoadingButtonOne } from '../../components'
+import axios from 'axios'
 
 
 const Settings = () => {
     const imageRef = useRef(null)
+    const hospitalLogoRef = useRef(null)
     const hospitalImageRef = useRef(null)
 
     const dispatch = useDispatch()
+    const { authRequestStatus } = useSelector(state => state.auth)
 
     const { hospital } = useSelector(state => state.auth.user)
     const { hospitalProfile } = useSelector(state => state.auth)
@@ -28,7 +31,7 @@ const Settings = () => {
         return { ...prev, ...next }
     }, {
         imagePreview: '', hospitalName: '',
-        currentPassword: '', newPassword: '',
+        currentPassword: '', newPassword: '', hospitalLogo: '', hospitalLogoPreview: '',
         email: '', hospitalImage: '', hospitalImagePreview: '', currentHospitalImage: '',
         address: '', state: '', city_province: '', contact_number: '', about_hospital: '',
     })
@@ -36,7 +39,7 @@ const Settings = () => {
     useEffect(() => {
         dispatch(authFetchHospitalProfile())
     }, [])
-    
+
     useEffect(() => {
         if (hospital) {
             updateFormData({
@@ -54,25 +57,33 @@ const Settings = () => {
                 city_province: hospitalProfile?.city_province,
                 contact_number: hospitalProfile?.contact_number,
                 about_hospital: hospitalProfile?.about_hospital,
+                hospitalImage: hospitalProfile?.hospitalImage,
+                hospitalLogo: hospitalProfile?.hospitalLogo,
+                hospitalLogoPreview: hospitalProfile?.hospitalLogo,
+                hospitalImagePreview: hospitalProfile?.hospitalImage,
             })
 
-            if (hospitalProfile?.hospitalImage) {
-                urlToObject(hospitalProfile?.hospitalImage)
-            }
+            // if (hospitalProfile?.hospitalImage) {
+            //     urlToObject(hospitalProfile?.hospitalImage)
+            // }
         }
     }, [hospitalProfile])
 
     console.log(hospitalProfile)
 
-    const urlToObject = async (image) => {
-        const response = await fetch(`${import.meta.env.VITE_APP_DEV_API_ROOT}${image}`);
+    // const urlToObject = async (image) => {
+    //     console.log(image)
 
-        const blob = await response.blob();
+    //     const response = await axios.get(image);
 
-        const file = new File([blob], `hospitalImage.jpg`, { type: blob.type });
+    //     console.log(response.data)
 
-        updateFormData({ hospitalImage: file, hospitalImagePreview: URL.createObjectURL(file) })
-    }
+    //     const blob = await response.data.blob();
+
+    //     const file = new File([blob], `hospitalImage.jpg`, { type: blob.type });
+
+    //     updateFormData({ hospitalImage: file, hospitalImagePreview: URL.createObjectURL(file) })
+    // }
 
     const handleChange = (e) => {
         updateFormData({ [e.target.name]: e.target.value })
@@ -80,7 +91,10 @@ const Settings = () => {
 
     const handleFileChange = (e) => {
         if (e.target.name === 'hospitalImage') {
-            updateFormData({ hospitalImage: e.target.files[0], hospitalImagePreview: URL.createObjectURL(e.target.files[0]) })
+            return updateFormData({ hospitalImage: e.target.files[0], hospitalImagePreview: URL.createObjectURL(e.target.files[0]) })
+        }
+        if (e.target.name === 'hospitalLogo') {
+            return updateFormData({ hospitalLogo: e.target.files[0], hospitalLogoPreview: URL.createObjectURL(e.target.files[0]) })
         }
         updateFormData({ [e.target.name]: e.target.files[0], imagePreview: URL.createObjectURL(e.target.files[0]) })
     }
@@ -105,7 +119,7 @@ const Settings = () => {
         dispatch(authUpdateHospitalProfile({ formData, toast }))
     }
 
-    console.log(formData.hospitalImagePreview)
+    // console.log(formData.hospitalImagePreview)
 
     return (
         <div className='h-full flex flex-col overflow-y-auto font-poppins scrollbar-1 px-6 py-4 pb-20'>
@@ -210,27 +224,53 @@ const Settings = () => {
 
             {config.currentTab === 'Profile' && (
                 <div className="w-full flex md:space-x-10 mt-5">
-                    <div className="flex justify-center relative md:w-[40%] h-[400px] mx-auto md:mx-0">
-                        <img
-                            alt=""
-                            src={formData.hospitalImage ? formData.hospitalImagePreview : Hospital}
-                            className='w-full h-full border shadow-md'
-                        />
-                        <div
-                            onClick={() => hospitalImageRef.current.click()}
-                            className='absolute top-0 right-0 p-2 rounded-full cursor-pointer bg-green-600 text-black'
-                        >
-                            <GoPencil
-                                className='text-white'
+                    <div className="flex flex-col md:w-[40%]">
+                        <div className="flex justify-center relative w-full h-[200px] mx-auto md:mx-0">
+                            <img
+                                alt=""
+                                src={formData.hospitalImage ? formData.hospitalImagePreview : Hospital}
+                                className='w-full h-full border shadow-md'
                             />
-                            <input
-                                type='file'
-                                name='hospitalImage'
-                                className='hidden'
-                                ref={hospitalImageRef}
-                                onChange={handleFileChange}
-                                accept="image/jpg, image/jpeg"
+                            <div
+                                onClick={() => hospitalImageRef.current.click()}
+                                className='absolute top-0 right-0 p-2 rounded-full cursor-pointer bg-green-600 text-black'
+                            >
+                                <GoPencil
+                                    className='text-white'
+                                />
+                                <input
+                                    type='file'
+                                    name='hospitalImage'
+                                    className='hidden'
+                                    ref={hospitalImageRef}
+                                    onChange={handleFileChange}
+                                    accept="image/jpg, image/jpeg"
+                                />
+                            </div>
+                        </div>
+
+                        <div className="flex justify-center relative w-full h-[200px] mx-auto md:mx-0 mt-2">
+                            <img
+                                alt=""
+                                src={formData.hospitalLogo ? formData.hospitalLogoPreview : Hospital}
+                                className='w-full h-full border shadow-md'
                             />
+                            <div
+                                onClick={() => imageRef.current.click()}
+                                className='absolute top-0 right-0 p-2 rounded-full cursor-pointer bg-sky-600 text-black'
+                            >
+                                <GoPencil
+                                    className='text-white'
+                                />
+                                <input
+                                    type='file'
+                                    name='hospitalLogo'
+                                    className='hidden'
+                                    ref={imageRef}
+                                    onChange={handleFileChange}
+                                    accept="image/jpg, image/jpeg"
+                                />
+                            </div>
                         </div>
                     </div>
 
@@ -294,13 +334,20 @@ const Settings = () => {
                         </div>
 
                         <div className="mt-5">
-                            <CustomButton
-                                type={'submit'}
-                                title={'Update'}
-                                textColor={'text-white'}
-                                width={'w-[100px]'}
-                                classes={'py-2 text-[12px] rounded-md bg-sky-600'}
-                            />
+                            {authRequestStatus === 'PENDING' ? (
+                                <LoadingButtonOne
+                                    loadingType={'one'}
+                                    classes={'py-3 text-[14px] rounded-md bg-sky-600 w-full'}
+                                />
+                            ) : (
+                                <CustomButton
+                                    type={'submit'}
+                                    title={'Update'}
+                                    textColor={'text-white'}
+                                    width={'w- w-full'}
+                                    classes={'py-3 text-[12px] rounded-md bg-sky-600'}
+                                />
+                            )}
                         </div>
                     </form>
                 </div>

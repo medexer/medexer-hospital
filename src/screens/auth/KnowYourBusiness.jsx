@@ -1,19 +1,22 @@
 import { toast } from 'react-toastify'
-import { useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { BsBuildingCheck } from 'react-icons/bs'
 import React, { useReducer, useRef } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 
-import { CustomButton, FormDateInput, FormSelectInput, FormTextAreaInput, FormTextInput, HeaderText } from '../../components'
 import { authCaptureHospitalKYB } from '../../state/redux/actions/auth.actions'
 import { validateHospitalKYBCapture } from '../../state/validations/auth.validations'
+import { CustomButton, FormDateInput, FormSelectInput, FormTextAreaInput, FormTextInput, HeaderText, LoadingButtonOne } from '../../components'
 
 
 const KnowYourBusiness = () => {
     const fileRef = useRef(null)
+    const logoRef = useRef(null)
 
     const dispatch = useDispatch()
     const navigate = useNavigate()
+
+    const { authRequestStatus } = useSelector(state => state.auth)
 
     const [config, updateConfig] = useReducer((prev, next) => {
         return { ...prev, ...next }
@@ -25,11 +28,11 @@ const KnowYourBusiness = () => {
         return { ...prev, ...next }
     }, {
         hospitalImagePreview: '',
-        logo: '', hospitalImage: '',
         address: '', description: '',
-        state: '', city_province: '',
+        hospitalLogo: '', hospitalImage: '',
         cacRegistrationID: '', websiteUrl: '',
         incorporation_date: '', business_type: '',
+        state: '', city_province: '', hospitalLogoPreview: '',
     })
 
     const handleChange = (e) => {
@@ -38,10 +41,13 @@ const KnowYourBusiness = () => {
 
     const handleFileChange = (e) => {
         if (e.target.files[0].size >= 500000) {
-            toast.error('Please upload a file size less than 500kb')
+            return toast.error('Please upload a file size less than 500kb')
         } else {
-            updateFormData({ hospitalImage: e.target.files[0], hospitalImagePreview: URL.createObjectURL(e.target.files[0]) })
+            return updateFormData({ hospitalImage: e.target.files[0], hospitalImagePreview: URL.createObjectURL(e.target.files[0]) })
         }
+        // if (e.target.name === 'hospitalLogo') {
+        //     return updateFormData({ hospitalLogo: e.target.files[0], hospitalLogoPreview: URL.createObjectURL(e.target.files[0]) })
+        // }
     }
 
     const handleSubmit = (e) => {
@@ -170,7 +176,7 @@ const KnowYourBusiness = () => {
                                     className={` border flex flex-col cursor-pointer ${formData.hospitalImage ? 'border-sky-300 w-[50%]' : 'w-full border-gray-300'} rounded-md h-[80px] space-x-1 justify-center items-center text-[12px]`}
                                 >
                                     <span className='text-sky-500'>Click to upload</span>
-                                    <p className='text-[12px]'>JPG or JPEG (max. 200px)</p>
+                                    <p className='text-[12px]'>JPG or JPEG (max. 500px)</p>
                                 </div>
 
                                 {formData.hospitalImage && (
@@ -187,8 +193,54 @@ const KnowYourBusiness = () => {
                             <input
                                 type="file"
                                 ref={fileRef}
+                                name="hospitalImage"
                                 className='hidden'
                                 onChange={handleFileChange}
+                                accept='image/jpeg, image/jpg'
+                            />
+                        </div>
+
+                        <div className="flex justify-between items-center w-full">
+                            <div className="w-[40%] flex space-x-1">
+                                <HeaderText
+                                    classes={'text-[12px] font-semibold'}
+                                    text={'Business Logo'}
+                                />
+                                <span className='text-red-500'>*</span>
+                            </div>
+
+                            <div className="w-[80%] flex justify-between">
+                                <div
+                                    onClick={() => logoRef.current.click()}
+                                    className={` border flex flex-col cursor-pointer ${formData.hospitalLogo ? 'border-sky-300 w-[50%]' : 'w-full border-gray-300'} rounded-md h-[80px] space-x-1 justify-center items-center text-[12px]`}
+                                >
+                                    <span className='text-sky-500'>Click to upload</span>
+                                    <p className='text-[12px]'>JPG or JPEG (max. 500px)</p>
+                                </div>
+
+                                {formData.hospitalLogo && (
+                                    <div className="w-[50] h-[80px]">
+                                        <img
+                                            alt="image"
+                                            className='w-full h-full object-cover'
+                                            src={formData.hospitalLogoPreview}
+                                        />
+                                    </div>
+                                )}
+
+                            </div>
+                            <input
+                                type="file"
+                                name="hospitalLogo"
+                                ref={logoRef}
+                                className='hidden'
+                                onChange={(e) => {
+                                    if (e.target.files[0].size >= 500000) {
+                                        return toast.error('Please upload a file size less than 500kb')
+                                    } else {
+                                        return updateFormData({ hospitalLogo: e.target.files[0], hospitalLogoPreview: URL.createObjectURL(e.target.files[0]) })
+                                    }
+                                }}
                                 accept='image/jpeg, image/jpg'
                             />
                         </div>
@@ -283,28 +335,35 @@ const KnowYourBusiness = () => {
                         width={'w-[49%] md:w-[49%]'}
                         classes={'py-3 text-[14px] rounded-md bg-white border'}
                     />
-                    <CustomButton
-                        type={'button'}
-                        title={`${config.showFormOne ? 'Next' : 'Submit'}`}
-                        handleClick={(e) => {
-                            if (config.showFormOne) {
-                                if (!formData.business_type) return toast.error('Business type is required')
+                    {authRequestStatus === 'PENDING' ? (
+                        <LoadingButtonOne
+                            loadingType={'one'}
+                            classes={'py-3 text-[14px] rounded-md bg-sky-600 w-[49%] md:w-[49%]'}
+                        />
+                    ) : (
+                        <CustomButton
+                            type={'button'}
+                            title={`${config.showFormOne ? 'Next' : 'Submit'}`}
+                            handleClick={(e) => {
+                                if (config.showFormOne) {
+                                    if (!formData.business_type) return toast.error('Business type is required')
 
-                                if (!formData.incorporation_date) return toast.error('Business incorporation date is required')
+                                    if (!formData.incorporation_date) return toast.error('Business incorporation date is required')
 
-                                if (!formData.cacRegistrationID) return toast.error('Business registration ID is required')
+                                    if (!formData.cacRegistrationID) return toast.error('Business registration ID is required')
 
-                                if (!formData.description) return toast.error('Business description is required')
+                                    if (!formData.description) return toast.error('Business description is required')
 
-                                updateConfig({ showFormOne: false })
-                            } else {
-                                handleSubmit(e)
-                            }
-                        }}
-                        textColor={'text-white'}
-                        width={'w-[49%] md:w-[49%]'}
-                        classes={'py-3 text-[14px] rounded-md bg-sky-600 border'}
-                    />
+                                    updateConfig({ showFormOne: false })
+                                } else {
+                                    handleSubmit(e)
+                                }
+                            }}
+                            textColor={'text-white'}
+                            width={'w-[49%] md:w-[49%]'}
+                            classes={'py-3 text-[14px] rounded-md bg-sky-600 border'}
+                        />
+                    )}
                 </div>
             </div>
         </div>

@@ -10,13 +10,14 @@ import { useGlobalState } from '../../state/context'
 import FormSelectInput from '../forms/FormSelectInput'
 import { validateAddMedicalHistory } from '../../state/validations/hospital.validations'
 import { hospitalFetchRecentDonorAppointments, hospitalAddDonorMedicalHistory } from '../../state/redux/actions/hospital.actions'
+import LoadingButtonOne from '../buttons/LoadingButtonOne'
 
 
 const AddMedicalHistoryRecordModal = () => {
     const dispatch = useDispatch()
 
     const { updateModals } = useGlobalState()
-    const { currentDonor, recentAppointments } = useSelector(state => state.hospital)
+    const { currentDonor, recentAppointments, hospitalRequestStatus } = useSelector(state => state.hospital)
 
     const [formData, updateFormData] = useReducer((prev, next) => {
         return { ...prev, ...next }
@@ -83,7 +84,8 @@ const AddMedicalHistoryRecordModal = () => {
                 <div className="my-2 flex items-center space-x-5 w-full">
                     <img
                         alt="avatar"
-                        src={`${import.meta.env.VITE_APP_DEV_API_ROOT}${currentDonor?.avatar}`}
+                        src={`${currentDonor?.profile?.userAvatar}`}
+                        // src={`${import.meta.env.VITE_APP_DEV_API_ROOT}${currentDonor?.profile?.userAvatar}`}
                         className='rounded-md w-[160px] h-[120px]'
                     />
                     <div className="flex flex-col w-full">
@@ -298,12 +300,20 @@ const AddMedicalHistoryRecordModal = () => {
                         </div>
                     </div>
 
-                    <button
-                        type="submit"
-                        className="w-full mt-4 bg-sky-600 rounded text-white text-[12px] py-2 px-6 hover:-translate-y-[2px] ease-in-out duration-700 transition-all focus:outline-none"
-                    >
-                        Submit
-                    </button>
+                    {hospitalRequestStatus === 'PENDING' ? (
+                        <LoadingButtonOne
+                            loadingType={'one'}
+                            classes={'py-2 text-[14px] rounded-md bg-sky-600 w-full'}
+                        />
+                    ) : (
+                        <button
+                            disabled={!formData?.currentAppointment?.donationDate}
+                            type="submit"
+                            className="w-full mt-4 bg-sky-600 rounded text-white text-[12px] py-2 px-6 hover:-translate-y-[2px] ease-in-out duration-700 transition-all focus:outline-none"
+                        >
+                            Submit
+                        </button>
+                    )}
                 </form>
 
             </div>

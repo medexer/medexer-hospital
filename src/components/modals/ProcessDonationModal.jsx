@@ -9,13 +9,14 @@ import { UserAvatar1 } from '../../assets'
 import { useGlobalState } from '../../state/context'
 import { hospitalProcessDonation } from '../../state/redux/actions/hospital.actions'
 import { validateProcessDonation } from '../../state/validations/hospital.validations'
+import LoadingButtonOne from '../buttons/LoadingButtonOne'
 
 
 const ProcessDonationModal = () => {
     const dispatch = useDispatch()
 
     const { modals, updateModals } = useGlobalState()
-    const { currentAppointment } = useSelector(state => state.hospital)
+    const { currentAppointment, hospitalRequestStatus } = useSelector(state => state.hospital)
 
     const [formData, updateFormData] = useReducer((prev, next) => {
         return { ...prev, ...next }
@@ -62,7 +63,7 @@ const ProcessDonationModal = () => {
                 <div className="my-2 flex items-center space-x-5">
                     <img
                         alt="avatar"
-                        src={UserAvatar1}
+                        src={`${currentAppointment?.donorInfo?.userAvatar}`}
                         className='rounded-full w-[80px]'
                     />
                     <div className="flex flex-col">
@@ -134,12 +135,19 @@ const ProcessDonationModal = () => {
                         />
                     </div>
 
-                    <button
-                        type="submit"
-                        className="w-full mt-4 bg-sky-600 rounded text-white text-[12px] py-2 px-6 hover:-translate-y-[2px] ease-in-out duration-700 transition-all focus:outline-none"
-                    >
-                        Submit
-                    </button>
+                    {hospitalRequestStatus === 'PENDING' ? (
+                        <LoadingButtonOne
+                            loadingType={'one'}
+                            classes={'py-2 text-[14px] rounded-md bg-sky-500 w-full'}
+                        />
+                    ) : (
+                        <button
+                            type="submit"
+                            className="w-full mt-4 bg-sky-600 rounded text-white text-[12px] py-2 px-6 hover:-translate-y-[2px] ease-in-out duration-700 transition-all focus:outline-none"
+                        >
+                            Submit
+                        </button>
+                    )}
                 </form>
 
             </div>

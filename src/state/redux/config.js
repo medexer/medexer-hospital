@@ -14,11 +14,18 @@ const instance = axios.create({
 
 instance.interceptors.request.use(
 	(req) => {
-		USERFROMLS = localStorage.getItem('mdx-dnt-center') ? JSON.parse(localStorage.getItem('mdx-dnt-center')) : null
-		if (USERFROMLS) {
-			console.log(USERFROMLS)
-			req.headers['Authorization'] = `${USERFROMLS.access}`;
+		console.log(`[REQUEST] :: `, req)
+		console.log(`[REQUEST-URL] :: `, req.url)
+
+		if(!req.url.includes('signup') || !req.url.includes('signin')){
+			USERFROMLS = localStorage.getItem('mdx-dnt-center') ? JSON.parse(localStorage.getItem('mdx-dnt-center')) : null
+			if (USERFROMLS) {
+				console.log(USERFROMLS)
+				req.headers['Authorization'] = `${USERFROMLS.access}`;
+			}
+			return req;
 		}
+		
 		return req;
 	},
 	(error) => {

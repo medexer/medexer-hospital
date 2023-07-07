@@ -8,13 +8,14 @@ import HeaderOne from '../text/HeaderOne'
 import { useGlobalState } from '../../state/context'
 import { hospitalReplyComplaintThread } from '../../state/redux/actions/hospital.actions'
 import { useEffect } from 'react'
+import LoadingButtonOne from '../buttons/LoadingButtonOne'
 
 
 const ReplyComplaintThreadModal = () => {
     const dispatch = useDispatch()
 
     const { modals, updateModals } = useGlobalState()
-    const { currentComplaint } = useSelector(state => state.hospital)
+    const { currentComplaint, hospitalRequestStatus } = useSelector(state => state.hospital)
 
     console.log(currentComplaint)
 
@@ -70,12 +71,19 @@ const ReplyComplaintThreadModal = () => {
                         </textarea>
                     </div>
 
-                    <button
-                        type="submit"
-                        className="w-full mt-4 bg-sky-600 rounded text-white text-[12px] py-2 px-6 hover:-translate-y-[2px] ease-in-out duration-700 transition-all focus:outline-none"
-                    >
-                        Submit
-                    </button>
+                    {hospitalRequestStatus === 'PENDING' ? (
+                        <LoadingButtonOne
+                            loadingType={'one'}
+                            classes={'py-2 text-[14px] rounded-md bg-sky-600 w-full'}
+                        />
+                    ) : (
+                        <button
+                            type="submit"
+                            className="w-full mt-4 bg-sky-600 rounded text-white text-[12px] py-2 px-6 hover:-translate-y-[2px] ease-in-out duration-700 transition-all focus:outline-none"
+                        >
+                            Submit
+                        </button>
+                    )}
                 </form>
 
             </div>

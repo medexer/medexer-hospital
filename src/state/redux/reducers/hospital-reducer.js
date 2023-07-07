@@ -80,13 +80,16 @@ const hospitalSlice = createSlice({
 
         builder.addCase(hospitalAddDonorMedicalHistory.pending, (state, action) => {
             state.hospitalLoading = true
+            state.hospitalRequestStatus = 'PENDING'
         })
         builder.addCase(hospitalAddDonorMedicalHistory.fulfilled, (state, action) => {
             state.hospitalLoading = false
+            state.hospitalRequestStatus = 'SUCCESS'
             state.medicalHistory = [action.payload, ...state.medicalHistory]
         })
         builder.addCase(hospitalAddDonorMedicalHistory.rejected, (state, action) => {
             state.hospitalLoading = false
+            state.hospitalRequestStatus = ''
         })
 
 
@@ -104,26 +107,32 @@ const hospitalSlice = createSlice({
 
         builder.addCase(hospitalRescheduleAppointment.pending, (state, action) => {
             state.hospitalLoading = true
+            state.hospitalRequestStatus = 'PENDING'
         })
         builder.addCase(hospitalRescheduleAppointment.fulfilled, (state, action) => {
             state.hospitalLoading = false
+            state.hospitalRequestStatus = 'SUCCESS'
             const index = state.appointments.findIndex(appointment => appointment.id === action.payload.id)
             state.appointments[index] = action.payload
         })
         builder.addCase(hospitalRescheduleAppointment.rejected, (state, action) => {
             state.hospitalLoading = false
+            state.hospitalRequestStatus = ''
         })
 
         builder.addCase(hospitalProcessDonation.pending, (state, action) => {
             state.hospitalLoading = true
+            state.hospitalRequestStatus = 'PENDING'
         })
         builder.addCase(hospitalProcessDonation.fulfilled, (state, action) => {
             state.hospitalLoading = false
+            state.hospitalRequestStatus = 'SUCCESS'
             const index = state.appointments.findIndex(appointment => appointment.id === action.payload.id)
             state.appointments[index] = action.payload
         })
         builder.addCase(hospitalProcessDonation.rejected, (state, action) => {
             state.hospitalLoading = false
+            state.hospitalRequestStatus = ''
         })
 
         builder.addCase(hospitalInitializePayment.pending, (state, action) => {
@@ -198,15 +207,18 @@ const hospitalSlice = createSlice({
 
         builder.addCase(hospitalUpdateInventoryItemUnits.pending, (state, action) => {
             state.hospitalLoading = true
+            state.hospitalRequestStatus = 'PENDING'
         })
         builder.addCase(hospitalUpdateInventoryItemUnits.fulfilled, (state, action) => {
             state.hospitalLoading = false
+            state.hospitalRequestStatus = 'SUCCESS'
             // const index = state.inventoryItemRecord.findIndex(item => item.pkid === action.payload.pkid)
             // state.inventoryItemRecord[index] = action.payload
             state.inventoryItemRecord = state.inventoryItemRecord.filter(item => item.pkid !== action.payload.pkid)
         })
         builder.addCase(hospitalUpdateInventoryItemUnits.rejected, (state, action) => {
             state.hospitalLoading = false
+            state.hospitalRequestStatus = ''
         })
 
         builder.addCase(hospitalFetchInventoryItemHistory.pending, (state, action) => {

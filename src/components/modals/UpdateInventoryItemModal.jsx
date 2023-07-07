@@ -7,13 +7,14 @@ import { IconBlood } from '../../assets'
 import HeaderOne from '../text/HeaderOne'
 import { useGlobalState } from '../../state/context'
 import { hospitalUpdateInventoryItemUnits } from '../../state/redux/actions/hospital.actions'
+import LoadingButtonOne from '../buttons/LoadingButtonOne'
 
 
 const UpdateInventoryItemModal = () => {
     const dispatch = useDispatch()
 
     const { modals, updateModals } = useGlobalState()
-    const { currentInventoryItem } = useSelector(state => state.hospital)
+    const { currentInventoryItem, hospitalRequestStatus } = useSelector(state => state.hospital)
 
     const [formData, updateFormData] = useReducer((prev, next) => {
         return { ...prev, ...next }
@@ -64,7 +65,7 @@ const UpdateInventoryItemModal = () => {
                 </div>
 
                 <form onSubmit={handleSubmit}>
-                    <div className='flex justify-center space-x-10 items-center my-10'>
+                    {/* <div className='flex justify-center space-x-10 items-center my-10'>
                         <div
                             onClick={() => {
                                 // if (formData.units === 0) return
@@ -90,24 +91,28 @@ const UpdateInventoryItemModal = () => {
                         >
                             +
                         </div>
+                    </div> */}
+
+                    <div className="py-10 text-[14px]">
+                        <span className="font-medium">This item will be withdrawn from the available stock, and the inventory will be adjusted accordingly.</span> <span className="mt-2 block font-bold">Are you sure you want to proceed?</span>
                     </div>
 
-                    <p className='text-[10px] text-center text-red-500'>Note that you are updating the number of pints of this blood group.</p>
+                    {/* <p className='text-[10px] text-center text-red-500'>Note that you are updating the number of pints of this blood group.</p> */}
 
                     <div className="flex justify-between">
-                        <button
-                            type="button"
-                            onClick={() => updateModals({ showUpdateInventoryItemModal: !modals.showUpdateInventoryItemModal })}
-                            className="mt-4 border border-red-600 text-red-600 rounded text-[12px] py-2 px-6 hover:-translate-y-[2px] ease-in-out duration-700 transition-all focus:outline-none"
-                        >
-                            Cancel
-                        </button>
-                        <button
-                            type="submit"
-                            className="mt-4 bg-red-600 rounded text-white text-[12px] py-2 px-6 hover:-translate-y-[2px] ease-in-out duration-700 transition-all focus:outline-none"
-                        >
-                            Update
-                        </button>
+                        {hospitalRequestStatus === 'PENDING' ? (
+                            <LoadingButtonOne
+                                loadingType={'one'}
+                                classes={'py-2 text-[14px] rounded-md bg-red-600 w-full'}
+                            />
+                        ) : (
+                            <button
+                                type="submit"
+                                className=" w-full bg-red-600 rounded text-white text-[12px] py-2 px-6 hover:-translate-y-[2px] ease-in-out duration-700 transition-all focus:outline-none"
+                            >
+                                Update
+                            </button>
+                        )}
                     </div>
                 </form>
 

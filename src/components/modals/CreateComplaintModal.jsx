@@ -8,13 +8,14 @@ import { useGlobalState } from '../../state/context'
 import { validateGenerateComplaint } from '../../state/validations/hospital.validations'
 import { toast } from 'react-toastify'
 import { hospitalGenerateComplaint } from '../../state/redux/actions/hospital.actions'
+import LoadingButtonOne from '../buttons/LoadingButtonOne'
 
 
 const CreateComplaintModal = () => {
     const dispatch = useDispatch()
 
     const { modals, updateModals } = useGlobalState()
-    const { currentAppointment } = useSelector(state => state.hospital)
+    const { currentAppointment, hospitalRequestStatus } = useSelector(state => state.hospital)
 
     const [formData, updateFormData] = useReducer((prev, next) => {
         return { ...prev, ...next }
@@ -78,12 +79,19 @@ const CreateComplaintModal = () => {
                         </textarea>
                     </div>
 
-                    <button
-                        type="submit"
-                        className="w-full mt-4 bg-sky-600 rounded text-white text-[12px] py-2 px-6 hover:-translate-y-[2px] ease-in-out duration-700 transition-all focus:outline-none"
-                    >
-                        Submit
-                    </button>
+                    {hospitalRequestStatus === 'PENDING' ? (
+                        <LoadingButtonOne
+                            loadingType={'one'}
+                            classes={'py-2 text-[14px] rounded-md bg-sky-600 w-full'}
+                        />
+                    ) : (
+                        <button
+                            type="submit"
+                            className="w-full mt-4 bg-sky-600 rounded text-white text-[12px] py-2 px-6 hover:-translate-y-[2px] ease-in-out duration-700 transition-all focus:outline-none"
+                        >
+                            Submit
+                        </button>
+                    )}
                 </form>
 
             </div>

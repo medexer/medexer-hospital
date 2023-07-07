@@ -1,8 +1,15 @@
 import * as React from "react";
 import { cat_colors, status_colors } from "../../data";
 import { faMapLocation } from "@fortawesome/free-solid-svg-icons";
-import { IconMarker1 } from "../../assets";
 
+import { IconMarker1 } from "../../assets";
+import MarkerIcon from "../icons/MarkerIcon";
+import { renderToString } from 'react-dom/server'
+
+// const svgString = new XMLSerializer().serializeToString(MarkerIcon());
+const svgString = renderToString(MarkerIcon());
+// const svgString = new serializeToString(MarkerIcon());
+const svgDataUrl = 'data:image/svg+xml;utf8,' + encodeURIComponent(svgString);
 
 const MapMarker = (options) => {
     const [marker, setMarker] = React.useState();
@@ -56,42 +63,39 @@ const MapMarker = (options) => {
                     </div>`,
                 });
 
-                const pngMarker = {
-                    url: IconMarker1,
-                    // fillColor: 'blue',
-                    fillOpacity: 1,
-                    strokeWeight: 0,
-                    rotation: 0,
-                    scale: 0.077,
-                    anchor: new google.maps.Point(
-                        new File([IconMarker1], "new_image.png", { type: "image/png" }).size / 2,
-                        new File([IconMarker1], "new_image.png", { type: "image/png" }).size,
-                    ),
-                };
-
                 console.log(IconMarker1 / 2)
+                console.log(element?.avatar)
+
+                // const marker = new google.maps.Marker({
+                //     position: latLng,
+                //     map: map,
+                //     title: element.fullName,
+                //     draggable: false,
+                //     fullscreenControl: false,
+                //     icon: {
+                //         path: faMapLocation.icon[4],
+                //         fillColor: "#3B82F6",
+                //         fillOpacity: 1,
+                //         anchor: new google.maps.Point(
+                //             faMapLocation.icon[0] / 2, // width
+                //             faMapLocation.icon[1] // height
+                //         ),
+                //         strokeWeight: 0.75,
+                //         strokeColor: "#000000",
+                //         scale: 0.08,
+                //     },
+                // });
 
                 const marker = new google.maps.Marker({
                     position: latLng,
                     map: map,
-                    // label: element.affiliation_category,
                     title: element.fullName,
+                    icon: {
+                        url: svgDataUrl,
+                        scaledSize: new google.maps.Size(45, 45), // scales image 
+                    },
                     draggable: false,
                     fullscreenControl: false,
-                    icon: {
-                        path: faMapLocation.icon[4],
-                        fillColor: "#3B82F6",
-                        fillOpacity: 1,
-                        anchor: new google.maps.Point(
-                            faMapLocation.icon[0] / 2, // width
-                            faMapLocation.icon[1] // height
-                        ),
-                        strokeWeight: 0.75,
-                        strokeColor: "#000000",
-                        scale: 0.08,
-                    },
-                    // icon: pngMarker
-
                 });
 
 

@@ -9,13 +9,14 @@ import { UserAvatar1 } from '../../assets'
 import { useGlobalState } from '../../state/context'
 import { hospitalRescheduleAppointment } from '../../state/redux/actions/hospital.actions'
 import { validateAppointmentReschedule } from '../../state/validations/hospital.validations'
+import LoadingButtonOne from '../buttons/LoadingButtonOne'
 
 
 const RescheduleAppointmentModal = () => {
     const dispatch = useDispatch()
 
     const { modals, updateModals } = useGlobalState()
-    const { currentAppointment } = useSelector(state => state.hospital)
+    const { currentAppointment, hospitalRequestStatus } = useSelector(state => state.hospital)
 
     const [formData, updateFormData] = useReducer((prev, next) => {
         return { ...prev, ...next }
@@ -64,13 +65,16 @@ const RescheduleAppointmentModal = () => {
                 <div className="my-2 flex items-center space-x-5">
                     <img
                         alt="avatar"
-                        src={`${import.meta.env.VITE_APP_DEV_API_ROOT}${currentAppointment?.donorInfo?.avatar}`}
-                        className='rounded-md w-[100px] h-[100px]'
+                        src={currentAppointment?.donorInfo?.userAvatar}
+                        // src={`${import.meta.env.VITE_APP_DEV_API_ROOT}${currentAppointment?.donorInfo?.userAvatar}`}
+                        className='rounded-md w-[140px] h-[120px]'
                     />
                     <div className="flex flex-col">
                         <p className="text-[14px] font-medium">{currentAppointment?.donorInfo?.fullName}</p>
                     </div>
                 </div>
+
+                {console.log(currentAppointment?.donorInfo)}
 
                 <form onSubmit={handleSubmit}>
                     {formData.previousDate && (
@@ -99,7 +103,7 @@ const RescheduleAppointmentModal = () => {
                             onChange={(e) => handleChange(e)}
                         />
                     </div>
-                    
+
                     <div className='mt-2'>
                         <div className="flex items-center mt-2">
                             <Label text={'Message'} size={'text-[12px]'} />
@@ -115,12 +119,19 @@ const RescheduleAppointmentModal = () => {
                         </textarea>
                     </div>
 
-                    <button
-                        type="submit"
-                        className="w-full mt-4 bg-sky-600 rounded text-white text-[12px] py-2 px-6 hover:-translate-y-[2px] ease-in-out duration-700 transition-all focus:outline-none"
-                    >
-                        Reschedule
-                    </button>
+                    {hospitalRequestStatus === 'PENDING' ? (
+                        <LoadingButtonOne
+                            loadingType={'one'}
+                            classes={'py-2 text-[14px] rounded-md bg-sky-500 w-full'}
+                        />
+                    ) : (
+                        <button
+                            type="submit"
+                            className="w-full mt-4 bg-sky-600 rounded text-white text-[12px] py-2 px-6 hover:-translate-y-[2px] ease-in-out duration-700 transition-all focus:outline-none"
+                        >
+                            Reschedule
+                        </button>
+                    )}
                 </form>
 
             </div>
