@@ -1,11 +1,11 @@
 import { toast } from 'react-toastify'
 import React, { useReducer } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 
 import { Background, Logo1 } from '../../../assets'
-import { authHospitalSignin } from '../../../state/redux/actions/auth.actions'
-import { validateHospitalSignin } from '../../../state/validations/auth.validations'
+import { authHospitalForgotPassword } from '../../../state/redux/actions/auth.actions'
+import { validateHospitalForgotPassword } from '../../../state/validations/auth.validations'
 import { CustomButton, FormTextInput, HeaderText, LoadingButtonOne } from '../../../components'
 
 
@@ -28,11 +28,10 @@ const ForgotPassword = () => {
     const handleSubmit = (e) => {
         e.preventDefault()
 
-        const message = validateHospitalSignin(formData)
+        const message = validateHospitalForgotPassword(formData)
         if (message) return toast.error(message)
 
-        // dispatch(authHospitalSignin({ formData, toast, navigate }))
-        // navigate('/dashboard', { replace: true })
+        dispatch(authHospitalForgotPassword({ formData, toast, navigate }))
     }
 
     return (
@@ -66,6 +65,16 @@ const ForgotPassword = () => {
                         labelSize={'text-[12px]'}
                         handleChange={handleChange}
                         placeHolder={'Email address'}
+                        classes={'text-[14px] placeholder:text-[14px] placeholder:text-white text-white rounded-md mb-5 py-3 bg-[#ffffff30] backdrop-blur-sm border-0'}
+                    />
+
+                    <FormTextInput
+                        label={'Hospital ID'}
+                        name={'hospitalID'}
+                        labelColor={'text-white'}
+                        labelSize={'text-[12px]'}
+                        handleChange={handleChange}
+                        placeHolder={'Hospital ID'}
                         classes={'text-[14px] placeholder:text-[14px] placeholder:text-white text-white rounded-md mb-5 py-3 bg-[#ffffff30] backdrop-blur-sm border-0'}
                     />
                     

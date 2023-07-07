@@ -1,4 +1,7 @@
 const emailPattern = new RegExp('[a-z0-9]+@[a-z]+\.[a-z]{2,3}')
+const passwordPattern = new RegExp(
+    "(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[^\w\s]).{8,60}$"
+)
 
 export const validateHospitalSignin = (data) => {
     let message;
@@ -7,7 +10,39 @@ export const validateHospitalSignin = (data) => {
 
     if (!data.hospitalID) message = 'Hospital ID is required'
 
+    if (!data.password) message = 'Password is required'
+
     if (data.email && !emailPattern.test(data.email)) message = 'Invalid email address'
+
+    return message
+}
+
+export const validateHospitalForgotPassword = (data) => {
+    let message;
+
+    if (!data.email) message = 'Hospital email is required'
+
+    if (!data.hospitalID) message = 'Hospital ID is required'
+
+    if (data.email && !emailPattern.test(data.email)) message = 'Invalid email address'
+
+    return message
+}
+
+export const validateHospitalResetPassword = (data) => {
+    let message;
+
+    if (!data.otp) message = 'OTP token is required'
+
+    if (!data.newPassword) message = 'New password is required'
+
+    if (!data.confirmNewPassword) message = 'Confirm password is required'
+
+    if (data.newPassword !== data.confirmNewPassword) message = 'Passwords do not match'
+
+    if (data.newPassword.length <= 7) message = 'Password must be at least 8 characters'
+
+    if (!passwordPattern.test(data.newPassword)) message = 'Password must include a number, uppercase and lowercase alphabet'
 
     return message
 }
@@ -24,6 +59,10 @@ export const validateHospitalSignup = (data) => {
     if (!data.password) message = 'Password is required'
 
     if (data.password !== data.confirmPassword) message = 'Passwords do not match'
+
+    if (data.password.length <= 7) message = 'Password must be at least 8 characters'
+
+    if (!passwordPattern.test(data.password)) message = 'Password must include a number, uppercase and lowercase alphabet'
 
     if (data.email && !emailPattern.test(data.email)) message = 'Invalid email address'
 

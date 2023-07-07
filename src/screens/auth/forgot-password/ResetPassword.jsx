@@ -4,8 +4,8 @@ import { Link, useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 
 import { Background, Logo1 } from '../../../assets'
-import { authHospitalSignin } from '../../../state/redux/actions/auth.actions'
-import { validateHospitalSignin } from '../../../state/validations/auth.validations'
+import { authHospitalResetPassword } from '../../../state/redux/actions/auth.actions'
+import { validateHospitalResetPassword } from '../../../state/validations/auth.validations'
 import { CustomButton, FormPasswordInput, FormTextInput, HeaderText, LoadingButtonOne } from '../../../components'
 
 
@@ -18,7 +18,7 @@ const ResetPassword = () => {
     const [formData, updateFormData] = useReducer((prev, next) => {
         return { ...prev, ...next }
     }, {
-        email: '', password: '', hospitalID: ''
+        otp: '', newPassword: '', confirmNewPassword: ''
     })
 
     const handleChange = (e) => {
@@ -28,11 +28,10 @@ const ResetPassword = () => {
     const handleSubmit = (e) => {
         e.preventDefault()
 
-        const message = validateHospitalSignin(formData)
+        const message = validateHospitalResetPassword(formData)
         if (message) return toast.error(message)
 
-        // dispatch(authHospitalSignin({ formData, toast, navigate }))
-        // navigate('/dashboard', { replace: true })
+        dispatch(authHospitalResetPassword({ formData, toast, navigate }))
     }
 
     return (
@@ -71,7 +70,7 @@ const ResetPassword = () => {
 
                     <FormPasswordInput
                         label={'New Password'}
-                        name={'password'}
+                        name={'newPassword'}
                         labelColor={'text-white'}
                         labelSize={'text-[12px]'}
                         placeHolder={'New Password'}
@@ -79,12 +78,12 @@ const ResetPassword = () => {
                         classes={'text-[14px] placeholder:text-[14px] mb-5 placeholder:text-white text-white rounded-md pr-14 py-3 bg-[#ffffff30] backdrop-blur-sm border-0'}
                     />
                     <FormPasswordInput
-                        label={'Confirm New Password'}
-                        name={'confirmPassword'}
                         labelColor={'text-white'}
                         labelSize={'text-[12px]'}
-                        placeHolder={'Confirm New Password'}
+                        name={'confirmNewPassword'}
                         handleChange={handleChange}
+                        label={'Confirm New Password'}
+                        placeHolder={'Confirm New Password'}
                         classes={'text-[14px] placeholder:text-[14px] placeholder:text-white text-white rounded-md pr-14 py-3 bg-[#ffffff30] backdrop-blur-sm border-0'}
                     />
 

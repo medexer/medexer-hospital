@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit'
-import { authCaptureHospitalKYB, authFetchHospitalProfile, authHospitalSignin, authHospitalSignup, authLogout, authUpdateHospitalAuthData, authUpdateHospitalProfile } from '../actions/auth.actions'
+import { authCaptureHospitalKYB, authFetchHospitalProfile, authHospitalForgotPassword, authHospitalResetPassword, authHospitalSignin, authHospitalSignup, authLogout, authUpdateHospitalAuthData, authUpdateHospitalProfile } from '../actions/auth.actions'
 
 
 const USERFROMLS = localStorage.getItem('mdx-dnt-center') ? JSON.parse(localStorage.getItem('mdx-dnt-center')) : null
@@ -39,6 +39,34 @@ const authSlice = createSlice({
             state.authRequestStatus = 'SUCCESS'
         })
         builder.addCase(authHospitalSignin.rejected, (state, action) => {
+            state.authLoading = false
+            state.authRequestStatus = 'FAILED'
+        })
+
+        builder.addCase(authHospitalForgotPassword.pending, (state, action) => {
+            state.authLoading = true
+            state.authRequestStatus = 'PENDING'
+        })
+        builder.addCase(authHospitalForgotPassword.fulfilled, (state, action) => {
+            state.authLoading = false
+            // state.user = action.payload
+            state.authRequestStatus = 'SUCCESS'
+        })
+        builder.addCase(authHospitalForgotPassword.rejected, (state, action) => {
+            state.authLoading = false
+            state.authRequestStatus = 'FAILED'
+        })
+
+        builder.addCase(authHospitalResetPassword.pending, (state, action) => {
+            state.authLoading = true
+            state.authRequestStatus = 'PENDING'
+        })
+        builder.addCase(authHospitalResetPassword.fulfilled, (state, action) => {
+            state.authLoading = false
+            // state.user = action.payload
+            state.authRequestStatus = 'SUCCESS'
+        })
+        builder.addCase(authHospitalResetPassword.rejected, (state, action) => {
             state.authLoading = false
             state.authRequestStatus = 'FAILED'
         })

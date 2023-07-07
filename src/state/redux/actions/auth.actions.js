@@ -54,6 +54,56 @@ export const authHospitalSignin = createAsyncThunk(
 )
 
 
+export const authHospitalForgotPassword = createAsyncThunk(
+    'auth/authHospitalForgotPassword',
+    async ({ formData, toast, navigate }, { rejectWithValue }) => {
+        try {
+            const { data } = await axios.put(`${import.meta.env.VITE_APP_DEV_API}/auth/hospital/forgot-password`, formData)
+
+            console.log(data)
+
+            toast.success("Success, please check your email for your reset token.")
+            navigate('/reset-password', { replace: true })
+
+            return data.data
+        } catch (error) {
+            console.log(error)
+            if (error.response.data.status) {
+                toast.error(error.response.data.status)
+                return rejectWithValue(null)
+            }
+            toast.error('An error ocurred during forgot password')
+            return rejectWithValue(null)
+        }
+    }
+)
+
+
+export const authHospitalResetPassword = createAsyncThunk(
+    'auth/authHospitalResetPassword',
+    async ({ formData, toast, navigate }, { rejectWithValue }) => {
+        try {
+            const { data } = await axios.put(`${import.meta.env.VITE_APP_DEV_API}/auth/hospital/reset-password`, formData)
+
+            console.log(data)
+
+            toast.success("Password reset successful.")
+            navigate('/', { replace: true })
+
+            return data.data
+        } catch (error) {
+            console.log(error)
+            if (error.response.data.status) {
+                toast.error(error.response.data.status)
+                return rejectWithValue(null)
+            }
+            toast.error('An error ocurred during reset password')
+            return rejectWithValue(null)
+        }
+    }
+)
+
+
 export const authCaptureHospitalKYB = createAsyncThunk(
     'auth/authCaptureHospitalKYB',
     async ({ formData, toast, navigate }, { rejectWithValue }) => {
