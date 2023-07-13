@@ -91,13 +91,16 @@ const authSlice = createSlice({
 
         builder.addCase(authUpdateHospitalAuthData.pending, (state, action) => {
             state.authLoading = true
+            state.authRequestStatus = 'PENDING'
         })
         builder.addCase(authUpdateHospitalAuthData.fulfilled, (state, action) => {
             state.authLoading = false
             state.user = action.payload
+            state.authRequestStatus = 'SUCCESS'
         })
         builder.addCase(authUpdateHospitalAuthData.rejected, (state, action) => {
             state.authLoading = false
+            state.authRequestStatus = ''
         })
 
         builder.addCase(authFetchHospitalProfile.pending, (state, action) => {

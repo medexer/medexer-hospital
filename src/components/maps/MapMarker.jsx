@@ -44,17 +44,17 @@ const MapMarker = (options) => {
                 const lat = parseFloat(element?.profile?.latitude);
                 const lng = parseFloat(element?.profile?.longitude);
                 const latLng = new google.maps.LatLng(lat, lng);
-
+            //     <img
+            //     alt="avatar"
+            //     src={${import.meta.env.VITE_APP_DEV_API_ROOT}${element?.avatar}}
+            //     className='rounded-md w-[160px] h-[120px]'
+            // />
 
                 const infowindow = new google.maps.InfoWindow({
                     ariaLabel: element.fullName,
                     content: `<div
                         class=" block space-y-3 min-w-[300px] max-w-[420px] py-2 px-2 rounded-lg shadow-md font-roboto">
-                        <img
-                        alt="avatar"
-                        src={${import.meta.env.VITE_APP_DEV_API_ROOT}${element?.avatar}}
-                        className='rounded-md w-[160px] h-[120px]'
-                    />
+                       
 
                         <h5 class="text-[16px] font-bold tracking-tight text-black ">${element.fullName}</h5>
                         <p class="font-normal text-[16px] text-black ">Email: ${element.email}</p>

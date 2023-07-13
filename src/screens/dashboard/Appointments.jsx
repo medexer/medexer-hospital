@@ -32,7 +32,7 @@ const Appointments = () => {
                 />
             )}
 
-            {appointments?.length === 0 && (
+            {(!appointments || appointments?.length === 0) && (
                 <div className="flex flex-col items-center h-[400px]">
                     <Lottie
                         loop={true}

@@ -103,6 +103,11 @@ export const validateHospitalAuthDataUpdate = (data) => {
     if (!data.currentPassword) message = 'Current password is required'
 
     if (!data.newPassword) message = 'New password is required'
+    
+    if (data.newPassword.length <= 7) message = 'New password must be at least 8 characters'
+
+    if (!passwordPattern.test(data.newPassword)) message = 'New password must include a number, uppercase and lowercase alphabet'
+
 
     return message
 }

@@ -16,7 +16,7 @@ export const fetchRecentDonorAppointmentsRoute = (donor) => API.get(`/medical-da
 export const fetchAddDonorMedicalHistoryRoute = (formData) => API.post(`/medical-data/hospital/${formData.donor}/${formData.appointment}/medical-history/add`, formData)
 
 
-export const fetchAppointmentsRoute = () => API.get(`/hospital/appointments`)
+export const fetchAppointmentsRoute = () => API.get(`/hospital/appointments/`)
 
 
 export const fetchInventoryItemsRoute = () => API.get(`/hospital/inventory/fetch-all`)

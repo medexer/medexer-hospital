@@ -303,7 +303,7 @@ const AddMedicalHistoryRecordModal = () => {
                     {hospitalRequestStatus === 'PENDING' ? (
                         <LoadingButtonOne
                             loadingType={'one'}
-                            classes={'py-2 text-[14px] rounded-md bg-sky-600 w-full'}
+                            classes={'py-2 text-[14px] rounded-md bg-sky-600 w-full mt-4'}
                         />
                     ) : (
                         <button

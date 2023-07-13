@@ -58,14 +58,14 @@ const Donors = () => {
                 </Fragment>
             )}
 
-            {config.currentTab === 'Medical History' && !config.manageDonorHistory && (
+            {config.currentTab === 'Medical History' && !config.manageDonorHistory && donors?.length > 0 && (
                 <MedicalHistoryDonorsTable
                     data={donors}
                     updateConfig={updateConfig}
                 />
             )}
 
-            {config.currentTab === 'Medical History' && !config.manageDonorHistory && donors?.length === 0 && (
+            {config.currentTab === 'Medical History' && !config.manageDonorHistory && (!donors || donors?.length === 0) && (
                 <div className="flex flex-col items-center h-[400px]">
                     <Lottie
                         loop={true}
