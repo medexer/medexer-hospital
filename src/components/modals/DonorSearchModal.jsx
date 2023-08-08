@@ -40,7 +40,7 @@ const DonorSearchModal = () => {
 
                                 dispatch(hospitalSearchDonors({ query: e.target.value }))
                             }}
-                            placeholder='Search by donor name, state, city or blood group'
+                            placeholder='Search by state, city or blood group'
                             className="outline-none ring-[1.5px] ring-sky-300 w-[600px] focus:ring-sky-600 px-10 py-2 rounded-md placeholder:font-normal placeholder:text-[12px] text-[12px] transition-all duration-500"
                         />
 

@@ -69,8 +69,8 @@ const RescheduleAppointmentModal = () => {
                         // src={`${import.meta.env.VITE_APP_DEV_API_ROOT}${currentAppointment?.donorInfo?.userAvatar}`}
                         className='rounded-md w-[140px] h-[120px]'
                     />
-                    <div className="flex flex-col">
-                        <p className="text-[14px] font-medium">{currentAppointment?.donorInfo?.fullName}</p>
+                    <div className="flex flex-col">{console.log(currentAppointment?.donorInfo)}
+                        <p className="text-[14px] font-medium">{currentAppointment?.donorInfo?.donorId}</p>
                     </div>
                 </div>
 

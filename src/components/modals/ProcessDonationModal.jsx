@@ -67,7 +67,7 @@ const ProcessDonationModal = () => {
                         className='rounded-full w-[80px]'
                     />
                     <div className="flex flex-col">
-                        <p className="text-[14px] font-medium">{currentAppointment?.donorInfo?.fullName}</p>
+                        <p className="text-[14px] font-medium">{currentAppointment?.donorInfo?.donorId}</p>
                         <p className="text-[12px] font-medium text-gray-600">Blood Group: <span className="text-black font-semibold">{currentAppointment?.donorInfo?.bloodGroup}</span></p>
                         {/* <p className="text-[12px] font-medium text-gray-600">{currentAppointment?.phone}</p> */}
                     </div>

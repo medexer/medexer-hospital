@@ -31,17 +31,17 @@ const MedicalHistoryDonorsTable = ({ data, updateConfig }) => {
                                     >
                                         Donor ID
                                     </th>
-                                    <th
+                                    {/* <th
                                         scope="col"
                                         className="text-sm font-medium text-gray-900 py-3 text-left"
                                     >
                                         Fullname
-                                    </th>
+                                    </th> */}
                                     <th
                                         scope="col"
                                         className="text-sm font-medium text-gray-900 py-3 text-left"
                                     >
-                                        Email
+                                        Blood Group
                                     </th>
                                     <th
                                         scope="col"
@@ -66,11 +66,12 @@ const MedicalHistoryDonorsTable = ({ data, updateConfig }) => {
                                         <td className="text-sm text-gray-900 font-light py-3 whitespace-nowrap">
                                             {item.donorID}
                                         </td>
-                                        <td className="text-sm text-gray-900 font-light py-3 whitespace-nowrap">
+                                        {/* <td className="text-sm text-gray-900 font-light py-3 whitespace-nowrap">
                                             {item.fullName}
-                                        </td>
+                                        </td> */}
                                         <td className="text-sm text-gray-900 font-light py-3 whitespace-nowrap">
-                                            {item.email}
+                                            {item.profile.bloodGroup}
+                                            {console.log(item.profile)}
                                         </td>
                                         <td className="text-[12px] text-gray-900 font-light py-3 whitespace-nowrap">
                                             {item.profile.nationality}

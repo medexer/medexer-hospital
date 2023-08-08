@@ -81,15 +81,14 @@ const AddMedicalHistoryRecordModal = () => {
                     />
                 </div>
 
-                <div className="my-2 flex items-center space-x-5 w-full">
-                    <img
+                <div className="my-2 flex items-center space-x-5 w-full py-3 border-b border-b-red-300">
+                    {/* <img
                         alt="avatar"
                         src={`${currentDonor?.profile?.userAvatar}`}
-                        // src={`${import.meta.env.VITE_APP_DEV_API_ROOT}${currentDonor?.profile?.userAvatar}`}
                         className='rounded-md w-[160px] h-[120px]'
-                    />
+                    /> */}
                     <div className="flex flex-col w-full">
-                        <p className="text-[14px] font-medium">{currentDonor?.fullName}</p>
+                        <p className="text-[14px] font-medium">{currentDonor?.donorID}</p>
                         <div className="flex justify-between w-full">
                             <p className="text-[12px]">Appointment: {formData?.currentAppointment?.appointmentID}</p>
                             <p className="text-[12px]">Donation Date: {formData?.currentAppointment?.donationDate}</p>

@@ -186,6 +186,31 @@ const Signup = () => {
                             classes={'text-[14px] placeholder:text-white text-white rounded-md mb-1 bg-[#ffffff30] backdrop-blur-sm border-0'}
                         />
 
+                        <div className="py-2 text-[14px] text-white">
+                            <p>By creating an account you accept Medexer's
+                                <span
+                                    className="text-blue-600 no-underline cursor-pointer"
+                                    onClick={() => {
+                                        const link = document.createElement('a')
+                                        link.href = "http://medexer.com.ng/donation-center-terms-of-service"
+                                        link.target = "_blank"
+
+                                        link.click()
+                                    }}
+                                > Terms of Service </span>
+                                and
+                                <span className="text-blue-600 no-underline cursor-pointer"
+                                    onClick={() => {
+                                        const link = document.createElement('a')
+                                        link.href = "http://medexer.com.ng/donation-center-privacy-policy"
+                                        link.target = "_blank"
+
+                                        link.click()
+                                    }}
+                                > Privacy Policy</span>
+                            </p>
+                        </div>
+
                         <div className="mt-5">
                             {authRequestStatus === 'PENDING' ? (
                                 <LoadingButtonOne

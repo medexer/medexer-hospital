@@ -41,14 +41,14 @@ const AppointmentsTable = ({ data }) => {
                                         scope="col"
                                         className="text-[12px] font-medium text-gray-900 py-3 text-left"
                                     >
-                                        Name
+                                        Donor
                                     </th>
-                                    <th
+                                    {/* <th
                                         scope="col"
                                         className="text-[12px] font-medium text-gray-900 py-3 text-left"
                                     >
                                         Donor ID
-                                    </th>
+                                    </th> */}
                                     <th
                                         scope="col"
                                         className="text-[12px] font-medium text-gray-900 py-3 text-left"
@@ -114,11 +114,12 @@ const AppointmentsTable = ({ data }) => {
                                                 />
                                             </div>
                                             <div>
-                                                <p className='font-medium'>{appointment?.donorInfo?.fullName}</p>
+                                                {/* <p className='font-medium'>{appointment?.donorInfo?.fullName}</p> */}
+                                                <p className='font-medium'>{appointment?.donorInfo?.donorId}</p>
                                                 <p className='font-medium text-gray-400 text-[12px]'>{appointment?.donorInfo?.gender ? appointment?.donorInfo?.gender : 'Male'}</p>
                                             </div>
                                         </td>
-                                        <td
+                                        {/* <td
                                             onClick={() => {
                                                 dispatch(hospitalResetStateProperty({ key: 'DonorProfile', data: appointment?.donorInfo }))
                                                 updateModals({ showDonorProfileModal: !modals.showDonorProfileModal })
@@ -126,7 +127,7 @@ const AppointmentsTable = ({ data }) => {
                                             className="text-[12px] text-gray-900 font-light py-3 whitespace-nowrap cursor-pointer"
                                         >
                                             {appointment?.donorInfo?.donorId}
-                                        </td>
+                                        </td> */}
                                         <td
                                             onClick={() => {
                                                 dispatch(hospitalResetStateProperty({ key: 'DonorProfile', data: appointment?.donorInfo }))
@@ -169,16 +170,18 @@ const AppointmentsTable = ({ data }) => {
                                             </button>
                                         </td>
                                         <td className="items-center space-x-5 text-[12px] py-3 text-gray-900 font-light whitespace-nowrap">
-                                            <button
-                                                type="submit"
-                                                onClick={() => {
-                                                    dispatch(hospitalResetStateProperty({ key: 'Appointment', data: appointment }))
-                                                    updateModals({ showRescheduleAppointmentModal: !modals.showRescheduleAppointmentModal })
-                                                }}
-                                                className="bg-sky-600 text-white text-[12px] font-medium py-1 px-4 hover:-translate-x-1 ease-in-out duration-700 transition-all focus:outline-none rounded"
-                                            >
-                                                Reschedule
-                                            </button>
+                                            {!appointment.isDonated && (
+                                                <button
+                                                    type="submit"
+                                                    onClick={() => {
+                                                        dispatch(hospitalResetStateProperty({ key: 'Appointment', data: appointment }))
+                                                        updateModals({ showRescheduleAppointmentModal: !modals.showRescheduleAppointmentModal })
+                                                    }}
+                                                    className="bg-sky-600 text-white text-[12px] font-medium py-1 px-4 hover:-translate-x-1 ease-in-out duration-700 transition-all focus:outline-none rounded"
+                                                >
+                                                    Reschedule
+                                                </button>
+                                            )}
                                         </td>
                                         <td className="items-center space-x-5 text-[12px] py-3 text-gray-900 font-light whitespace-nowrap">
                                             {!appointment.isDonated && (
@@ -194,7 +197,7 @@ const AppointmentsTable = ({ data }) => {
                                                     Process
                                                 </button>
                                             )}
-                                            {appointment.isDonated && (
+                                            {/* {appointment.isDonated && (
                                                 <button
                                                     type="submit"
                                                     onClick={() => {
@@ -205,7 +208,7 @@ const AppointmentsTable = ({ data }) => {
                                                 >
                                                     Process Payment
                                                 </button>
-                                            )}
+                                            )} */}
                                         </td>
 
                                     </tr>

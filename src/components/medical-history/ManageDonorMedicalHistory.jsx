@@ -26,11 +26,12 @@ const ManageDonorMedicalHistory = ({ updateConfig }) => {
     return (
         <div className="flex flex-col w-full">
             <div className="flex flex-col">
+                {console.log(currentDonor)}
                 <HeaderText
-                    text={`${currentDonor?.fullName}'s Medical History`}
+                    text={`${currentDonor?.donorID}'s Medical History`}
                     classes={'text-[14px] font-semibold'}
                 />
-                <p className="text-[12px] text-gray-500">Manage {currentDonor?.fullName} medical history.</p>
+                <p className="text-[12px] text-gray-500">Manage {currentDonor?.donorID} medical history.</p>
             </div>
 
             <div className="flex justify-between items-center w-full mt-2">
