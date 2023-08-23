@@ -26,26 +26,26 @@ const Complaints = () => {
 
     return (
         <div className='h-full flex flex-col overflow-y-auto font-poppins scrollbar-1 px-6 py-4 pb-20'>
+            <div className="flex items-center justify-between">
+                <div className="flex flex-col">
+                    <HeaderText
+                        text={'Inventory'}
+                        classes={'text-[14px] font-semibold'}
+                    />
+                    <p className="text-[12px] text-gray-500">Manage your complaints</p>
+                </div>
+
+                <button
+                    type="submit"
+                    onClick={() => updateModals({ showCreateComplaintModal: !modals.showCreateComplaintModal })}
+                    className="bg-green-600 rounded text-white text-[12px] py-2 px-4 hover:-translate-x-1 ease-in-out duration-700 transition-all focus:outline-none"
+                >
+                    Add New
+                </button>
+            </div>
+
             {!config.showComplaint && complaints?.length > 0 && (
                 <div>
-                    <div className="flex items-center justify-between">
-                        <div className="flex flex-col">
-                            <HeaderText
-                                text={'Inventory'}
-                                classes={'text-[14px] font-semibold'}
-                            />
-                            <p className="text-[12px] text-gray-500">Manage your complaints</p>
-                        </div>
-
-                        <button
-                            type="submit"
-                            onClick={() => updateModals({ showCreateComplaintModal: !modals.showCreateComplaintModal })}
-                            className="bg-green-600 rounded text-white text-[12px] py-2 px-4 hover:-translate-x-1 ease-in-out duration-700 transition-all focus:outline-none"
-                        >
-                            Add New
-                        </button>
-                    </div>
-
                     <div className="flex flex-wrap justify-between gap-5 mt-5">
                         {complaints?.map((complaint, index) => (
                             <ComplaintCard
@@ -69,7 +69,7 @@ const Complaints = () => {
 
             {!config.showComplaint && complaints?.length === 0 && (
                 <div>
-                    <div className="flex items-center justify-between">
+                    {/* <div className="flex items-center justify-between">
                         <div className="flex flex-col">
                             <HeaderText
                                 text={'Inventory'}
@@ -85,7 +85,7 @@ const Complaints = () => {
                         >
                             Add New
                         </button>
-                    </div>
+                    </div> */}
                     <div className="h-[300px] w-full">
                         <Lottie
                             loop={true}

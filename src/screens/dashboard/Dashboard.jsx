@@ -1,3 +1,4 @@
+import { toast } from 'react-toastify'
 import React, { useEffect } from 'react'
 import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
@@ -17,6 +18,10 @@ const Dashboard = () => {
 	useEffect(() => {
 		if (!user?.hospital?.is_kyc_updated) {
 			navigate('/kyb-capture', { replace: true })
+		}
+		if (user?.hospital?.is_kyc_updated && !user?.hospital?.is_approved) {
+			navigate('/', { replace: true })
+			toast.error('ACCOUNT UNVERIFIED')
 		}
 	}, [user])
 

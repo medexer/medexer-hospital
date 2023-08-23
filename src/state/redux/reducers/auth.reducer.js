@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit'
-import { authCaptureHospitalKYB, authFetchHospitalProfile, authHospitalForgotPassword, authHospitalResetPassword, authHospitalSignin, authHospitalSignup, authLogout, authUpdateHospitalAuthData, authUpdateHospitalProfile } from '../actions/auth.actions'
+import { authCaptureHospitalKYB, authFetchHospitalProfile, authHospitalForgotPassword, authHospitalResetPassword, authHospitalSignin, authHospitalSignup, authLogout, authUpdateHospitalAuthData, authUpdateHospitalMedia, authUpdateHospitalProfile } from '../actions/auth.actions'
 
 
 const USERFROMLS = localStorage.getItem('mdx-dnt-center') ? JSON.parse(localStorage.getItem('mdx-dnt-center')) : null
@@ -124,6 +124,20 @@ const authSlice = createSlice({
             state.hospitalProfile = action.payload
         })
         builder.addCase(authUpdateHospitalProfile.rejected, (state, action) => {
+            state.authLoading = false
+            state.authRequestStatus = ''
+        })
+
+        builder.addCase(authUpdateHospitalMedia.pending, (state, action) => {
+            state.authLoading = true
+            state.authRequestStatus = 'PENDING'
+        })
+        builder.addCase(authUpdateHospitalMedia.fulfilled, (state, action) => {
+            state.authLoading = false
+            state.authRequestStatus = 'SUCCESS'
+            state.hospitalProfile = action.payload
+        })
+        builder.addCase(authUpdateHospitalMedia.rejected, (state, action) => {
             state.authLoading = false
             state.authRequestStatus = ''
         })

@@ -76,7 +76,7 @@ const Home = () => {
                                 </div>
                                 <div className="flex flex-col">
                                     <p className="text-[14px] font-semibold">Top Donors</p>
-                                    <p className="text-[14px] ">John Doe</p>
+                                    <p className="text-[14px] ">Jeremy Ibrahim</p>
                                 </div>
                             </div>
                             <div className="p-2 rounded-md bg-slate-100 text-[12px]">

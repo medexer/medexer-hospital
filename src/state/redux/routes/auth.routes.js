@@ -19,4 +19,10 @@ export const authUpdateHospitalAuthDataRoute = (formData) => API.put(`/auth/hosp
 export const authFetchHospitalProfileRoute = () => API.get(`/profile/hospital/fetch`)
 
 
-export const authUpdateHospitalProfileRoute = (formData) => API.put(`/profile/hospital/update`, formData, { headers: { 'Content-Type': 'multipart/form-data' } })
+export const authUpdateHospitalProfileRoute = (formData) => API.put(`/profile/hospital/update`, formData,)
+
+
+// export const authUpdateHospitalMediaRoute = (formData) => API.patch(`/profile/hospital/media/update`, formData)
+
+
+export const authUpdateHospitalMediaRoute = (formData) => API.patch(`/profile/hospital/media/update`, formData, { headers: { 'Content-Type': 'multipart/form-data' } })

@@ -31,12 +31,12 @@ const InventoryItemRecordTable = ({ data, updateConfig }) => {
                                     >
                                         Donation ID
                                     </th>
-                                    <th
+                                    {/* <th
                                         scope="col"
                                         className="text-sm font-medium text-gray-900 py-3 text-left"
                                     >
                                         Donor
-                                    </th>
+                                    </th> */}
                                     <th
                                         scope="col"
                                         className="text-sm font-medium text-gray-900 py-3 text-left"
@@ -78,9 +78,9 @@ const InventoryItemRecordTable = ({ data, updateConfig }) => {
                                         <td className="text-sm text-gray-900 font-light py-3 whitespace-nowrap">
                                             {item.appointmentID}
                                         </td>
-                                        <td className="text-sm text-gray-900 font-light py-3 whitespace-nowrap">
+                                        {/* <td className="text-sm text-gray-900 font-light py-3 whitespace-nowrap">
                                             {item.donorName}
-                                        </td>
+                                        </td> */}
                                         <td className="text-sm text-gray-900 font-light py-3 whitespace-nowrap">
                                             {item.bloodGroup}
                                         </td>

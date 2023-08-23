@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import React, { useEffect, useReducer } from 'react'
 
 import { Hospital } from '../../assets'
-import { authFetchHospitalProfile, authUpdateHospitalAuthData, authUpdateHospitalProfile } from '../../state/redux/actions/auth.actions'
+import { authFetchHospitalProfile, authUpdateHospitalAuthData, authUpdateHospitalMedia, authUpdateHospitalProfile } from '../../state/redux/actions/auth.actions'
 import { validateHospitalAuthDataUpdate, validateHospitalProfileUpdate } from '../../state/validations/auth.validations'
 import { CustomButton, FormPasswordInput, FormTextInput, HeaderText, Label, LoadingButtonOne } from '../../components'
 import axios from 'axios'
@@ -71,20 +71,6 @@ const Settings = () => {
 
     console.log(hospitalProfile)
 
-    // const urlToObject = async (image) => {
-    //     console.log(image)
-
-    //     const response = await axios.get(image);
-
-    //     console.log(response.data)
-
-    //     const blob = await response.data.blob();
-
-    //     const file = new File([blob], `hospitalImage.jpg`, { type: blob.type });
-
-    //     updateFormData({ hospitalImage: file, hospitalImagePreview: URL.createObjectURL(file) })
-    // }
-
     const handleChange = (e) => {
         updateFormData({ [e.target.name]: e.target.value })
     }
@@ -119,6 +105,15 @@ const Settings = () => {
         dispatch(authUpdateHospitalProfile({ formData, toast }))
     }
 
+    const handleMediaSubmit = (e) => {
+        e.preventDefault()
+
+        if (formData.hospitalImage || formData.hospitalLogo) {
+            dispatch(authUpdateHospitalMedia({ formData, toast }))
+        }
+
+    }
+
     // console.log(formData.hospitalImagePreview)
 
     return (
@@ -132,7 +127,7 @@ const Settings = () => {
             </div>
 
             <div className="mt-2 flex space-x-10 py-1 border-b w-full">
-                {['Authentication', 'Profile'].map((item, index) => (
+                {['Authentication', 'Profile', 'Media'].map((item, index) => (
                     <div
                         key={index}
                         onClick={() => {
@@ -231,55 +226,6 @@ const Settings = () => {
 
             {config.currentTab === 'Profile' && (
                 <div className="w-full flex md:space-x-10 mt-5">
-                    <div className="flex flex-col md:w-[40%]">
-                        <div className="flex justify-center relative w-full h-[200px] mx-auto md:mx-0">
-                            <img
-                                alt=""
-                                src={formData.hospitalImage ? formData.hospitalImagePreview : Hospital}
-                                className='w-full h-full border shadow-md'
-                            />
-                            <div
-                                onClick={() => hospitalImageRef.current.click()}
-                                className='absolute top-0 right-0 p-2 rounded-full cursor-pointer bg-green-600 text-black'
-                            >
-                                <GoPencil
-                                    className='text-white'
-                                />
-                                <input
-                                    type='file'
-                                    name='hospitalImage'
-                                    className='hidden'
-                                    ref={hospitalImageRef}
-                                    onChange={handleFileChange}
-                                    accept="image/jpg, image/jpeg"
-                                />
-                            </div>
-                        </div>
-
-                        <div className="flex justify-center relative w-full h-[200px] mx-auto md:mx-0 mt-2">
-                            <img
-                                alt=""
-                                src={formData.hospitalLogo ? formData.hospitalLogoPreview : Hospital}
-                                className='w-full h-full border shadow-md'
-                            />
-                            <div
-                                onClick={() => imageRef.current.click()}
-                                className='absolute top-0 right-0 p-2 rounded-full cursor-pointer bg-sky-600 text-black'
-                            >
-                                <GoPencil
-                                    className='text-white'
-                                />
-                                <input
-                                    type='file'
-                                    name='hospitalLogo'
-                                    className='hidden'
-                                    ref={imageRef}
-                                    onChange={handleFileChange}
-                                    accept="image/jpg, image/jpeg"
-                                />
-                            </div>
-                        </div>
-                    </div>
 
                     <form
                         className='w-full md:w-[60%]'
@@ -358,6 +304,78 @@ const Settings = () => {
                         </div>
                     </form>
                 </div>
+            )}
+
+            {config.currentTab === 'Media' && (
+                <form
+                    onSubmit={handleMediaSubmit}
+                    className="flex flex-col md:w-[60%]"
+                >
+                    <div className="flex justify-center relative w-full h-[200px] mx-auto md:mx-0">
+                        <img
+                            alt=""
+                            src={formData.hospitalImage ? formData.hospitalImagePreview : Hospital}
+                            className='w-full h-full border shadow-md'
+                        />
+                        <div
+                            onClick={() => hospitalImageRef.current.click()}
+                            className='absolute top-0 right-0 p-2 rounded-full cursor-pointer bg-green-600 text-black'
+                        >
+                            <GoPencil
+                                className='text-white'
+                            />
+                            <input
+                                type='file'
+                                name='hospitalImage'
+                                className='hidden'
+                                ref={hospitalImageRef}
+                                onChange={handleFileChange}
+                                accept="image/jpg, image/jpeg"
+                            />
+                        </div>
+                    </div>
+
+                    <div className="flex justify-center relative w-full h-[200px] mx-auto md:mx-0 mt-2">
+                        <img
+                            alt=""
+                            src={formData.hospitalLogo ? formData.hospitalLogoPreview : Hospital}
+                            className='w-full h-full border shadow-md'
+                        />
+                        <div
+                            onClick={() => imageRef.current.click()}
+                            className='absolute top-0 right-0 p-2 rounded-full cursor-pointer bg-sky-600 text-black'
+                        >
+                            <GoPencil
+                                className='text-white'
+                            />
+                            <input
+                                type='file'
+                                name='hospitalLogo'
+                                className='hidden'
+                                ref={imageRef}
+                                onChange={handleFileChange}
+                                accept="image/jpg, image/jpeg"
+                            />
+                        </div>
+                    </div>
+
+                    <div className="mt-5">
+                        {authRequestStatus === 'PENDING' ? (
+                            <LoadingButtonOne
+                                loadingType={'one'}
+                                classes={'py-3 text-[14px] rounded-md bg-sky-600 w-full'}
+                            />
+                        ) : (
+                            <CustomButton
+                                type={'submit'}
+                                title={'Update'}
+                                textColor={'text-white'}
+                                width={'w- w-full'}
+                                classes={'py-3 text-[12px] rounded-md bg-sky-600'}
+                            />
+                        )}
+                    </div>
+                </form>
             )}
         </div>
     )

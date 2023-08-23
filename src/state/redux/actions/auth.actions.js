@@ -1,7 +1,7 @@
 import axios from 'axios'
 import { createAsyncThunk } from "@reduxjs/toolkit"
 
-import { authCaptureKYBRoute, authFetchHospitalProfileRoute, authSigninRoute, authSignupRoute, authUpdateHospitalAuthDataRoute, authUpdateHospitalProfileRoute } from "../routes/auth.routes"
+import { authCaptureKYBRoute, authFetchHospitalProfileRoute, authSigninRoute, authSignupRoute, authUpdateHospitalAuthDataRoute, authUpdateHospitalMediaRoute, authUpdateHospitalProfileRoute } from "../routes/auth.routes"
 
 
 export const authHospitalSignup = createAsyncThunk(
@@ -43,8 +43,9 @@ export const authHospitalSignin = createAsyncThunk(
             return data.data
         } catch (error) {
             console.log(error)
+            console.log(error.response.data)
             if (error.response.data.status) {
-                toast.error(error.response.data.status)
+                toast.error(error.response.data.status, { autoClose: 5000 })
                 return rejectWithValue(null)
             }
             toast.error('An error ocurred during login')
@@ -112,7 +113,7 @@ export const authCaptureHospitalKYB = createAsyncThunk(
 
             console.log(data)
 
-            toast.success("KYC capture successful")
+            toast.success("KYC capture successful, please refer to your mail for further information", { autoClose: 5000 })
             const USERFROMLS = localStorage.getItem('mdx-dnt-center') ? JSON.parse(localStorage.getItem('mdx-dnt-center')) : null
 
             const USER = {
@@ -121,7 +122,9 @@ export const authCaptureHospitalKYB = createAsyncThunk(
             }
 
             await localStorage.setItem('mdx-dnt-center', JSON.stringify(USER))
-            navigate('/dashboard', { replace: true })
+            
+            await localStorage.removeItem("mdx-dnt-center")
+            navigate('/', { replace: true })
 
             return USER
         } catch (error) {
@@ -191,6 +194,30 @@ export const authUpdateHospitalProfile = createAsyncThunk(
             console.log(data)
 
             toast.success("Profile update successful")
+
+            return data.data
+        } catch (error) {
+            console.log(error)
+            if (error.response.data.message) {
+                toast.error(error.response.data.message)
+                return rejectWithValue(null)
+            }
+            toast.error('An error ocurred while updating hospital profile')
+            return rejectWithValue(null)
+        }
+    }
+)
+
+
+export const authUpdateHospitalMedia = createAsyncThunk(
+    'auth/authUpdateHospitalMedia',
+    async ({ formData, toast }, { rejectWithValue }) => {
+        try {
+            const { data } = await authUpdateHospitalMediaRoute(formData)
+
+            console.log(data)
+
+            toast.success("Media updated successful")
 
             return data.data
         } catch (error) {
