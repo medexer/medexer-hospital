@@ -24,7 +24,7 @@ const Signup = () => {
         return { ...prev, ...next }
     }, {
         address: '', state: '', lga: '', postalCode: '',
-        location: 'PL', password: '', confirmPassword: '',
+        location: 'PL', password: '', confirmPassword: '', isTermsAccepted: false,
         hospitalName: '', email: '', countryCode: 'NG', country: 'Nigeria',
     })
 
@@ -50,7 +50,7 @@ const Signup = () => {
         if (!formData.address) return toast.error('Address is required')
         if (!formData.state) return toast.error('State is required')
         if (!formData.lga) return toast.error('LGA/Town is required')
-        // if (!formData.postalCode) return toast.error('Postal code is required')
+        if (!formData.isTermsAccepted) return toast.error('Please accept terms and privacy policy')
 
         console.log(formData)
         dispatch(authHospitalSignup({ formData, toast, navigate }))
@@ -186,7 +186,16 @@ const Signup = () => {
                             classes={'text-[14px] placeholder:text-white text-white rounded-md mb-1 bg-[#ffffff30] backdrop-blur-sm border-0'}
                         />
 
-                        <div className="py-2 text-[14px] text-white">
+                        <div className="flex items-center py-2 text-[14px] text-white">
+                            <input
+                                name=""
+                                type="checkbox"
+                                className="mr-4"
+                                checked={formData.isTermsAccepted}
+                                onChange={(e) => {
+                                    updateFormData({ isTermsAccepted: !formData.isTermsAccepted })
+                                }}
+                            />
                             <p>By creating an account you accept Medexer's
                                 <span
                                     className="text-blue-600 no-underline cursor-pointer"
